@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BadgePercent, Check, MessageCircle, Minus, Plus, ShoppingCart, Ticket, Trash2, Truck, X } from 'lucide-react'
+import CartMark from './CartMark'
 import { api, assetUrl, recordOrder, trackWhatsApp } from '../api'
 import { whatsappMessageUrl } from '../contact'
 import { productPath } from '../productSlug'
@@ -122,7 +123,7 @@ export default function CartDrawer() {
 
             {items.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-                <ShoppingCart size={40} className="text-gray-300" aria-hidden="true" />
+                <CartMark size={96} />
                 <p className="mt-3 font-semibold text-brand-charcoal">Your cart is empty</p>
                 <p className="mt-1 text-sm text-gray-600">Add several products, then send them to us in one WhatsApp order.</p>
                 <Link to="/" onClick={close} className="mt-5 rounded-md bg-brand-indigo px-5 py-2.5 font-semibold text-white hover:bg-brand-indigo-dark">Browse the shop</Link>

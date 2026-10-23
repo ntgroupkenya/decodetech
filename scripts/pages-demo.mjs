@@ -1,6 +1,6 @@
 // Turns a plain `vite build` into the GitHub Pages preview (https://ntgroupkenya.github.io/decodetech/).
 // GitHub Pages has no PHP or database, so the preview shows the stock list in docs/stock/decode-stock.csv
-// (built from the supplier price lists; see docs/stock/IMPORT-NOTES.md). Products without a photo show a drawing.
+// (built from the supplier price lists). Products without a photo show a drawing.
 // Logins and the admin need the real API and do not work there.
 //
 //   VITE_BASE=/decodetech/ vite build && node scripts/pages-demo.mjs   (npm run build:pages)
@@ -15,6 +15,8 @@ const base = process.env.VITE_BASE || '/'
 const csv = fs.readFileSync(path.join(root, 'docs', 'stock', 'decode-stock.csv'), 'utf8').replace(/^﻿/, '')
 const yes = (value) => /^(yes|true|1)$/i.test(String(value || '').trim())
 const money = (value) => (String(value || '').trim() ? Number(value) : null)
+// Photos shipped with the site (public/products/...) are addressed from the site root; the preview lives under `base`.
+const photo = (src) => (src && src.startsWith('/') && !src.startsWith('/uploads/') ? base.replace(/\/$/, '') + src : src || '')
 const products = Papa.parse(csv, { header: true, skipEmptyLines: true }).data.map((row) => ({
   id: row.id,
   name: row.name,
@@ -22,7 +24,7 @@ const products = Papa.parse(csv, { header: true, skipEmptyLines: true }).data.ma
   category: row.category,
   categoryName: row.categoryName || row.category,
   specs: row.specs,
-  image: row.image || '',
+  image: photo(row.image),
   price: money(row.price),
   oldPrice: money(row.oldPrice),
   condition: row.condition,

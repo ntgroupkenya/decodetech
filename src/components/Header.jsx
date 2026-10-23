@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { ChevronDown, LogOut, MessageCircle, Search, Shield, ShoppingCart, User, X } from 'lucide-react'
+import { ChevronDown, LogOut, MessageCircle, Search, Shield, User, X } from 'lucide-react'
 import useAuth from '../auth/useAuth'
 import useCart from '../cart/useCart'
+import CartMark from './CartMark'
 import useProducts from '../useProducts'
 import { groupCategories } from '../categories'
 import { displayPhone, useSiteSettings } from '../siteSettings'
@@ -157,7 +158,7 @@ export default function Header() {
             className="relative flex items-center gap-2 rounded-md px-2 py-2 text-sm font-semibold text-white hover:bg-white/10"
           >
             <span className="relative">
-              <ShoppingCart size={24} aria-hidden="true" />
+              <CartMark size={30} />
               <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-teal px-1 font-mono text-[11px] font-bold text-brand-ink">
                 {count > 99 ? '99+' : count}
               </span>

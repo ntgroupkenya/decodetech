@@ -10,6 +10,7 @@ const BRANDS = [
   { file: 'logitech', label: 'Logitech', filter: ['brand', 'Logitech'] },
   { file: 'xiaomi', label: 'Xiaomi', filter: ['brand', 'Xiaomi'] },
   { file: 'lenovo', label: 'Lenovo', filter: ['brand', 'Lenovo'] },
+  { file: 'panasonic', label: 'Panasonic', filter: ['brand', 'Panasonic'] },
   { file: 'dell', label: 'Dell', filter: ['brand', 'Dell'] },
   { file: 'asus', label: 'ASUS', filter: ['brand', 'ASUS'] },
   { file: 'apple', label: 'Apple', filter: ['brand', 'Apple'] },
