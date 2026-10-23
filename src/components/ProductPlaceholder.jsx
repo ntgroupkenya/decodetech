@@ -1,5 +1,12 @@
 // A simple drawing of the product type with the brand name, shown for products that have no photo yet.
-// The main colour comes from the logo's colours and stays the same for a brand. `kind` comes from productPhotos.js.
+// The main colour is the brand's own logo colour (the logos in public/brands/); brands without a logo get one of the
+// site's colours, the same one every time. `kind` comes from productPhotos.js.
+const BRAND_COLOURS = {
+  hp: '#0096d6', lenovo: '#3e77bc', dell: '#007db8', asus: '#1a1a1a', apple: '#1a1a1a', acer: '#83b81a', msi: '#ff0000',
+  toshiba: '#e9212a', samsung: '#1428a0', microsoft: '#737373', intel: '#0071c5', amd: '#1a1a1a', nvidia: '#76b900',
+  dahua: '#e60012', vention: '#00aeef', netac: '#0b3cef', logitech: '#00b8fc', sandisk: '#ed1c24', jbl: '#ff3300',
+  epson: '#003399', wd: '#1a1a1a', kingston: '#1a1a1a', 'tp-link': '#4acbd6', panasonic: '#0049ab', xiaomi: '#ff6900',
+}
 const COLOURS = [
   { fill: 'var(--color-brand-indigo)', text: '#ffffff' },
   { fill: 'var(--color-brand-charcoal)', text: '#ffffff' },
@@ -10,7 +17,15 @@ const GREY = 'var(--color-brand-grey)'
 const INK = 'var(--color-brand-ink)'
 const WHITE = '#ffffff'
 
+// Dark lettering on light logo colours (NVIDIA green, Logitech blue...), white on the rest.
+function textOn(hex) {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.33 ? INK : WHITE
+}
+
 function colourFor(brand) {
+  const own = BRAND_COLOURS[String(brand).toLowerCase()]
+  if (own) return { fill: own, text: textOn(own) }
   let hash = 0
   for (const ch of String(brand).toLowerCase()) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0
   return COLOURS[hash % COLOURS.length]
