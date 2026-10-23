@@ -230,7 +230,7 @@ export default function Shop() {
     <div className="pb-16">
       {/* Intro panel */}
       <section className="relative overflow-hidden bg-brand-charcoal text-white">
-        <HeroBackdrop />
+        <HeroBackdrop categories={categoryGroups} />
         <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 md:py-14 lg:grid-cols-[1fr_22rem] lg:px-8">
           <div>
             <p className="code-label !text-brand-teal">decode shop</p>
