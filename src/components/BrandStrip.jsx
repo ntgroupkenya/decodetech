@@ -1,8 +1,11 @@
+import { useState } from 'react'
+
 // "Shop by brand": the brands' own logos in their own colours (public/brands/*.svg), busiest brands first.
 // Most come from Simple Icons and the SVG Logos collection (both free to use; the trademarks stay with their owners).
 // Vention, Dahua and Netac are not in either collection and are redrawn in their logo colours.
 // `filter` is the shop filter a click sets: a brand from the stock list, or a search for makers that only appear in names.
-// A logo hides itself while no product in the shop matches it.
+// A logo hides itself while no product in the shop matches it. Large screens show one row (ROW logos) until "All brands" is
+// pressed; phones scroll the whole row sideways.
 const BRANDS = [
   { file: 'hp', label: 'HP', filter: ['brand', 'HP'] },
   { file: 'dahua', label: 'Dahua', filter: ['brand', 'Dahua'] },
@@ -31,23 +34,34 @@ const BRANDS = [
   { file: 'kingston', label: 'Kingston', filter: ['brand', 'Kingston'] },
 ]
 
+const ROW = 10
+
 const matches = ([key, value], product) =>
   key === 'brand'
     ? product.brand === value
     : [product.name, product.brand, product.specs].some((field) => String(field || '').toLowerCase().includes(value))
 
 export default function BrandStrip({ products, active, onPick }) {
+  const [expanded, setExpanded] = useState(false)
   const shown = BRANDS.filter((brand) => products.some((product) => matches(brand.filter, product)))
   if (shown.length === 0) return null
+  const hiddenCount = shown.length - ROW
 
   return (
     <section aria-label="Shop by brand" className="rounded-md border border-gray-200 bg-white px-4 py-3">
-      <p className="code-label">shop by brand</p>
-      <ul className="no-scrollbar mt-2 flex items-center gap-1 overflow-x-auto lg:flex-wrap lg:justify-center lg:overflow-visible">
-        {shown.map(({ file, label, filter }) => {
+      <div className="flex items-center justify-between gap-4">
+        <p className="code-label">shop by brand</p>
+        {hiddenCount > 0 && (
+          <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="hidden text-xs font-semibold text-brand-indigo hover:underline lg:block">
+            {expanded ? 'Fewer brands' : `All brands (+${hiddenCount})`}
+          </button>
+        )}
+      </div>
+      <ul className={`no-scrollbar mt-2 flex items-center gap-1 overflow-x-auto lg:justify-between lg:overflow-visible ${expanded ? 'lg:flex-wrap lg:justify-center' : ''}`}>
+        {shown.map(({ file, label, filter }, index) => {
           const isActive = active[0] === filter[0] && active[1] === filter[1]
           return (
-            <li key={file} className="shrink-0">
+            <li key={file} className={`shrink-0 ${index >= ROW && !expanded && !isActive ? 'lg:hidden' : ''}`}>
               <button
                 type="button"
                 onClick={() => onPick(filter)}
