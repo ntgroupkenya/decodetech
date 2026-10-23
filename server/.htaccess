@@ -1,0 +1,7 @@
+# For Apache (XAMPP): copy or symlink this folder to C:\xampp\htdocs\decode-api
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api(/.*)?$ api.php [L,QSA]
+<FilesMatch "^(config.*\.php|db\.php|\.schema_v[0-9]+)$">
+  Require all denied
+</FilesMatch>

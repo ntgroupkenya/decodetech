@@ -1,0 +1,56 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local tooling caches
+.npm-cache
+.netlify-appdata
+dist-client-demo
+*.zip
+
+# Server secrets and runtime files
+server/config.local.php
+server/.schema_v*
+server/uploads/*
+!server/uploads/.htaccess
+
+# Untouched originals of the product photos (before resizing)
+product-originals
+image-originals
+dist-ssr
+dist-build
+
+# Upload package built by npm run package
+deploy
+deploy-update
+decode-upload.zip
+decode-update.zip
+
+# Live database details used by npm run package
+deploy.local.json
+decode-www.zip
+decode-shop.zip
+decode-admin.zip
+deploy-3sites
+dist-ssr-3sites

@@ -1,0 +1,33 @@
+{
+  "name": "decode",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "api": "C:\\xampp\\php\\php.exe -S localhost:8080 -t server server/router.php",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr --emptyOutDir && node scripts/prerender.mjs",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "package": "vite build --outDir dist-build --emptyOutDir && vite build --ssr src/entry-server.jsx --outDir dist-ssr --emptyOutDir && node scripts/prerender.mjs --dist dist-build && node scripts/assemble-deploy.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^1.49.0",
+    "papaparse": "^5.7.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4",
+    "read-excel-file": "^9.3.10"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.6.1",
+    "oxlint": "^1.81.0",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0"
+  }
+}

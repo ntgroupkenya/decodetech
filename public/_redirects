@@ -1,0 +1,4 @@
+# Static hosts with no PHP API (Netlify previews): API calls fail fast with a 404 instead of getting the app shell.
+/api/* /app-shell.html 404
+# Pages that are not pre-rendered (login, sign up, admin) load the empty app shell.
+/* /app-shell.html 200

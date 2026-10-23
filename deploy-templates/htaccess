@@ -1,0 +1,79 @@
+# DECODE IT Solutions: .htaccess for the MAIN site folder (www)
+#   {{MAIN_HOST}}   Home, About, Brands, Products, Contact, product and category pages, news
+#   It also holds the PHP API (/api), the database settings and uploaded images (/uploads),
+#   which the shop ({{SHOP_HOST}}) and admin ({{ADMIN_HOST}}) addresses use.
+
+Options -Indexes
+DirectorySlash Off
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 1. Always use HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. {{ROOT_DOMAIN}} (without www) -> {{MAIN_HOST}}
+RewriteCond %{HTTP_HOST} ^{{ROOT_DOMAIN_RX}}(:[0-9]+)?$ [NC]
+RewriteRule ^ https://{{MAIN_HOST}}%{REQUEST_URI} [L,R=301]
+
+# 3. The API and uploaded images (only image files are ever served from uploads/)
+RewriteRule ^api(/.*)?$ api.php [L,QSA]
+RewriteRule ^uploads/.+\.(jpe?g|png|webp|gif)$ - [NC,L]
+RewriteRule ^uploads/ - [F]
+
+# 4. The Shop and the admin have their own addresses
+RewriteRule ^shop(/.*)?$ https://{{SHOP_HOST}}/ [L,R=301]
+RewriteRule ^admin(/.*)?$ https://{{ADMIN_HOST}}/admin$1 [L,R=302]
+
+# 5. Pre-rendered pages: /about -> about/index.html (no trailing slash)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.*?)/?$ $1/index.html [L]
+
+# 6. Anything else that is not a real file (login, sign-up, a product added after the last build)
+#    gets the empty app shell, and the site shows the right page from the address
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ app-shell.html [L]
+</IfModule>
+
+# Never expose configuration or internal files (including any hidden file such as .user.ini)
+<FilesMatch "^(config(\.local)?\.php|db\.php|router\.php|error_log|\..*|README-DEPLOY\.txt|.*\.(sql|log|bak|zip))$">
+  Require all denied
+</FilesMatch>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # HTTPS only for a year: browsers refuse a plain-HTTP (interceptable) connection to this address.
+  Header always set Strict-Transport-Security "max-age=31536000"
+  # Other websites may not show these pages inside a frame (stops "clickjacking").
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # No plugins, no <base> or form hijacking, and every request upgraded to HTTPS. Scripts are not restricted
+  # further because Google Tag Manager loads tracking scripts chosen in its own dashboard.
+  Header always set Content-Security-Policy "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  # The site never needs the camera, microphone, location or payment APIs.
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always unset X-Powered-By
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>
+
+# Browser caching for images; pages are always re-checked so product changes show up
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Compress text files
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json application/xml text/xml image/svg+xml text/plain
+</IfModule>

@@ -1,0 +1,15 @@
+<?php
+// Settings for THIS web host (the www folder). The database details come from cPanel > MySQL Databases.
+return [
+    'db_host' => 'localhost',
+    'db_name' => '{{DB_NAME}}',
+    'db_user' => '{{DB_USER}}',
+    'db_pass' => '{{DB_PASS}}',
+
+    // The website's address (used in the sitemap) and the login shared by the www, shop and admin addresses.
+    'site_url' => '{{MAIN_URL}}',
+    'cookie_domain' => '{{COOKIE_DOMAIN}}',
+
+    // The shop and admin addresses call this API from the browser, with the shared login.
+    'allowed_origins' => ['{{SHOP_URL}}', '{{ADMIN_URL}}'],
+];
