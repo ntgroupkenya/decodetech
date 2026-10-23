@@ -88,7 +88,7 @@ export default function ProductPage() {
           <>
             <h1 className="text-3xl font-bold text-brand-charcoal">Product not found</h1>
             <p className="mt-3 text-gray-600">This product may have been removed or renamed.</p>
-            <Link to="/" className="mt-6 inline-block rounded-md bg-brand-indigo px-6 py-3 font-semibold text-white hover:bg-brand-indigo-dark">Browse the shop</Link>
+            <Link to="/" className="mt-6 inline-block rounded-md bg-brand-primary px-6 py-3 font-semibold text-white hover:bg-brand-primary-dark">Browse the shop</Link>
           </>
         ) : (
           <p className="text-gray-500">Loading product…</p>
@@ -157,7 +157,7 @@ export default function ProductPage() {
           <div className="rounded-md border border-gray-200 bg-white p-5">
             {(hasBrand || product.condition) && (
               <div className="flex flex-wrap items-center gap-2">
-                {hasBrand && <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-indigo">{product.brand}</p>}
+                {hasBrand && <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-primary">{product.brand}</p>}
                 <ConditionTag condition={product.condition} />
               </div>
             )}
@@ -181,7 +181,7 @@ export default function ProductPage() {
               <button
                 type="button"
                 onClick={() => requestQuote(product)}
-                className="w-full rounded-md border border-gray-300 px-6 py-3 font-semibold text-brand-charcoal transition-colors hover:border-brand-indigo"
+                className="w-full rounded-md border border-gray-300 px-6 py-3 font-semibold text-brand-charcoal transition-colors hover:border-brand-primary"
               >
                 Get an expert quote
               </button>
@@ -200,7 +200,7 @@ export default function ProductPage() {
         <section className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Related products">
           <div className="mb-3 flex items-end justify-between gap-4">
             <h2 className="text-xl font-bold text-brand-charcoal">More in {product.categoryName || product.category}</h2>
-            <Link to={categoryHref} className="text-sm font-medium text-brand-indigo hover:underline">See all</Link>
+            <Link to={categoryHref} className="text-sm font-medium text-brand-primary hover:underline">See all</Link>
           </div>
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {related.map((item) => (

@@ -76,10 +76,10 @@ function FilterGroup({ title, options, active, onPick, allLabel }) {
         type="button"
         onClick={() => onPick(value)}
         aria-pressed={active === value}
-        className={`flex w-full items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors ${active === value ? 'bg-brand-indigo font-semibold text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+        className={`flex w-full items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors ${active === value ? 'bg-brand-primary font-semibold text-white' : 'text-gray-700 hover:bg-gray-100'}`}
       >
         <span className="truncate">{label}</span>
-        {count != null && <span className={`font-mono text-xs ${active === value ? 'text-brand-teal' : 'text-gray-400'}`}>{count}</span>}
+        {count != null && <span className={`font-mono text-xs ${active === value ? 'text-white/80' : 'text-gray-400'}`}>{count}</span>}
       </button>
     </li>
   )
@@ -106,7 +106,7 @@ function FilterGroup({ title, options, active, onPick, allLabel }) {
           type="button"
           onClick={() => { setExpanded(!expanded); setFind('') }}
           aria-expanded={expanded}
-          className="mt-1.5 px-2 text-xs font-semibold text-brand-indigo hover:underline"
+          className="mt-1.5 px-2 text-xs font-semibold text-brand-primary hover:underline"
         >
           {expanded ? 'Show fewer' : `Show all ${options.length}`}
         </button>
@@ -307,7 +307,7 @@ export default function Shop() {
                 </div>
                 <div className="flex-1 overflow-y-auto p-4">{filters}</div>
                 <div className="border-t border-gray-200 p-4">
-                  <button type="button" onClick={() => setFiltersOpen(false)} className="w-full rounded-md bg-brand-indigo py-3 font-semibold text-white">
+                  <button type="button" onClick={() => setFiltersOpen(false)} className="w-full rounded-md bg-brand-primary py-3 font-semibold text-white">
                     Show {filteredProducts.length} product{filteredProducts.length === 1 ? '' : 's'}
                   </button>
                 </div>
@@ -354,7 +354,7 @@ export default function Shop() {
                       aria-label={`${label} layout`}
                       title={label}
                       onClick={() => updateViewPrefs({ view: id })}
-                      className={`px-2.5 py-1.5 transition-colors ${view === id ? 'bg-brand-indigo text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+                      className={`px-2.5 py-1.5 transition-colors ${view === id ? 'bg-brand-primary text-white' : 'text-gray-600 hover:bg-gray-100'}`}
                     >
                       <Icon size={16} aria-hidden="true" />
                     </button>
@@ -420,7 +420,7 @@ export default function Shop() {
                         type="button"
                         onClick={() => goToPage(n)}
                         aria-current={n === currentPage ? 'page' : undefined}
-                        className={`min-w-9 rounded-md border px-2 py-1.5 font-mono text-sm ${n === currentPage ? 'border-brand-indigo bg-brand-indigo text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'}`}
+                        className={`min-w-9 rounded-md border px-2 py-1.5 font-mono text-sm ${n === currentPage ? 'border-brand-primary bg-brand-primary text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'}`}
                       >
                         {n}
                       </button>
@@ -442,7 +442,7 @@ export default function Shop() {
               <EmptyState title="No products added yet" text="The shop is being stocked. Message us on WhatsApp and we'll tell you what's available today." />
             ) : filteredProducts.length === 0 && (
               <EmptyState title="Nothing matches these filters" text="Try another search word, or clear the filters to see everything.">
-                <button type="button" onClick={clearFilters} className="rounded-md bg-brand-indigo px-4 py-2 text-sm font-semibold text-white hover:bg-brand-indigo-dark">
+                <button type="button" onClick={clearFilters} className="rounded-md bg-brand-primary px-4 py-2 text-sm font-semibold text-white hover:bg-brand-primary-dark">
                   Clear all filters
                 </button>
               </EmptyState>

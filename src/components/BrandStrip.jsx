@@ -52,7 +52,7 @@ export default function BrandStrip({ products, active, onPick }) {
       <div className="flex items-center justify-between gap-4">
         <p className="code-label">shop by brand</p>
         {hiddenCount > 0 && (
-          <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="hidden text-xs font-semibold text-brand-indigo hover:underline lg:block">
+          <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="hidden text-xs font-semibold text-brand-primary hover:underline lg:block">
             {expanded ? 'Fewer brands' : `All brands (+${hiddenCount})`}
           </button>
         )}
@@ -67,7 +67,7 @@ export default function BrandStrip({ products, active, onPick }) {
                 onClick={() => onPick(filter)}
                 aria-pressed={isActive}
                 title={`Shop ${label}`}
-                className={`flex h-12 items-center rounded-md border px-2.5 transition-colors ${isActive ? 'border-brand-indigo bg-brand-indigo/5' : 'border-transparent hover:border-gray-200 hover:bg-gray-50'}`}
+                className={`flex h-12 items-center rounded-md border px-2.5 transition-colors ${isActive ? 'border-brand-primary bg-brand-primary/5' : 'border-transparent hover:border-gray-200 hover:bg-gray-50'}`}
               >
                 <img src={`${import.meta.env.BASE_URL}brands/${file}.svg`} alt={label} loading="lazy" className="h-6 w-auto max-w-[6rem] object-contain" />
               </button>

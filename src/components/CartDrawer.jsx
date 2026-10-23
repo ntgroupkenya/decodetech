@@ -126,7 +126,7 @@ export default function CartDrawer() {
                 <CartMark size={96} />
                 <p className="mt-3 font-semibold text-brand-charcoal">Your cart is empty</p>
                 <p className="mt-1 text-sm text-gray-600">Add several products, then send them to us in one WhatsApp order.</p>
-                <Link to="/" onClick={close} className="mt-5 rounded-md bg-brand-indigo px-5 py-2.5 font-semibold text-white hover:bg-brand-indigo-dark">Browse the shop</Link>
+                <Link to="/" onClick={close} className="mt-5 rounded-md bg-brand-primary px-5 py-2.5 font-semibold text-white hover:bg-brand-primary-dark">Browse the shop</Link>
               </div>
             ) : (
               <>
@@ -199,7 +199,7 @@ export default function CartDrawer() {
                     <div className="rounded-md border border-brand-teal/50 bg-brand-teal/10 p-4 text-sm">
                       <p className="font-semibold text-brand-charcoal">Members get discounts, coupons and delivery offers</p>
                       <div className="mt-3 flex flex-wrap gap-2">
-                        <Link to="/signup" state={{ from: '/' }} onClick={close} className="rounded-md bg-brand-indigo px-4 py-2 font-semibold text-white hover:bg-brand-indigo-dark">Create account</Link>
+                        <Link to="/signup" state={{ from: '/' }} onClick={close} className="rounded-md bg-brand-primary px-4 py-2 font-semibold text-white hover:bg-brand-primary-dark">Create account</Link>
                         <Link to="/login" state={{ from: '/' }} onClick={close} className="rounded-md border border-gray-300 bg-white px-4 py-2 font-medium hover:bg-gray-100">Log in</Link>
                       </div>
                     </div>
@@ -215,7 +215,7 @@ export default function CartDrawer() {
                           <legend className="mb-2 flex items-center gap-2 font-semibold text-brand-charcoal"><Ticket size={16} aria-hidden="true" /> Coupon <span className="font-normal text-gray-500">(the better price wins per item)</span></legend>
                           <div className="flex flex-wrap gap-2">
                             {coupons.map((o) => (
-                              <button key={o.id} type="button" aria-pressed={couponId === o.id} onClick={() => setCouponId(couponId === o.id ? null : o.id)} className={`rounded-md border px-3 py-1.5 text-left ${couponId === o.id ? 'border-brand-indigo bg-brand-indigo text-white' : 'border-gray-300 hover:border-brand-teal'}`}>
+                              <button key={o.id} type="button" aria-pressed={couponId === o.id} onClick={() => setCouponId(couponId === o.id ? null : o.id)} className={`rounded-md border px-3 py-1.5 text-left ${couponId === o.id ? 'border-brand-primary bg-brand-primary text-white' : 'border-gray-300 hover:border-brand-teal'}`}>
                                 <span className="font-mono text-xs">{o.code}</span> <span className="block">{o.title}{offerLabel(o) && !o.title.toLowerCase().includes(offerLabel(o).toLowerCase()) ? ` (${offerLabel(o)})` : ''}</span>
                               </button>
                             ))}

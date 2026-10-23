@@ -5,7 +5,7 @@ import ShopProductCard from './ShopProductCard'
 const TABS = [
   { key: 'hot', label: 'Hot products', icon: Flame, badge: { label: 'Hot', className: 'bg-brand-red text-white' }, width: 'w-60 sm:w-64' },
   { key: 'bestSellers', label: 'Best sellers', icon: Trophy, badge: { label: 'Best seller', className: 'bg-brand-teal text-brand-ink' }, width: 'w-52 sm:w-56' },
-  { key: 'mostClicked', label: 'Most clicked', icon: MousePointerClick, badge: { label: 'Popular', className: 'bg-brand-indigo text-white' }, width: 'w-52 sm:w-56' },
+  { key: 'mostClicked', label: 'Most clicked', icon: MousePointerClick, badge: { label: 'Popular', className: 'bg-brand-primary text-white' }, width: 'w-52 sm:w-56' },
 ]
 
 // A sideways-scrolling row of products picked by the admin (hot), by real dispatched orders (best sellers)

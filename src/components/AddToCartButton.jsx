@@ -10,7 +10,7 @@ export default function AddToCartButton({ product, variant = 'bar' }) {
       <button
         type="button"
         onClick={() => add(product)}
-        className="flex w-full items-center justify-center gap-2 rounded-md bg-brand-indigo px-6 py-3.5 font-semibold text-white transition-colors hover:bg-brand-indigo-dark"
+        className="flex w-full items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3.5 font-semibold text-white transition-colors hover:bg-brand-primary-dark"
       >
         <ShoppingCart size={20} aria-hidden="true" /> Add to cart
       </button>
@@ -21,7 +21,7 @@ export default function AddToCartButton({ product, variant = 'bar' }) {
       type="button"
       onClick={() => add(product)}
       aria-label={`Add ${product.name} to cart`}
-      className="flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-indigo px-2 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-indigo-dark"
+      className="flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-primary px-2 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-primary-dark"
     >
       <ShoppingCart size={16} className="shrink-0" aria-hidden="true" />
       <span className="truncate">Add to cart</span>

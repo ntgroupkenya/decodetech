@@ -77,13 +77,13 @@ export default function Account({ mode }) {
             {isSignup && <span className="mt-1 block text-xs font-normal text-gray-500">At least 8 characters.</span>}
           </label>
 
-          <button type="submit" disabled={busy} className="w-full rounded-md bg-brand-indigo px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-indigo-dark disabled:opacity-50">
+          <button type="submit" disabled={busy} className="w-full rounded-md bg-brand-primary px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-primary-dark disabled:opacity-50">
             {busy ? 'Please wait…' : isSignup ? 'Create account' : 'Sign in'}
           </button>
 
           <p className="text-sm text-gray-600">
             {isSignup ? 'Already have an account? ' : 'New here? '}
-            <Link to={isSignup ? '/login' : '/signup'} state={location.state} className="font-semibold text-brand-indigo hover:underline">
+            <Link to={isSignup ? '/login' : '/signup'} state={location.state} className="font-semibold text-brand-primary hover:underline">
               {isSignup ? 'Sign in' : 'Create an account'}
             </Link>
           </p>

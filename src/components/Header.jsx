@@ -140,10 +140,10 @@ function CategoryBar({ categories, active, hours }) {
     }
   }, [open])
 
-  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-brand-teal font-semibold text-white' : 'border-transparent text-white/75 hover:text-white'}`
+  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-white font-semibold text-white' : 'border-transparent text-white/90 hover:border-white/50 hover:text-white'}`
 
   return (
-    <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-indigo md:block">
+    <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-primary md:block">
       <div className="mx-auto flex max-w-7xl items-center px-4 text-sm sm:px-6 lg:px-8">
         <div className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto">
           {[{ slug: '', name: 'All products' }, ...shown].map(({ slug, name }, index) => (
@@ -168,10 +168,10 @@ function CategoryBar({ categories, active, hours }) {
                       <Link
                         to={`/?cat=${slug}`}
                         onClick={() => setOpen(false)}
-                        className={`flex items-center justify-between gap-2 rounded-sm px-2 py-1.5 ${active === slug ? 'bg-brand-indigo font-semibold text-white' : 'hover:bg-gray-100'}`}
+                        className={`flex items-center justify-between gap-2 rounded-sm px-2 py-1.5 ${active === slug ? 'bg-brand-primary font-semibold text-white' : 'hover:bg-gray-100'}`}
                       >
                         <span className="truncate">{name}</span>
-                        <span className={`font-mono text-xs ${active === slug ? 'text-brand-teal' : 'text-gray-400'}`}>{products.length}</span>
+                        <span className={`font-mono text-xs ${active === slug ? 'text-white/80' : 'text-gray-400'}`}>{products.length}</span>
                       </Link>
                     </li>
                   ))}

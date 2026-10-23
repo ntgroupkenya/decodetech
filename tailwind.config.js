@@ -9,12 +9,13 @@ export default {
       colors: {
         brand: {
           charcoal: '#383938',
+          primary: '#ed1f24',
+          'primary-dark': '#c4161b',
           indigo: '#5163ad',
           teal: '#4bc1b4',
           grey: '#bfc0c3',
           red: '#ed1f24',
           ink: '#262726',
-          'indigo-dark': '#42539a',
           'teal-light': '#7fd4ca',
         },
         surface: '#f3f4f8',

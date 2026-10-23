@@ -82,7 +82,7 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
         <div className="space-y-5 px-6 py-5">
           <div>
             <p className="font-semibold text-brand-charcoal">{product.name}</p>
-            <p className="font-mono text-xs font-bold uppercase text-brand-indigo">{product.brand}</p>
+            <p className="font-mono text-xs font-bold uppercase text-brand-primary">{product.brand}</p>
             <p className="mt-1 font-mono text-sm">
               {product.price != null ? (
                 <>
@@ -129,7 +129,7 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
               <p className="font-semibold text-brand-charcoal">Members get discounts, coupons and delivery offers</p>
               <p className="mt-1 text-sm text-gray-700">Create a free account or sign in to unlock them before you send your order.</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                <Link to="/signup" state={{ from: pathname }} className="rounded-md bg-brand-indigo px-4 py-2 text-sm font-semibold text-white hover:bg-brand-indigo-dark">Create account</Link>
+                <Link to="/signup" state={{ from: pathname }} className="rounded-md bg-brand-primary px-4 py-2 text-sm font-semibold text-white hover:bg-brand-primary-dark">Create account</Link>
                 <Link to="/login" state={{ from: pathname }} className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">Log in</Link>
               </div>
             </div>

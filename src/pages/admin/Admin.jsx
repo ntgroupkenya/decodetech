@@ -156,7 +156,7 @@ export default function Admin() {
         <div className="border-b border-gray-200 bg-white">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
             <h1 className="text-xl font-bold text-brand-charcoal">{current?.label}</h1>
-            <Link to="/" target="_blank" className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-indigo hover:underline">
+            <Link to="/" target="_blank" className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-primary hover:underline">
               View shop <ExternalLink size={14} aria-hidden="true" />
             </Link>
           </div>
