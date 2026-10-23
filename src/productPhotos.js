@@ -2,6 +2,8 @@
 // instead of an empty box. Search engines and link previews only ever get real product photos.
 // The type comes from the product's name first (the first rule that matches wins), then from its category.
 const NAME_KINDS = [
+  ['tablet', /\btab(let)?s?\b|\bipad\b|kid ?mate|kids \d|elimu/i],
+  ['smartphone', /iphone|galaxy|smartphone|\bredmi\b|\btecno\b|\binfinix\b|\bitel\b/i, /stand|holder|adapter|charger|cable|case\b/i],
   ['laptop', /laptop|notebook|macbook|chromebook/i, /bag|sleeve|stand|power bank|ram\b|screen|privacy|charger|lock|backpack|cooling/i],
   ['recorder', /\b(xvr|nvr|nvs|dvr)\b|video recorder/i],
   ['switch', /\bswitch\b(?!er)|\bpoe\b/i],
@@ -42,7 +44,7 @@ const CATEGORY_KINDS = {
   'Memory (RAM)': 'ram', Storage: 'drive', 'Memory Cards & Flash Drives': 'card', 'Laptop Bags & Sleeves': 'bag',
   'Laptop & Phone Stands': 'stand', 'Power Banks': 'powerbank', Chargers: 'charger', 'Car Accessories': 'charger',
   'Docks & Hubs': 'dock', 'Cables & Adapters': 'cord', 'Network Storage (NAS)': 'nas', 'UPS & Power': 'ups',
-  'IP Phones & PBX': 'phone', 'CCTV Recorders': 'recorder', 'CCTV Cameras': 'bullet', 'Intercoms & Alarms': 'intercom',
+  'IP Phones & PBX': 'phone', Phones: 'smartphone', Tablets: 'tablet', 'CCTV Recorders': 'recorder', 'CCTV Cameras': 'bullet', 'Intercoms & Alarms': 'intercom',
   'Keyboards & Mice': 'mouse', Audio: 'headset', 'Webcams & Presenters': 'webcam', Networking: 'switch',
 }
 

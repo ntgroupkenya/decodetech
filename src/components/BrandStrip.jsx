@@ -8,6 +8,7 @@ const BRANDS = [
   { file: 'dahua', label: 'Dahua', filter: ['brand', 'Dahua'] },
   { file: 'vention', label: 'Vention', filter: ['brand', 'Vention'] },
   { file: 'logitech', label: 'Logitech', filter: ['brand', 'Logitech'] },
+  { file: 'xiaomi', label: 'Xiaomi', filter: ['brand', 'Xiaomi'] },
   { file: 'lenovo', label: 'Lenovo', filter: ['brand', 'Lenovo'] },
   { file: 'dell', label: 'Dell', filter: ['brand', 'Dell'] },
   { file: 'asus', label: 'ASUS', filter: ['brand', 'ASUS'] },

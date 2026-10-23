@@ -294,6 +294,24 @@ const DRAWINGS = {
       {[0, 1, 2].map((r) => [0, 1, 2].map((i) => <rect key={`${r}-${i}`} x={180 + i * 36} y={226 + r * 16} width="26" height="10" rx="3" fill={WHITE} opacity="0.5" />))}
     </>
   ),
+  smartphone: (c) => (
+    <>
+      <rect x="140" y="62" width="120" height="232" rx="22" fill={c.fill} />
+      <rect x="150" y="80" width="100" height="196" rx="12" fill={WHITE} opacity="0.22" />
+      <rect x="185" y="70" width="30" height="5" rx="2.5" fill={INK} opacity="0.6" />
+      <rect x="164" y="104" width="72" height="8" rx="4" fill={WHITE} opacity="0.55" />
+      {[0, 1, 2].map((r) => [0, 1, 2].map((i) => <rect key={`${r}-${i}`} x={164 + i * 26} y={130 + r * 30} width="20" height="20" rx="5" fill={WHITE} opacity="0.45" />))}
+    </>
+  ),
+  tablet: (c) => (
+    <>
+      <rect x="75" y="78" width="250" height="200" rx="18" fill={c.fill} />
+      <rect x="90" y="93" width="220" height="170" rx="8" fill={WHITE} opacity="0.22" />
+      <circle cx="200" cy="85.5" r="3.5" fill={INK} opacity="0.6" />
+      <rect x="110" y="114" width="110" height="10" rx="5" fill={WHITE} opacity="0.55" />
+      {[0, 1, 2, 3, 4].map((i) => [0, 1].map((r) => <rect key={`${r}-${i}`} x={110 + i * 38} y={146 + r * 44} width="28" height="28" rx="7" fill={WHITE} opacity="0.45" />))}
+    </>
+  ),
   cord: (c) => (
     <>
       <path d="M110 110 C 110 260, 290 120, 290 270" fill="none" stroke={GREY} strokeWidth="12" strokeLinecap="round" />
