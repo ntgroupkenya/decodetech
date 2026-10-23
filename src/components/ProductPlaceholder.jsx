@@ -5,7 +5,8 @@ const BRAND_COLOURS = {
   hp: '#0096d6', lenovo: '#3e77bc', dell: '#007db8', asus: '#1a1a1a', apple: '#1a1a1a', acer: '#83b81a', msi: '#ff0000',
   toshiba: '#e9212a', samsung: '#1428a0', microsoft: '#737373', intel: '#0071c5', amd: '#1a1a1a', nvidia: '#76b900',
   dahua: '#e60012', vention: '#00aeef', netac: '#0b3cef', logitech: '#00b8fc', sandisk: '#ed1c24', jbl: '#ff3300',
-  epson: '#003399', wd: '#1a1a1a', kingston: '#1a1a1a', 'tp-link': '#4acbd6', panasonic: '#0049ab', xiaomi: '#ff6900',
+  epson: '#003399', wd: '#1a1a1a', kingston: '#000070', 'tp-link': '#4acbd6', panasonic: '#0049ab', xiaomi: '#ff6900',
+  ugreen: '#10b020', grandstream: '#305090', nec: '#2060b0', apc: '#e8195a', crucial: '#1a1a1a', 'tripp lite': '#2070c0',
 }
 const COLOURS = [
   { fill: 'var(--color-brand-indigo)', text: '#ffffff' },
