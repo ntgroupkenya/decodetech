@@ -31,6 +31,7 @@ const NAME_KINDS = [
   ['charger', /charger|travel adapter/i],
   ['dock', /dock|\bhub\b/i],
   ['phone', /ip phone|dect|\bpbx\b/i],
+  ['cord', /\b(printer|display ?port|vga|hdmi)\b.*\b(cable|converter)\b/i, /monitor|projector|switch|splitter|kvm|extender|dock/i],
   ['printer', /printer|scanner|laserjet|ecotank/i],
   ['projector', /projector/i],
   ['monitor', /monitor|display|whiteboard|signage|screen|privacy/i],

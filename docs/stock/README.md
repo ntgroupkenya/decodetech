@@ -1,6 +1,6 @@
 # Stock list
 
-`decode-stock.csv` is the shop's catalogue built from the supplier price lists (about 1,240 products), in the admin import format: Admin → Products & Shop → Import.
+`decode-stock.csv` is the shop's catalogue built from the supplier price lists (about 1,300 products), in the admin import format: Admin → Products & Shop → Import.
 
 - Prices are selling prices: supplier price + 20%, rounded to the nearest shilling. The Panasonic products are at the Panasonic list's own price rounded down to the hundred (5,293 → 5,200), with nothing added.
 - Out-of-stock and "expecting" items are included but hidden (`inShop` = no); switch them on in the admin when they arrive.
