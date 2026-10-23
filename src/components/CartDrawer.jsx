@@ -5,7 +5,7 @@ import { api, assetUrl, recordOrder, trackWhatsApp } from '../api'
 import { whatsappMessageUrl } from '../contact'
 import { productPath } from '../productSlug'
 import { productPhotos } from '../productPhotos'
-import LaptopPlaceholder from './LaptopPlaceholder'
+import ProductPlaceholder from './ProductPlaceholder'
 import useAuth from '../auth/useAuth'
 import useCart from '../cart/useCart'
 import { buildCartMessage, cartTotals, makeCartRef, priceLine } from '../cart/cartMessage'
@@ -135,8 +135,8 @@ export default function CartDrawer() {
                       <li key={item.id} className="flex gap-3 py-3">
                         {product && productPhotos(product).images[0] ? (
                           <img src={assetUrl(productPhotos(product).images[0])} alt="" className="h-16 w-16 shrink-0 rounded-md border border-gray-200 bg-slate-50 object-contain p-1" />
-                        ) : product && productPhotos(product).placeholderBrand ? (
-                          <LaptopPlaceholder brand={productPhotos(product).placeholderBrand} className="h-16 w-16 shrink-0 rounded-md border border-gray-200 bg-slate-50" />
+                        ) : product && productPhotos(product).placeholder ? (
+                          <ProductPlaceholder {...productPhotos(product).placeholder} className="h-16 w-16 shrink-0 rounded-md border border-gray-200 bg-slate-50" />
                         ) : (
                           <div className="h-16 w-16 shrink-0 rounded-md bg-gray-100" />
                         )}

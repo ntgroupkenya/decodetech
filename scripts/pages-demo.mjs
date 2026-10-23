@@ -1,6 +1,7 @@
 // Turns a plain `vite build` into the GitHub Pages preview (https://ntgroupkenya.github.io/decodetech/).
-// GitHub Pages has no PHP or database, so the preview shows the sample products from docs/decode-products.csv
-// with their photos from docs/sample-products/. Logins and the admin need the real API and do not work there.
+// GitHub Pages has no PHP or database, so the preview shows the stock list in docs/stock/decode-stock.csv
+// (built from the supplier price lists; see docs/stock/IMPORT-NOTES.md). Products without a photo show a drawing.
+// Logins and the admin need the real API and do not work there.
 //
 //   VITE_BASE=/decodetech/ vite build && node scripts/pages-demo.mjs   (npm run build:pages)
 import fs from 'node:fs'
@@ -11,7 +12,7 @@ const root = process.cwd()
 const dist = path.join(root, 'dist')
 const base = process.env.VITE_BASE || '/'
 
-const csv = fs.readFileSync(path.join(root, 'docs', 'decode-products.csv'), 'utf8').replace(/^﻿/, '')
+const csv = fs.readFileSync(path.join(root, 'docs', 'stock', 'decode-stock.csv'), 'utf8').replace(/^﻿/, '')
 const yes = (value) => /^(yes|true|1)$/i.test(String(value || '').trim())
 const money = (value) => (String(value || '').trim() ? Number(value) : null)
 const products = Papa.parse(csv, { header: true, skipEmptyLines: true }).data.map((row) => ({
@@ -21,8 +22,7 @@ const products = Papa.parse(csv, { header: true, skipEmptyLines: true }).data.ma
   category: row.category,
   categoryName: row.categoryName || row.category,
   specs: row.specs,
-  // /products/x.jpg in the spreadsheet -> the copy published with the preview
-  image: row.image ? `${base}sample-products/${path.basename(row.image)}` : '',
+  image: row.image || '',
   price: money(row.price),
   oldPrice: money(row.oldPrice),
   condition: row.condition,
@@ -32,8 +32,6 @@ const products = Papa.parse(csv, { header: true, skipEmptyLines: true }).data.ma
   active: yes(row.active),
   hot: yes(row.hot),
 }))
-
-fs.cpSync(path.join(root, 'docs', 'sample-products'), path.join(dist, 'sample-products'), { recursive: true })
 
 // The products travel in the page (useProducts and the highlights read window.__PRODUCTS__ when the API is missing).
 const safeJson = JSON.stringify(products).replace(/</g, '\\u003c')
@@ -46,4 +44,4 @@ fs.writeFileSync(path.join(dist, '404.html'), html)
 fs.writeFileSync(path.join(dist, '.nojekyll'), '')
 for (const file of ['sitemap.xml', '_redirects']) fs.rmSync(path.join(dist, file), { force: true })
 
-console.log(`GitHub Pages preview ready in dist/ with ${products.length} sample products (base ${base}).`)
+console.log(`GitHub Pages preview ready in dist/ with ${products.length} products (base ${base}).`)

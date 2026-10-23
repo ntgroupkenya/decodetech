@@ -13,7 +13,7 @@ import { productPhotos } from '../productPhotos'
 // "Add to cart" fills the bottom; the green button orders this one product on WhatsApp; "Get a quote" asks for pricing.
 export default function ShopProductCard({ product, offers, view = 'grid', badge, onOrder, onQuote, onOpen }) {
   const isList = view === 'list'
-  const { images, placeholderBrand } = productPhotos(product)
+  const { images, placeholder } = productPhotos(product)
   const name = <Link to={productPath(product)} className="hover:text-brand-indigo hover:underline">{product.name}</Link>
 
   const actions = (
@@ -40,7 +40,7 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
 
   const photo = (
     <div className="relative">
-      <ProductImage src={images[0]} placeholderBrand={placeholderBrand} alt={product.name} onOpen={() => onOpen(product)} />
+      <ProductImage src={images[0]} placeholder={placeholder} alt={product.name} onOpen={() => onOpen(product)} />
       {badge && <span className={`pointer-events-none absolute left-0 top-2 rounded-r-sm px-2 py-0.5 font-mono text-[11px] font-bold uppercase ${badge.className}`}>{badge.label}</span>}
       <FreeGiftBadge gift={product.freeGift} />
     </div>

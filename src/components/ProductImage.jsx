@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { ImageOff, X, ZoomIn } from 'lucide-react'
 import { assetUrl } from '../api'
-import LaptopPlaceholder from './LaptopPlaceholder'
+import ProductPlaceholder from './ProductPlaceholder'
 
 // A product photo on a light panel (shown whole, not cropped); clicking it opens a larger view.
-// `placeholderBrand` draws a laptop with that brand name when there is no photo (see productPhotos.js).
-export default function ProductImage({ src: rawSrc, alt, className = '', onOpen, placeholderBrand = null }) {
+// `placeholder` ({ kind, brand }) draws the product type when there is no photo (see productPhotos.js).
+export default function ProductImage({ src: rawSrc, alt, className = '', onOpen, placeholder = null }) {
   const src = assetUrl(rawSrc)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -18,10 +18,10 @@ export default function ProductImage({ src: rawSrc, alt, className = '', onOpen,
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [isOpen])
 
-  if (!src && placeholderBrand) {
+  if (!src && placeholder) {
     return (
       <div className={`aspect-square w-full bg-slate-50 ${className}`}>
-        <LaptopPlaceholder brand={placeholderBrand} className="h-full w-full" />
+        <ProductPlaceholder kind={placeholder.kind} brand={placeholder.brand} className="h-full w-full" />
       </div>
     )
   }

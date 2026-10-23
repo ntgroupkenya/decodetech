@@ -28,8 +28,8 @@ Built with React, Vite, Tailwind CSS and React Router, plus a small PHP + MySQL 
 Still to provide:
 
 - `public/social-meta.jpg`: 1200×630 image shown when the site is shared (referenced from `index.html`).
-- Laptops without a photo show a drawn laptop with the brand name on the lid, in the logo colours (`src/components/LaptopPlaceholder.jsx`), for every brand. A photo uploaded in the admin replaces it. Search engines and link previews only get real photos.
-- Products and their photos: add them in the admin, or import a spreadsheet (`docs/decode-products.csv` is an example).
+- Products without a photo show a drawing of their type (laptop, desktop, monitor, camera, printer, RAM, cable and so on) with the brand name, in the logo colours (`src/components/ProductPlaceholder.jsx`; the type is chosen in `src/productPhotos.js`). A photo uploaded in the admin replaces it. Search engines and link previews only get real photos.
+- Products: import `docs/stock/decode-stock.csv` (the full stock list) in the admin, then add photos. `docs/decode-products.csv` is a small example.
 - Contact details, opening hours, announcement bar and social links: Admin → Settings.
 - Chat-widget questions: `TOPICS` in `src/components/WhatsAppWidget.jsx`.
 - Google Tag Manager: not included. If added to `index.html`, the admin's strict Content-Security-Policy (in the `.htaccess`) blocks it there, which is intended.
@@ -99,7 +99,7 @@ If the API is unreachable the public site falls back to the products bundled in 
 
 ## GitHub Pages preview
 
-A preview of the shop is published at **https://ntgroupkenya.github.io/decodetech/** on every push to `main` (`.github/workflows/pages.yml`, which runs `npm run build:pages`). GitHub Pages has no PHP or database, so the preview shows the sample products from `docs/decode-products.csv` with the photos in `docs/sample-products/` (`scripts/pages-demo.mjs`); logins, the cart's member offers and the admin need the real API and do not work there. To switch it on once: repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+A preview of the shop is published at **https://ntgroupkenya.github.io/decodetech/** on every push to `main` (`.github/workflows/pages.yml`, which runs `npm run build:pages`). GitHub Pages has no PHP or database, so the preview shows the stock list in `docs/stock/decode-stock.csv` (`scripts/pages-demo.mjs`); logins, the cart's member offers and the admin need the real API and do not work there. To switch it on once: repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 ## Deployment
 
