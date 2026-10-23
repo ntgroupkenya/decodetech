@@ -16,7 +16,7 @@ export default function PriceLine({ product, offers, size = 'md' }) {
         <p className={`${big} font-bold leading-tight text-brand-charcoal`}>{kes(deal.price)}</p>
         <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs">
           <span className="text-gray-400 line-through">{kes(listed)}</span>
-          <span className="rounded-sm bg-brand-yellow/20 px-1.5 py-0.5 font-semibold text-teal-800">Member price</span>
+          <span className="rounded-sm bg-brand-teal/20 px-1.5 py-0.5 font-semibold text-brand-charcoal">Member price</span>
         </p>
       </div>
     )
@@ -27,7 +27,7 @@ export default function PriceLine({ product, offers, size = 'md' }) {
         <p className={`${big} font-bold leading-tight text-brand-charcoal`}>{kes(listed)}</p>
         <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs">
           <span className="text-gray-400 line-through">{kes(was)}</span>
-          <span className="rounded-sm bg-brand-ember/10 px-1.5 py-0.5 font-semibold text-brand-ember">-{kes(was - listed)}</span>
+          <span className="rounded-sm bg-brand-red/10 px-1.5 py-0.5 font-semibold text-brand-red">-{kes(was - listed)}</span>
         </p>
       </div>
     )

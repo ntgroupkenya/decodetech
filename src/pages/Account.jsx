@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { BadgePercent, Ticket, Truck } from 'lucide-react'
 import useAuth from '../auth/useAuth'
 
-const fieldClass = 'mt-1 w-full rounded-md border border-gray-300 px-3 py-2.5 focus:border-brand-yellow focus:outline-none focus:ring-2 focus:ring-brand-yellow/40'
+const fieldClass = 'mt-1 w-full rounded-md border border-gray-300 px-3 py-2.5 focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/40'
 
 export default function Account({ mode }) {
   const isSignup = mode === 'signup'
@@ -77,25 +77,25 @@ export default function Account({ mode }) {
             {isSignup && <span className="mt-1 block text-xs font-normal text-gray-500">At least 8 characters.</span>}
           </label>
 
-          <button type="submit" disabled={busy} className="w-full rounded-md bg-brand-charcoal px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-black disabled:opacity-50">
+          <button type="submit" disabled={busy} className="w-full rounded-md bg-brand-indigo px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-indigo-dark disabled:opacity-50">
             {busy ? 'Please wait…' : isSignup ? 'Create account' : 'Sign in'}
           </button>
 
           <p className="text-sm text-gray-600">
             {isSignup ? 'Already have an account? ' : 'New here? '}
-            <Link to={isSignup ? '/login' : '/signup'} state={location.state} className="font-semibold text-brand-blue hover:underline">
+            <Link to={isSignup ? '/login' : '/signup'} state={location.state} className="font-semibold text-brand-indigo hover:underline">
               {isSignup ? 'Sign in' : 'Create an account'}
             </Link>
           </p>
         </form>
 
         <aside className="grid-backdrop p-6 text-white sm:p-8 md:col-span-2">
-          <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-yellow">Members save more</p>
+          <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-teal">Members save more</p>
           <p className="mt-2 text-sm text-white/75">Unlock exclusive offers before you send an order on WhatsApp.</p>
           <ul className="mt-6 space-y-4">
             {perks.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-start gap-3 text-sm">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white/10 text-brand-yellow">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white/10 text-brand-teal">
                   <Icon size={16} aria-hidden="true" />
                 </span>
                 <span className="pt-1.5">{text}</span>

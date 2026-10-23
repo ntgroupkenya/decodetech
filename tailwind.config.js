@@ -8,13 +8,14 @@ export default {
     extend: {
       colors: {
         brand: {
-          yellow: '#48c0b0',
-          orange: '#7dd5c8',
-          ember: '#e0242b',
-          red: '#e0242b',
-          blue: '#5060a8',
-          charcoal: '#2a336e',
-          black: '#181e45',
+          charcoal: '#383938',
+          indigo: '#5163ad',
+          teal: '#4bc1b4',
+          grey: '#bfc0c3',
+          red: '#ed1f24',
+          ink: '#262726',
+          'indigo-dark': '#42539a',
+          'teal-light': '#7fd4ca',
         },
         surface: '#f3f4f8',
       },

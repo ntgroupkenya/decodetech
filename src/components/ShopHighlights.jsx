@@ -3,9 +3,9 @@ import { Flame, MousePointerClick, Trophy } from 'lucide-react'
 import ShopProductCard from './ShopProductCard'
 
 const TABS = [
-  { key: 'hot', label: 'Hot products', icon: Flame, badge: { label: 'Hot', className: 'bg-brand-ember text-white' }, width: 'w-60 sm:w-64' },
-  { key: 'bestSellers', label: 'Best sellers', icon: Trophy, badge: { label: 'Best seller', className: 'bg-brand-yellow text-brand-black' }, width: 'w-52 sm:w-56' },
-  { key: 'mostClicked', label: 'Most clicked', icon: MousePointerClick, badge: { label: 'Popular', className: 'bg-brand-charcoal text-white' }, width: 'w-52 sm:w-56' },
+  { key: 'hot', label: 'Hot products', icon: Flame, badge: { label: 'Hot', className: 'bg-brand-red text-white' }, width: 'w-60 sm:w-64' },
+  { key: 'bestSellers', label: 'Best sellers', icon: Trophy, badge: { label: 'Best seller', className: 'bg-brand-teal text-brand-ink' }, width: 'w-52 sm:w-56' },
+  { key: 'mostClicked', label: 'Most clicked', icon: MousePointerClick, badge: { label: 'Popular', className: 'bg-brand-indigo text-white' }, width: 'w-52 sm:w-56' },
 ]
 
 // A sideways-scrolling row of products picked by the admin (hot), by real dispatched orders (best sellers)
@@ -33,7 +33,7 @@ export default function ShopHighlights({ products, highlights, offers, onOrder, 
             role="tab"
             aria-selected={active.key === key}
             onClick={() => setChosen(key)}
-            className={`inline-flex shrink-0 items-center gap-2 border-b-2 px-3 py-3 text-sm font-semibold transition-colors ${active.key === key ? 'border-brand-ember text-brand-charcoal' : 'border-transparent text-gray-500 hover:text-brand-charcoal'}`}
+            className={`inline-flex shrink-0 items-center gap-2 border-b-2 px-3 py-3 text-sm font-semibold transition-colors ${active.key === key ? 'border-brand-red text-brand-charcoal' : 'border-transparent text-gray-500 hover:text-brand-charcoal'}`}
           >
             <Icon size={16} aria-hidden="true" /> {label}
             <span className="font-mono text-xs text-gray-400">{lists[key].length}</span>

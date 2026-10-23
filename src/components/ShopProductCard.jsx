@@ -12,7 +12,7 @@ import { productPath } from '../productSlug'
 // "Add to cart" fills the bottom; the green button orders this one product on WhatsApp; "Get a quote" asks for pricing.
 export default function ShopProductCard({ product, offers, view = 'grid', badge, onOrder, onQuote, onOpen }) {
   const isList = view === 'list'
-  const name = <Link to={productPath(product)} className="hover:text-brand-blue hover:underline">{product.name}</Link>
+  const name = <Link to={productPath(product)} className="hover:text-brand-indigo hover:underline">{product.name}</Link>
 
   const actions = (
     <div className={isList ? 'flex w-full flex-col gap-1.5 sm:w-48 sm:shrink-0' : 'mt-auto flex flex-col gap-1.5 pt-3'}>
@@ -29,7 +29,7 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
         </button>
       </div>
       {onQuote && (
-        <button type="button" onClick={() => onQuote(product)} className="text-left text-xs font-medium text-brand-blue hover:text-brand-charcoal hover:underline sm:text-center">
+        <button type="button" onClick={() => onQuote(product)} className="text-left text-xs font-medium text-brand-indigo hover:text-brand-charcoal hover:underline sm:text-center">
           Get a quote
         </button>
       )}
@@ -46,14 +46,14 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
 
   const meta = (
     <div className="flex flex-wrap items-center gap-2">
-      {product.brand && <span className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-blue">{product.brand}</span>}
+      {product.brand && <span className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-indigo">{product.brand}</span>}
       <ConditionTag condition={product.condition} />
     </div>
   )
 
   if (isList) {
     return (
-      <article className="flex overflow-hidden rounded-md border border-gray-200 bg-white transition-colors hover:border-brand-yellow">
+      <article className="flex overflow-hidden rounded-md border border-gray-200 bg-white transition-colors hover:border-brand-teal">
         <div className="w-28 shrink-0 border-r border-gray-100 sm:w-44">{photo}</div>
         <div className="flex min-w-0 flex-1 flex-col gap-3 p-3 sm:flex-row sm:items-center sm:gap-6 sm:p-4">
           <div className="min-w-0 flex-1 space-y-1">
@@ -72,7 +72,7 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
   }
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-md border border-gray-200 bg-white transition-colors hover:border-brand-yellow">
+    <article className="flex h-full flex-col overflow-hidden rounded-md border border-gray-200 bg-white transition-colors hover:border-brand-teal">
       <div className="border-b border-gray-100">{photo}</div>
       <div className="flex flex-1 flex-col gap-1.5 p-3">
         {meta}

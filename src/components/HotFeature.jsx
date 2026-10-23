@@ -4,7 +4,7 @@ import { Zap } from 'lucide-react'
 export default function HotFeature({ feature, className = '' }) {
   if (!feature) return null
   return (
-    <p className={`flex items-start gap-1.5 text-xs font-semibold text-brand-ember ${className}`}>
+    <p className={`flex items-start gap-1.5 text-xs font-semibold text-brand-red ${className}`}>
       <Zap size={14} className="mt-0.5 shrink-0 fill-current" aria-hidden="true" />
       <span className="line-clamp-2">{feature}</span>
     </p>

@@ -5,6 +5,7 @@ import useAuth from '../../auth/useAuth'
 import { applyPageMeta } from '../../pageMeta'
 import { btnPrimary, inputClass } from './ui'
 import { Notice } from './Widgets'
+import CodeMark from '../../components/CodeMark'
 import Dashboard from './Dashboard'
 import ProductsTab from './ProductsTab'
 import ClicksTab from './ClicksTab'
@@ -120,11 +121,11 @@ export default function Admin() {
   return (
     <div className="min-h-screen lg:flex">
       {/* Sidebar on large screens; a top bar with a sideways-scrolling menu on phones and tablets */}
-      <aside className="bg-brand-black text-white lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-60 lg:flex-col">
+      <aside className="bg-brand-charcoal text-white lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-60 lg:flex-col">
         <div className="flex items-center justify-between gap-3 px-4 py-3 lg:block lg:px-5 lg:py-6">
           <div>
             <img src="/logo-white.png" alt="DECODE IT Solutions" className="h-9 w-36 object-contain object-left" />
-            <p className="mt-1 font-mono text-[11px] font-bold uppercase tracking-wider text-brand-yellow">{'</>'} admin</p>
+            <p className="mt-1 font-mono text-[11px] font-bold uppercase tracking-wider text-white/80"><CodeMark /> admin</p>
           </div>
           <button type="button" onClick={logout} className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm text-white/80 hover:bg-white/10 lg:hidden">
             <LogOut size={16} /> Sign out
@@ -137,9 +138,9 @@ export default function Admin() {
               type="button"
               onClick={() => setTab(id)}
               aria-current={tab === id ? 'page' : undefined}
-              className={`inline-flex shrink-0 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${tab === id ? 'bg-white/10 text-white shadow-[inset_3px_0_0_var(--color-brand-yellow)]' : 'text-white/65 hover:bg-white/5 hover:text-white'}`}
+              className={`inline-flex shrink-0 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${tab === id ? 'bg-white/10 text-white shadow-[inset_3px_0_0_var(--color-brand-teal)]' : 'text-white/65 hover:bg-white/5 hover:text-white'}`}
             >
-              <Icon size={16} className={tab === id ? 'text-brand-yellow' : ''} /> {label}
+              <Icon size={16} className={tab === id ? 'text-brand-teal' : ''} /> {label}
             </button>
           ))}
         </nav>
@@ -155,7 +156,7 @@ export default function Admin() {
         <div className="border-b border-gray-200 bg-white">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
             <h1 className="text-xl font-bold text-brand-charcoal">{current?.label}</h1>
-            <Link to="/" target="_blank" className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue hover:underline">
+            <Link to="/" target="_blank" className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-indigo hover:underline">
               View shop <ExternalLink size={14} aria-hidden="true" />
             </Link>
           </div>

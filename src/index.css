@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
-/* DECODE IT Solutions palette, sampled from the logo. */
+/* DECODE IT Solutions palette: the five colours of the logo, plus a few tints and shades of them. */
 @theme {
-  --color-brand-yellow: #48c0b0;   /* accent (logo teal): buttons, highlights, text on indigo */
-  --color-brand-orange: #7dd5c8;   /* lighter teal: hover state of accent buttons (indigo text stays readable) */
-  --color-brand-ember: #e0242b;    /* logo red: hot badges, sale prices */
-  --color-brand-red: #e0242b;
-  --color-brand-blue: #5060a8;     /* logo indigo */
-  --color-brand-charcoal: #2a336e; /* primary (deep logo indigo): buttons, headings */
-  --color-brand-black: #181e45;    /* deepest indigo: header, footer, admin sidebar */
-  --color-surface: #f3f4f8;        /* page background behind the white panels */
+  --color-brand-charcoal: #383938;    /* logo: the computer and the "DECODE" lettering. Header, footer, admin sidebar, headings */
+  --color-brand-indigo: #5163ad;      /* logo: the ">" bracket. Buttons, links, active filters, the category bar */
+  --color-brand-teal: #4bc1b4;        /* logo: the "<" bracket. The accent: search button, highlights, focus rings */
+  --color-brand-grey: #bfc0c3;        /* logo: the "/" slash. Dividers and the "//" of the small labels */
+  --color-brand-red: #ed1f24;         /* logo: the red node. Hot products, sale prices, free-gift ribbons */
+  --color-brand-ink: #262726;         /* darker charcoal: overlays, text on teal */
+  --color-brand-indigo-dark: #42539a; /* darker indigo: button hover */
+  --color-brand-teal-light: #7fd4ca;  /* lighter teal: teal button hover */
+  --color-surface: #f3f4f8;           /* page background behind the white panels */
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -44,23 +45,25 @@ h1, h2, h3 {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-brand-blue);
+  color: var(--color-brand-indigo);
 }
 
 .code-label::before {
   content: '// ';
-  color: var(--color-brand-yellow);
+  color: var(--color-brand-grey);
 }
 
-/* The logo's teal-to-red line, used under the header and above the footer. */
+/* The logo's colours side by side (teal, grey, indigo, red), under the header and above the footer. */
 .brand-line {
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-brand-yellow), var(--color-brand-blue) 55%, var(--color-brand-ember));
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--color-brand-teal) 0 25%, var(--color-brand-grey) 25% 50%,
+    var(--color-brand-indigo) 50% 75%, var(--color-brand-red) 75% 100%);
 }
 
 /* Faint grid behind the shop's intro panel, like graph paper on a circuit board. */
 .grid-backdrop {
-  background-color: var(--color-brand-black);
+  background-color: var(--color-brand-charcoal);
   background-image:
     linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);

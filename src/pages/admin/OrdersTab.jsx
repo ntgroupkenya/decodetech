@@ -98,14 +98,14 @@ function OrderCard({ order, onSaved, onError }) {
               setForm({ ...form, status: s.value })
               save({ status: s.value })
             }}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50 ${form.status === s.value ? 'border-brand-charcoal bg-brand-charcoal text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
+            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50 ${form.status === s.value ? 'border-brand-indigo bg-brand-indigo text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
           >
             {s.label}
           </button>
         ))}
         <span className="flex-1" />
         {dirty && (
-          <button type="button" disabled={busy} className={`${btnGhost} border-brand-yellow`} onClick={() => save()}>
+          <button type="button" disabled={busy} className={`${btnGhost} border-brand-teal`} onClick={() => save()}>
             Save changes
           </button>
         )}
@@ -157,7 +157,7 @@ export default function OrdersTab() {
             type="button"
             aria-pressed={filter === s.value}
             onClick={() => setFilter(s.value)}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium ${filter === s.value ? 'bg-brand-yellow text-brand-charcoal' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            className={`rounded-md px-3 py-1.5 text-sm font-medium ${filter === s.value ? 'bg-brand-teal text-brand-charcoal' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
           >
             {s.label} ({counts[s.value] ?? 0})
           </button>

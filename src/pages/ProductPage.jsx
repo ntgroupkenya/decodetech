@@ -87,7 +87,7 @@ export default function ProductPage() {
           <>
             <h1 className="text-3xl font-bold text-brand-charcoal">Product not found</h1>
             <p className="mt-3 text-gray-600">This product may have been removed or renamed.</p>
-            <Link to="/" className="mt-6 inline-block rounded-md bg-brand-charcoal px-6 py-3 font-semibold text-white hover:bg-brand-black">Browse the shop</Link>
+            <Link to="/" className="mt-6 inline-block rounded-md bg-brand-indigo px-6 py-3 font-semibold text-white hover:bg-brand-indigo-dark">Browse the shop</Link>
           </>
         ) : (
           <p className="text-gray-500">Loading product…</p>
@@ -131,7 +131,7 @@ export default function ProductPage() {
                       onClick={() => setActiveImage(index)}
                       aria-label={`Show photo ${index + 1}`}
                       aria-current={index === activeImage ? 'true' : undefined}
-                      className={`h-16 w-16 overflow-hidden rounded-md border-2 bg-slate-50 sm:h-20 sm:w-20 ${index === activeImage ? 'border-brand-yellow' : 'border-gray-200 hover:border-gray-300'}`}
+                      className={`h-16 w-16 overflow-hidden rounded-md border-2 bg-slate-50 sm:h-20 sm:w-20 ${index === activeImage ? 'border-brand-teal' : 'border-gray-200 hover:border-gray-300'}`}
                     >
                       <img src={assetUrl(src)} alt="" loading="lazy" className="h-full w-full object-contain p-1 mix-blend-multiply" />
                     </button>
@@ -156,7 +156,7 @@ export default function ProductPage() {
           <div className="rounded-md border border-gray-200 bg-white p-5">
             {(hasBrand || product.condition) && (
               <div className="flex flex-wrap items-center gap-2">
-                {hasBrand && <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-blue">{product.brand}</p>}
+                {hasBrand && <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-indigo">{product.brand}</p>}
                 <ConditionTag condition={product.condition} />
               </div>
             )}
@@ -180,16 +180,16 @@ export default function ProductPage() {
               <button
                 type="button"
                 onClick={() => requestQuote(product)}
-                className="w-full rounded-md border border-gray-300 px-6 py-3 font-semibold text-brand-charcoal transition-colors hover:border-brand-charcoal"
+                className="w-full rounded-md border border-gray-300 px-6 py-3 font-semibold text-brand-charcoal transition-colors hover:border-brand-indigo"
               >
                 Get an expert quote
               </button>
             </div>
 
             <ul className="mt-5 space-y-2.5 border-t border-gray-100 pt-4 text-sm text-gray-600">
-              <li className="flex items-start gap-3"><MessageCircle size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" /> Price and availability are confirmed with you on WhatsApp.</li>
-              <li className="flex items-start gap-3"><Wallet size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" /> Pay by M-Pesa or bank transfer.</li>
-              <li className="flex items-start gap-3"><MapPin size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" /> Delivery, or pick up from our shop.</li>
+              <li className="flex items-start gap-3"><MessageCircle size={16} className="mt-0.5 shrink-0 text-brand-teal" aria-hidden="true" /> Price and availability are confirmed with you on WhatsApp.</li>
+              <li className="flex items-start gap-3"><Wallet size={16} className="mt-0.5 shrink-0 text-brand-teal" aria-hidden="true" /> Pay by M-Pesa or bank transfer.</li>
+              <li className="flex items-start gap-3"><MapPin size={16} className="mt-0.5 shrink-0 text-brand-teal" aria-hidden="true" /> Delivery, or pick up from our shop.</li>
             </ul>
           </div>
         </aside>
@@ -199,7 +199,7 @@ export default function ProductPage() {
         <section className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Related products">
           <div className="mb-3 flex items-end justify-between gap-4">
             <h2 className="text-xl font-bold text-brand-charcoal">More in {product.categoryName || product.category}</h2>
-            <Link to={categoryHref} className="text-sm font-medium text-brand-blue hover:underline">See all</Link>
+            <Link to={categoryHref} className="text-sm font-medium text-brand-indigo hover:underline">See all</Link>
           </div>
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {related.map((item) => (

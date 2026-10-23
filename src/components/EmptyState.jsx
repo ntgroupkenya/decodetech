@@ -4,7 +4,7 @@ import { PackageOpen } from 'lucide-react'
 export default function EmptyState({ icon: Icon = PackageOpen, title, text, children, compact = false }) {
   return (
     <div className={`flex flex-col items-center rounded-md border border-dashed border-slate-300 bg-white text-center ${compact ? 'px-6 py-8' : 'px-6 py-14'}`}>
-      <span className="flex h-12 w-12 items-center justify-center rounded-md bg-brand-blue/10 text-brand-blue">
+      <span className="flex h-12 w-12 items-center justify-center rounded-md bg-brand-indigo/10 text-brand-indigo">
         <Icon size={24} aria-hidden="true" />
       </span>
       <p className="mt-4 font-semibold text-brand-charcoal">{title}</p>

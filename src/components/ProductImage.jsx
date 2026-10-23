@@ -47,7 +47,7 @@ export default function ProductImage({ src: rawSrc, alt, className = '', onOpen 
           role="dialog"
           aria-modal="true"
           aria-label={`Larger image: ${alt}`}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-brand-black/90 p-4 sm:p-8"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-brand-ink/90 p-4 sm:p-8"
           onClick={() => setIsOpen(false)}
         >
           <button

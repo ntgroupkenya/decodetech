@@ -97,7 +97,7 @@ function SearchBox({ className = '' }) {
   }
 
   return (
-    <form role="search" onSubmit={submit} className={`flex h-11 overflow-hidden rounded-md bg-white ring-2 ring-transparent focus-within:ring-brand-yellow ${className}`}>
+    <form role="search" onSubmit={submit} className={`flex h-11 overflow-hidden rounded-md bg-white ring-2 ring-transparent focus-within:ring-brand-teal ${className}`}>
       <input
         type="search"
         value={value}
@@ -111,7 +111,7 @@ function SearchBox({ className = '' }) {
           <X size={18} />
         </button>
       )}
-      <button type="submit" aria-label="Search" className="flex w-12 items-center justify-center bg-brand-yellow text-brand-black transition-colors hover:bg-brand-orange">
+      <button type="submit" aria-label="Search" className="flex w-12 items-center justify-center bg-brand-teal text-brand-ink transition-colors hover:bg-brand-teal-light">
         <Search size={20} aria-hidden="true" />
       </button>
     </form>
@@ -128,7 +128,7 @@ export default function Header() {
   const activeCategory = pathname === '/' ? params.get('cat') || '' : null
 
   return (
-    <header className="sticky top-0 z-50 bg-brand-black text-white shadow-lg">
+    <header className="sticky top-0 z-50 bg-brand-charcoal text-white shadow-lg">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:gap-6 lg:px-8">
         <Link to="/" className="shrink-0" aria-label="DECODE IT Solutions shop home">
           <img src="/logo-white.png" alt="DECODE IT Solutions" className="h-10 w-36 object-contain object-left sm:h-11 sm:w-44" />
@@ -158,7 +158,7 @@ export default function Header() {
           >
             <span className="relative">
               <ShoppingCart size={24} aria-hidden="true" />
-              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-yellow px-1 font-mono text-[11px] font-bold text-brand-black">
+              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-teal px-1 font-mono text-[11px] font-bold text-brand-ink">
                 {count > 99 ? '99+' : count}
               </span>
             </span>
@@ -172,14 +172,14 @@ export default function Header() {
       </div>
 
       {categories.length > 0 && (
-        <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-charcoal md:block">
+        <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-indigo md:block">
           <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 text-sm sm:px-6 lg:px-8">
             {[{ slug: '', name: 'All products' }, ...categories].map(({ slug, name }) => (
               <Link
                 key={slug || 'all'}
                 to={slug ? `/?cat=${slug}` : '/'}
                 aria-current={activeCategory === slug ? 'page' : undefined}
-                className={`shrink-0 border-b-2 px-3 py-2.5 transition-colors ${activeCategory === slug ? 'border-brand-yellow font-semibold text-white' : 'border-transparent text-white/75 hover:text-white'}`}
+                className={`shrink-0 border-b-2 px-3 py-2.5 transition-colors ${activeCategory === slug ? 'border-brand-teal font-semibold text-white' : 'border-transparent text-white/75 hover:text-white'}`}
               >
                 {name}
               </Link>

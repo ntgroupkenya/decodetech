@@ -10,9 +10,12 @@ Built with React, Vite, Tailwind CSS and React Router, plus a small PHP + MySQL 
 ## Look and brand
 
 - Name and tagline: `SITE_NAME` and `TAGLINE` in `src/siteDefaults.js`. `index.html` repeats them for search engines.
-- Colours, sampled from the logo: `@theme` in `src/index.css` (mirrored in `tailwind.config.js`). Deep indigo `#2A336E` (`brand-charcoal`), deepest indigo `#181E45` (`brand-black`, header, footer and admin sidebar), teal `#48C0B0` (`brand-yellow`, the accent), light teal `#7DD5C8` (`brand-orange`), red `#E0242B` (`brand-ember`), indigo `#5060A8` (`brand-blue`). The class names are kept from the template.
+- Colours: the five colours of the logo, set in `@theme` in `src/index.css` (mirrored in `tailwind.config.js`):
+  charcoal `#383938` (`brand-charcoal`: header, footer, admin sidebar, headings), indigo `#5163AD` (`brand-indigo`: buttons, links, the category bar),
+  teal `#4BC1B4` (`brand-teal`: the accent), grey `#BFC0C3` (`brand-grey`: the `/` of the labels) and red `#ED1F24` (`brand-red`: hot products, sale prices, gift ribbons).
+  Three shades of them are only for hover states and overlays: `brand-ink`, `brand-indigo-dark`, `brand-teal-light`. The `</>` mark is drawn in its logo colours by `src/components/CodeMark.jsx`.
 - Fonts (Google Fonts, linked in `index.html`): Space Grotesk for headings, Inter for text and JetBrains Mono for prices and small labels (the `.code-label` "// label" style echoes the `</>` logo).
-- Layout: a dark header with the search box, account and cart, and a category bar; the Shop has a dark intro panel, the highlights rail, a filter column (a drawer on phones) and the product grid. Cards are flat with square-ish corners.
+- Layout: a charcoal header with the search box, account and cart, and a category bar; the Shop has a charcoal intro panel, the highlights rail, a filter column (a drawer on phones) and the product grid. Cards are flat with square-ish corners.
 - Logo files in `public/`: `logo.png`, `logo-white.png` (used on the dark header, footer and admin), `favicon.png` and `favicon-48.png`.
 
 ## Setting up

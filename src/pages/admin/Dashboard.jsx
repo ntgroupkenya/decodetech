@@ -23,7 +23,7 @@ export default function Dashboard({ goTo }) {
             key={card.label}
             type="button"
             onClick={() => goTo(card.tab)}
-            className="rounded-md border border-gray-200 bg-white p-5 text-left transition hover:border-brand-yellow"
+            className="rounded-md border border-gray-200 bg-white p-5 text-left transition hover:border-brand-teal"
           >
             <p className="font-mono text-3xl font-bold text-brand-charcoal">{card.value}</p>
             <p className="mt-1 text-sm text-gray-600">{card.label}</p>

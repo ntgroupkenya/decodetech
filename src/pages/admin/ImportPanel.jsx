@@ -56,7 +56,7 @@ export default function ImportPanel({ currentProducts, onDone }) {
         </button>
       </div>
 
-      <input ref={inputRef} type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={choose} className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-md file:border-0 file:bg-brand-yellow file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-charcoal hover:file:bg-brand-orange" />
+      <input ref={inputRef} type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={choose} className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-md file:border-0 file:bg-brand-teal file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-charcoal hover:file:bg-brand-teal-light" />
 
       {error && <Notice>{error}</Notice>}
 

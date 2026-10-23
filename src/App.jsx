@@ -14,10 +14,10 @@ import Admin from './pages/admin/Admin'
 function NotFound() {
   return (
     <div className="mx-auto max-w-xl px-4 py-24 text-center">
-      <p className="font-mono text-sm text-brand-blue">404</p>
+      <p className="font-mono text-sm text-brand-indigo">404</p>
       <h1 className="mt-2 text-3xl font-bold text-brand-charcoal">This page is not in the shop</h1>
       <p className="mt-3 text-gray-600">It may have moved. Everything we sell is on the shop page.</p>
-      <Link to="/" className="mt-6 inline-block rounded-md bg-brand-charcoal px-5 py-3 font-semibold text-white hover:bg-brand-black">Go to the shop</Link>
+      <Link to="/" className="mt-6 inline-block rounded-md bg-brand-indigo px-5 py-3 font-semibold text-white hover:bg-brand-indigo-dark">Go to the shop</Link>
     </div>
   )
 }

@@ -64,10 +64,10 @@ function FilterGroup({ title, options, active, onPick, allLabel }) {
         type="button"
         onClick={() => onPick(value)}
         aria-pressed={active === value}
-        className={`flex w-full items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors ${active === value ? 'bg-brand-charcoal font-semibold text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+        className={`flex w-full items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors ${active === value ? 'bg-brand-indigo font-semibold text-white' : 'text-gray-700 hover:bg-gray-100'}`}
       >
         <span className="truncate">{label}</span>
-        {count != null && <span className={`font-mono text-xs ${active === value ? 'text-brand-yellow' : 'text-gray-400'}`}>{count}</span>}
+        {count != null && <span className={`font-mono text-xs ${active === value ? 'text-brand-teal' : 'text-gray-400'}`}>{count}</span>}
       </button>
     </li>
   )
@@ -193,7 +193,7 @@ export default function Shop() {
       <section className="grid-backdrop text-white">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:py-10 lg:grid-cols-[1fr_22rem] lg:px-8">
           <div>
-            <p className="code-label !text-brand-yellow">decode shop</p>
+            <p className="code-label !text-brand-teal">decode shop</p>
             <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">{TAGLINE}.</h1>
             <p className="mt-3 max-w-xl text-white/75">
               Laptops, desktops and accessories from DECODE IT Solutions in Nairobi. Fill your cart and send us one order on WhatsApp. We confirm the price and stock with you.
@@ -211,7 +211,7 @@ export default function Shop() {
           </div>
 
           <div className="self-start rounded-md border border-white/15 bg-white/5 p-5" aria-label="Member offers">
-            <div className="flex items-center gap-2 text-brand-yellow">
+            <div className="flex items-center gap-2 text-brand-teal">
               <BadgePercent size={18} aria-hidden="true" />
               <p className="font-mono text-xs font-bold uppercase tracking-wide">Members save more</p>
             </div>
@@ -226,7 +226,7 @@ export default function Shop() {
               <>
                 <p className="mt-2 text-sm text-white/85">Discounts, coupon codes and delivery offers for account holders.</p>
                 <div className="mt-4 flex gap-2">
-                  <Link to="/signup" state={{ from: '/' }} className="flex-1 rounded-md bg-brand-yellow px-3 py-2 text-center text-sm font-semibold text-brand-black hover:bg-brand-orange">Create account</Link>
+                  <Link to="/signup" state={{ from: '/' }} className="flex-1 rounded-md bg-brand-teal px-3 py-2 text-center text-sm font-semibold text-brand-ink hover:bg-brand-teal-light">Create account</Link>
                   <Link to="/login" state={{ from: '/' }} className="flex-1 rounded-md border border-white/30 px-3 py-2 text-center text-sm font-semibold hover:bg-white/10">Log in</Link>
                 </div>
               </>
@@ -237,7 +237,7 @@ export default function Shop() {
           <ol className="no-scrollbar mx-auto flex max-w-7xl gap-6 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8" aria-label="How ordering works">
             {STEPS.map((step, index) => (
               <li key={step} className="flex shrink-0 items-center gap-2 text-sm text-white/80">
-                <span className="font-mono text-xs font-bold text-brand-yellow">0{index + 1}</span> {step}
+                <span className="font-mono text-xs font-bold text-brand-teal">0{index + 1}</span> {step}
               </li>
             ))}
           </ol>
@@ -268,7 +268,7 @@ export default function Shop() {
                 </div>
                 <div className="flex-1 overflow-y-auto p-4">{filters}</div>
                 <div className="border-t border-gray-200 p-4">
-                  <button type="button" onClick={() => setFiltersOpen(false)} className="w-full rounded-md bg-brand-charcoal py-3 font-semibold text-white">
+                  <button type="button" onClick={() => setFiltersOpen(false)} className="w-full rounded-md bg-brand-indigo py-3 font-semibold text-white">
                     Show {filteredProducts.length} product{filteredProducts.length === 1 ? '' : 's'}
                   </button>
                 </div>
@@ -288,7 +288,7 @@ export default function Shop() {
               <div className="ml-auto flex items-center gap-2">
                 <label className="flex items-center gap-2 text-sm text-gray-600">
                   <span className="hidden sm:inline">Sort</span>
-                  <select value={sort} onChange={(e) => setFilter('sort', e.target.value)} className="rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm focus:border-brand-yellow focus:outline-none focus:ring-2 focus:ring-brand-yellow/40">
+                  <select value={sort} onChange={(e) => setFilter('sort', e.target.value)} className="rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/40">
                     {SORTS.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
                   </select>
                 </label>
@@ -300,7 +300,7 @@ export default function Shop() {
                       value={columns}
                       onChange={(e) => updateViewPrefs({ columns: Number(e.target.value) })}
                       title="Products per row on large screens. Phones and tablets show fewer."
-                      className="rounded-md border border-gray-300 bg-white px-2 py-1.5 font-mono text-sm focus:border-brand-yellow focus:outline-none focus:ring-2 focus:ring-brand-yellow/40"
+                      className="rounded-md border border-gray-300 bg-white px-2 py-1.5 font-mono text-sm focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/40"
                     >
                       {COLUMN_CHOICES.map((n) => <option key={n} value={n}>{n}</option>)}
                     </select>
@@ -315,7 +315,7 @@ export default function Shop() {
                       aria-label={`${label} layout`}
                       title={label}
                       onClick={() => updateViewPrefs({ view: id })}
-                      className={`px-2.5 py-1.5 transition-colors ${view === id ? 'bg-brand-charcoal text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+                      className={`px-2.5 py-1.5 transition-colors ${view === id ? 'bg-brand-indigo text-white' : 'text-gray-600 hover:bg-gray-100'}`}
                     >
                       <Icon size={16} aria-hidden="true" />
                     </button>
@@ -329,13 +329,13 @@ export default function Shop() {
                       key={chip.key}
                       type="button"
                       onClick={() => setFilter(chip.key, '')}
-                      className="inline-flex items-center gap-1.5 rounded-sm bg-brand-yellow/15 px-2 py-1 text-xs font-medium text-brand-charcoal hover:bg-brand-yellow/30"
+                      className="inline-flex items-center gap-1.5 rounded-sm bg-brand-teal/15 px-2 py-1 text-xs font-medium text-brand-charcoal hover:bg-brand-teal/30"
                       aria-label={`Remove filter ${chip.label}`}
                     >
                       {chip.label} <X size={12} aria-hidden="true" />
                     </button>
                   ))}
-                  <button type="button" onClick={clearFilters} className="text-xs font-medium text-brand-ember hover:underline">Clear all</button>
+                  <button type="button" onClick={clearFilters} className="text-xs font-medium text-brand-red hover:underline">Clear all</button>
                 </div>
               )}
             </div>
@@ -381,7 +381,7 @@ export default function Shop() {
                         type="button"
                         onClick={() => goToPage(n)}
                         aria-current={n === currentPage ? 'page' : undefined}
-                        className={`min-w-9 rounded-md border px-2 py-1.5 font-mono text-sm ${n === currentPage ? 'border-brand-charcoal bg-brand-charcoal text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'}`}
+                        className={`min-w-9 rounded-md border px-2 py-1.5 font-mono text-sm ${n === currentPage ? 'border-brand-indigo bg-brand-indigo text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'}`}
                       >
                         {n}
                       </button>
@@ -403,7 +403,7 @@ export default function Shop() {
               <EmptyState title="No products added yet" text="The shop is being stocked. Message us on WhatsApp and we'll tell you what's available today." />
             ) : filteredProducts.length === 0 && (
               <EmptyState title="Nothing matches these filters" text="Try another search word, or clear the filters to see everything.">
-                <button type="button" onClick={clearFilters} className="rounded-md bg-brand-charcoal px-4 py-2 text-sm font-semibold text-white hover:bg-brand-black">
+                <button type="button" onClick={clearFilters} className="rounded-md bg-brand-indigo px-4 py-2 text-sm font-semibold text-white hover:bg-brand-indigo-dark">
                   Clear all filters
                 </button>
               </EmptyState>
