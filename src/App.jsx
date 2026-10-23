@@ -7,6 +7,7 @@ import CartDrawer from './components/CartDrawer'
 import PageMeta from './components/PageMeta'
 import AnnouncementBar from './components/AnnouncementBar'
 import Shop from './pages/Shop'
+import Categories from './pages/Categories'
 import ProductPage from './pages/ProductPage'
 import Account from './pages/Account'
 import Admin from './pages/admin/Admin'
@@ -30,6 +31,7 @@ function Storefront() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Shop />} />
+          <Route path="/categories" element={<Categories />} />
           <Route path="/product/:id/:slug?" element={<ProductPage />} />
           <Route path="/login" element={<Account mode="login" />} />
           <Route path="/signup" element={<Account mode="signup" />} />

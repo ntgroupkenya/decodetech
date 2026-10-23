@@ -140,7 +140,7 @@ function CategoryBar({ categories, active, hours }) {
     }
   }, [open])
 
-  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-white font-semibold text-white' : 'border-transparent text-white/90 hover:border-white/50 hover:text-white'}`
+  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-brand-teal font-semibold text-white' : 'border-transparent text-white/80 hover:text-white'}`
 
   return (
     <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-primary md:block">
@@ -171,11 +171,14 @@ function CategoryBar({ categories, active, hours }) {
                         className={`flex items-center justify-between gap-2 rounded-sm px-2 py-1.5 ${active === slug ? 'bg-brand-primary font-semibold text-white' : 'hover:bg-gray-100'}`}
                       >
                         <span className="truncate">{name}</span>
-                        <span className={`font-mono text-xs ${active === slug ? 'text-white/80' : 'text-gray-400'}`}>{products.length}</span>
+                        <span className={`font-mono text-xs ${active === slug ? 'text-brand-teal' : 'text-gray-400'}`}>{products.length}</span>
                       </Link>
                     </li>
                   ))}
                 </ul>
+                <Link to="/categories" onClick={() => setOpen(false)} className="mt-2 block border-t border-gray-100 px-2 pt-2.5 text-sm font-semibold text-brand-primary hover:underline">
+                  See all categories with pictures →
+                </Link>
               </div>
             )}
           </div>

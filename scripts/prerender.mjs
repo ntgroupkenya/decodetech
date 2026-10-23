@@ -143,6 +143,7 @@ const urlEntry = (route, lastmod, changefreq, priority) =>
 const sitemap =
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   urlEntry('/', today, 'daily', '1.0') +
+  urlEntry('/categories', today, 'weekly', '0.6') +
   productEntries.map(({ route, updatedAt }) => urlEntry(route, updatedAt ? String(updatedAt).slice(0, 10) : today, 'weekly', '0.8')).join('') +
   `</urlset>\n`
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemap)

@@ -39,13 +39,13 @@ const NAME_KINDS = [
   ['camera', /camera|cctv/i],
 ]
 
-const CATEGORY_KINDS = {
+export const CATEGORY_KINDS = {
   Laptops: 'laptop', Desktops: 'tower', 'All-in-One PCs': 'aio', Monitors: 'monitor', 'Interactive Displays': 'monitor',
   'Replacement Screens': 'monitor', 'Privacy Filters': 'monitor', 'Printers & Scanners': 'printer', 'Projectors & Screens': 'projector',
   'Memory (RAM)': 'ram', Storage: 'drive', 'Memory Cards & Flash Drives': 'card', 'Laptop Bags & Sleeves': 'bag',
   'Laptop & Phone Stands': 'stand', 'Power Banks': 'powerbank', Chargers: 'charger', 'Car Accessories': 'charger',
   'Docks & Hubs': 'dock', 'Cables & Adapters': 'cord', 'Network Storage (NAS)': 'nas', 'UPS & Power': 'ups',
-  'IP Phones & PBX': 'phone', Phones: 'smartphone', Tablets: 'tablet', 'CCTV Recorders': 'recorder', 'CCTV Cameras': 'bullet', 'Intercoms & Alarms': 'intercom',
+  'IP Phones & PBX': 'phone', Phones: 'smartphone', Tablets: 'tablet', TVs: 'monitor', 'CCTV Recorders': 'recorder', 'CCTV Cameras': 'bullet', 'Intercoms & Alarms': 'intercom',
   'Keyboards & Mice': 'mouse', Audio: 'headset', 'Webcams & Presenters': 'webcam', Networking: 'switch',
 }
 

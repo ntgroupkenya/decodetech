@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
-/* DECODE IT Solutions palette: the five colours of the logo, plus a few tints and shades of them. */
+/* DECODE IT Solutions palette: the five colours of the logo, with indigo and teal at their most vibrant (same hues as the
+   logo's #5163ad and #4bc1b4, more saturated), plus a few tints and shades of them. */
 @theme {
   --color-brand-charcoal: #383938;    /* logo: the computer and the "DECODE" lettering. Header, footer, admin sidebar, headings */
-  --color-brand-primary: #ed1f24;     /* the primary colour: the logo red, its most vibrant colour. Buttons, links, active filters, the category bar */
-  --color-brand-primary-dark: #c4161b; /* darker red: button hover */
-  --color-brand-indigo: #5163ad;      /* logo: the ">" bracket. The </> mark and the product drawings */
-  --color-brand-teal: #4bc1b4;        /* logo: the "<" bracket. The accent: search button, highlights, focus rings */
+  --color-brand-primary: #2445db;     /* the primary colour: the logo's indigo, vivid. Buttons, links, active filters, the category bar */
+  --color-brand-primary-dark: #1d39b4; /* darker indigo: button hover */
+  --color-brand-indigo: #2445db;      /* logo: the ">" bracket. The </> mark and the product drawings */
+  --color-brand-teal: #1dc9b8;        /* logo: the "<" bracket, vivid. The accent: search button, highlights, focus rings */
   --color-brand-grey: #bfc0c3;        /* logo: the "/" slash. Dividers and the "//" of the small labels */
-  --color-brand-red: #ed1f24;         /* logo: the red node. Hot products, sale prices, free-gift ribbons (same red as primary) */
+  --color-brand-red: #ed1f24;         /* logo: the red node (already vivid). Hot products, sale prices, free-gift ribbons */
   --color-brand-ink: #262726;         /* darker charcoal: overlays, text on teal */
-  --color-brand-teal-light: #7fd4ca;  /* lighter teal: teal button hover */
+  --color-brand-teal-light: #55e7d8;  /* lighter teal: teal button hover */
   --color-surface: #f3f4f8;           /* page background behind the white panels */
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;

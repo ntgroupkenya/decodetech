@@ -9,8 +9,8 @@
   <circle cx="138" cy="262" r="8" fill="#fff"/>
   <circle cx="246" cy="262" r="8" fill="#fff"/>
   <g fill="none" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M162 116L144 135L162 154" stroke="#4bc1b4"/>
+    <path d="M162 116L144 135L162 154" stroke="#1dc9b8"/>
     <path d="M190 112L177 158" stroke="#bfc0c3"/>
-    <path d="M206 116L224 135L206 154" stroke="#5163ad"/>
+    <path d="M206 116L224 135L206 154" stroke="#2445db"/>
   </g>
 </svg>

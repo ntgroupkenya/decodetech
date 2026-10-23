@@ -16,6 +16,10 @@ export const PAGE_META = {
     description:
       'Laptops, desktops and computer accessories in Nairobi. Add products to your cart, unlock member offers and send one order on WhatsApp.',
   },
+  '/categories': {
+    title: `Shop by Category | ${SITE}`,
+    description: 'Every DECODE IT Solutions shop category: laptops, phones, accessories, CCTV, networking, TVs, kitchen appliances and more.',
+  },
   '/login': {
     title: `Log In | ${SITE}`,
     description: 'Log in to your DECODE IT Solutions account to see member discounts, coupons and delivery offers.',

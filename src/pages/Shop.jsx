@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { BadgePercent, ChevronLeft, ChevronRight, LayoutGrid, List, SlidersHorizontal, X } from 'lucide-react'
 import EmptyState from '../components/EmptyState'
 import BrandStrip from '../components/BrandStrip'
+import CategoryCard from '../components/CategoryCard'
 import HeroBackdrop from '../components/HeroBackdrop'
 import { trackProductClick } from '../api'
 import useOrdering from '../useOrdering'
@@ -79,7 +80,7 @@ function FilterGroup({ title, options, active, onPick, allLabel }) {
         className={`flex w-full items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors ${active === value ? 'bg-brand-primary font-semibold text-white' : 'text-gray-700 hover:bg-gray-100'}`}
       >
         <span className="truncate">{label}</span>
-        {count != null && <span className={`font-mono text-xs ${active === value ? 'text-white/80' : 'text-gray-400'}`}>{count}</span>}
+        {count != null && <span className={`font-mono text-xs ${active === value ? 'text-brand-teal' : 'text-gray-400'}`}>{count}</span>}
       </button>
     </li>
   )
@@ -284,6 +285,20 @@ export default function Shop() {
       </section>
 
       <div className="mx-auto max-w-7xl space-y-6 px-4 pt-6 sm:px-6 lg:px-8">
+        {!category && !query && !brand && categoryGroups.length > 0 && (
+          <section aria-labelledby="shop-categories">
+            <div className="mb-3 flex items-end justify-between gap-4">
+              <h2 id="shop-categories" className="text-xl font-bold text-brand-charcoal">Shop by category</h2>
+              <Link to="/categories" className="text-sm font-semibold text-brand-primary hover:underline">All {categoryGroups.length} categories →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+              {categoryGroups.slice(0, 8).map(({ slug, name, products: items }, index) => (
+                <CategoryCard key={slug} slug={slug} name={name} count={items.length} index={index} />
+              ))}
+            </div>
+          </section>
+        )}
+
         <ShopHighlights
           products={products}
           highlights={highlights}
