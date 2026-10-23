@@ -28,6 +28,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build:pages
+        env:
+          # The preview lives at https://<owner>.github.io/<repo>/, so every link and file path starts with /<repo>/.
+          VITE_BASE: /${{ github.event.repository.name }}/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
