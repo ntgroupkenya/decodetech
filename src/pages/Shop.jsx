@@ -58,8 +58,18 @@ function tally(products, pick) {
   return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 }
 
+// A filter list: the biggest LIST_SIZE entries (and the picked one), then "Show all" for the rest, with a search box
+// when the full list is long (there are about 40 categories and 50 brands).
+const LIST_SIZE = 8
+
 function FilterGroup({ title, options, active, onPick, allLabel }) {
+  const [expanded, setExpanded] = useState(false)
+  const [find, setFind] = useState('')
   if (options.length === 0) return null
+  const needle = find.trim().toLowerCase()
+  const visible = expanded
+    ? options.filter(([, label]) => !needle || label.toLowerCase().includes(needle))
+    : options.filter(([value], index) => index < LIST_SIZE || value === active)
   const row = (value, label, count) => (
     <li key={value || 'all'}>
       <button
@@ -76,10 +86,31 @@ function FilterGroup({ title, options, active, onPick, allLabel }) {
   return (
     <div>
       <h3 className="code-label mb-2">{title}</h3>
-      <ul className="space-y-0.5">
-        {row('', allLabel, null)}
-        {options.map(([value, label, count]) => row(value, label, count))}
+      {expanded && options.length > 15 && (
+        <input
+          type="search"
+          value={find}
+          onChange={(e) => setFind(e.target.value)}
+          placeholder={`Find a ${title.toLowerCase()}…`}
+          aria-label={`Find a ${title.toLowerCase()}`}
+          className="mb-2 w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/40"
+        />
+      )}
+      <ul className={`space-y-0.5 ${expanded ? 'max-h-80 overflow-y-auto pr-1' : ''}`}>
+        {!needle && row('', allLabel, null)}
+        {visible.map(([value, label, count]) => row(value, label, count))}
+        {needle && visible.length === 0 && <li className="px-2 py-1.5 text-sm text-gray-500">No match</li>}
       </ul>
+      {options.length > LIST_SIZE && (
+        <button
+          type="button"
+          onClick={() => { setExpanded(!expanded); setFind('') }}
+          aria-expanded={expanded}
+          className="mt-1.5 px-2 text-xs font-semibold text-brand-indigo hover:underline"
+        >
+          {expanded ? 'Show fewer' : `Show all ${options.length}`}
+        </button>
+      )}
     </div>
   )
 }
