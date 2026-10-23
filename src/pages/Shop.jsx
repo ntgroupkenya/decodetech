@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { BadgePercent, ChevronLeft, ChevronRight, LayoutGrid, List, SlidersHorizontal, X } from 'lucide-react'
 import EmptyState from '../components/EmptyState'
+import HeroBackdrop from '../components/HeroBackdrop'
 import { trackProductClick } from '../api'
 import useOrdering from '../useOrdering'
 import ShopHighlights from '../components/ShopHighlights'
@@ -190,8 +191,9 @@ export default function Shop() {
   return (
     <div className="pb-16">
       {/* Intro panel */}
-      <section className="grid-backdrop text-white">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:py-10 lg:grid-cols-[1fr_22rem] lg:px-8">
+      <section className="relative overflow-hidden bg-brand-charcoal text-white">
+        <HeroBackdrop />
+        <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 md:py-14 lg:grid-cols-[1fr_22rem] lg:px-8">
           <div>
             <p className="code-label !text-brand-teal">decode shop</p>
             <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">{TAGLINE}.</h1>
@@ -210,7 +212,7 @@ export default function Shop() {
             )}
           </div>
 
-          <div className="self-start rounded-md border border-white/15 bg-white/5 p-5" aria-label="Member offers">
+          <div className="self-start rounded-md border border-white/15 bg-brand-charcoal/70 p-5 backdrop-blur-sm" aria-label="Member offers">
             <div className="flex items-center gap-2 text-brand-teal">
               <BadgePercent size={18} aria-hidden="true" />
               <p className="font-mono text-xs font-bold uppercase tracking-wide">Members save more</p>
@@ -233,7 +235,7 @@ export default function Shop() {
             )}
           </div>
         </div>
-        <div className="border-t border-white/10 bg-black/20">
+        <div className="relative border-t border-white/10 bg-black/30 backdrop-blur-sm">
           <ol className="no-scrollbar mx-auto flex max-w-7xl gap-6 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8" aria-label="How ordering works">
             {STEPS.map((step, index) => (
               <li key={step} className="flex shrink-0 items-center gap-2 text-sm text-white/80">
