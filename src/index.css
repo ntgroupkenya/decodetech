@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
-/* DECODE IT Solutions palette: the five colours of the logo, with indigo and teal at their most vibrant (same hues as the
+/* DECODE IT Solutions palette ("Midnight Teal"): deep navy with vivid teal as the primary colour; the logo's indigo and teal at their most vibrant (same hues as the
    logo's #5163ad and #4bc1b4, more saturated), plus a few tints and shades of them. */
 @theme {
-  --color-brand-charcoal: #383938;    /* logo: the computer and the "DECODE" lettering. Header, footer, admin sidebar, headings */
+  --color-brand-charcoal: #14213d;    /* "midnight": deep navy in place of the logo's charcoal (#383938). Header, footer, admin sidebar, headings */
+  --color-brand-bar: #1b2b52;         /* lighter navy: the category bar under the header */
   --color-brand-primary: #1dc9b8;     /* the primary colour: the logo's teal, vivid. Buttons, active filters, the category bar (with dark ink text) */
   --color-brand-primary-dark: #0e8378; /* deeper teal for teal text on white: links, small labels (readable on white) */
   --color-brand-indigo: #2445db;      /* logo: the ">" bracket. The </> mark and the product drawings */
   --color-brand-teal: #1dc9b8;        /* logo: the "<" bracket, vivid. The accent: search button, highlights, focus rings */
   --color-brand-grey: #bfc0c3;        /* logo: the "/" slash. Dividers and the "//" of the small labels */
   --color-brand-red: #ed1f24;         /* logo: the red node (already vivid). Hot products, sale prices, free-gift ribbons */
-  --color-brand-ink: #262726;         /* darker charcoal: overlays, text on teal */
+  --color-brand-ink: #0e1730;         /* darkest navy: overlays, text on teal */
   --color-brand-teal-light: #55e7d8;  /* lighter teal: teal button hover */
-  --color-surface: #f3f4f8;           /* page background behind the white panels */
+  --color-surface: #f2f5fa;           /* page background behind the white panels (a cool grey to match the navy) */
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
