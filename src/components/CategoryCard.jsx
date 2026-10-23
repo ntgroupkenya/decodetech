@@ -33,7 +33,7 @@ export default function CategoryCard({ slug, name, count, index = 0, className =
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-ink/90 via-brand-ink/35 to-transparent" />
       <div className="mt-auto flex w-full items-end justify-between gap-2 p-3 text-white sm:p-4">
         <div className="min-w-0">
-          <h3 className="truncate text-base font-bold leading-tight sm:text-lg">{name}</h3>
+          <h3 className="line-clamp-2 text-base font-bold leading-tight sm:text-lg">{name}</h3>
           <p className="font-mono text-xs text-white/75">{count} product{count === 1 ? '' : 's'}</p>
         </div>
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-brand-ink transition-transform group-hover:translate-x-0.5" aria-hidden="true">

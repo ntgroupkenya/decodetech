@@ -291,9 +291,10 @@ export default function Shop() {
               <h2 id="shop-categories" className="text-xl font-bold text-brand-charcoal">Shop by category</h2>
               <Link to="/categories" className="text-sm font-semibold text-brand-primary-dark hover:underline">All {categoryGroups.length} categories →</Link>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-              {categoryGroups.slice(0, 8).map(({ slug, name, products: items }, index) => (
-                <CategoryCard key={slug} slug={slug} name={name} count={items.length} index={index} />
+            {/* One row of five: a swipeable row on phones, five columns on large screens. */}
+            <div className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-5 lg:gap-4 lg:overflow-visible">
+              {categoryGroups.slice(0, 5).map(({ slug, name, products: items }, index) => (
+                <CategoryCard key={slug} slug={slug} name={name} count={items.length} index={index} className="w-[70%] shrink-0 snap-start sm:w-[40%] lg:w-auto" />
               ))}
             </div>
           </section>
