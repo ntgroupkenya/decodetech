@@ -7,11 +7,13 @@ import FreeGiftBadge from './FreeGiftBadge'
 import ConditionTag from './ConditionTag'
 import HotFeature from './HotFeature'
 import { productPath } from '../productSlug'
+import { productPhotos } from '../productPhotos'
 
 // One product in the Shop, as a grid tile or a list row. `badge` ({ label, className }) marks highlight lists.
 // "Add to cart" fills the bottom; the green button orders this one product on WhatsApp; "Get a quote" asks for pricing.
 export default function ShopProductCard({ product, offers, view = 'grid', badge, onOrder, onQuote, onOpen }) {
   const isList = view === 'list'
+  const { images, sample } = productPhotos(product)
   const name = <Link to={productPath(product)} className="hover:text-brand-indigo hover:underline">{product.name}</Link>
 
   const actions = (
@@ -38,7 +40,7 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
 
   const photo = (
     <div className="relative">
-      <ProductImage src={product.image} alt={product.name} onOpen={() => onOpen(product)} />
+      <ProductImage src={images[0]} sample={sample} alt={product.name} onOpen={() => onOpen(product)} />
       {badge && <span className={`pointer-events-none absolute left-0 top-2 rounded-r-sm px-2 py-0.5 font-mono text-[11px] font-bold uppercase ${badge.className}`}>{badge.label}</span>}
       <FreeGiftBadge gift={product.freeGift} />
     </div>

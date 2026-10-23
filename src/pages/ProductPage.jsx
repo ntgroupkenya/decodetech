@@ -4,6 +4,7 @@ import { ChevronRight, MapPin, MessageCircle, Wallet } from 'lucide-react'
 import { api, assetUrl, trackProductClick } from '../api'
 import { SITE_URL, applyPageMeta, canonicalUrl, productMeta } from '../pageMeta'
 import { productPath } from '../productSlug'
+import { productPhotos } from '../productPhotos'
 import { categorySlug } from '../categories'
 import useProducts from '../useProducts'
 import useOffers from '../useOffers'
@@ -96,7 +97,7 @@ export default function ProductPage() {
     )
   }
 
-  const images = [product.image, ...(product.alternateImages || [])].filter(Boolean)
+  const { images, sample } = productPhotos(product)
   const hasBrand = product.brand && product.brand.toLowerCase() !== 'generic'
   const categoryHref = product.category ? `/?cat=${categorySlug(product.category)}` : null
   const onOpen = (item) => trackProductClick({ productId: item.id, label: item.name })
@@ -140,7 +141,7 @@ export default function ProductPage() {
               </ul>
             )}
             <div className="min-w-0 flex-1 overflow-hidden rounded-md">
-              <ProductImage key={images[activeImage] || 'none'} src={images[activeImage]} alt={product.name} onOpen={() => onOpen(product)} />
+              <ProductImage key={images[activeImage] || 'none'} src={images[activeImage]} sample={sample} alt={product.name} onOpen={() => onOpen(product)} />
             </div>
           </div>
 
