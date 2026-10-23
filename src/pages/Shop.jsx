@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { BadgePercent, ChevronLeft, ChevronRight, LayoutGrid, List, SlidersHorizontal, X } from 'lucide-react'
 import EmptyState from '../components/EmptyState'
+import BrandStrip from '../components/BrandStrip'
 import HeroBackdrop from '../components/HeroBackdrop'
 import { trackProductClick } from '../api'
 import useOrdering from '../useOrdering'
@@ -112,6 +113,11 @@ export default function Shop() {
     setParams(next, { preventScrollReset: true })
   }
   const clearFilters = () => setParams(new URLSearchParams(), { preventScrollReset: true })
+  // A logo in "Shop by brand" starts a fresh search for that brand and brings the results into view.
+  const pickBrand = ([key, value]) => {
+    setParams(new URLSearchParams({ [key]: value }), { preventScrollReset: true })
+    document.getElementById('shop-products')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   const products = allProducts.filter((product) => product.inShop !== false && product.active !== false)
   const categoryGroups = groupCategories(products)
@@ -254,6 +260,8 @@ export default function Shop() {
           onOrder={startOrder}
           onOpen={(product) => trackProductClick({ productId: product.id, label: product.name })}
         />
+
+        <BrandStrip products={products} active={brand ? ['brand', brand] : ['q', query]} onPick={pickBrand} />
 
         <div id="shop-products" className="scroll-mt-40 lg:grid lg:grid-cols-[15rem_1fr] lg:gap-6">
           {/* Filters: a column on large screens, a drawer on phones and tablets */}
