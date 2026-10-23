@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { ChevronDown, LogOut, MessageCircle, Search, Shield, User, X } from 'lucide-react'
+import { ChevronDown, LayoutGrid, LogOut, MessageCircle, Search, Shield, User, X } from 'lucide-react'
 import useAuth from '../auth/useAuth'
 import useCart from '../cart/useCart'
 import CartMark from './CartMark'
@@ -119,6 +119,73 @@ function SearchBox({ className = '' }) {
   )
 }
 
+// The category bar: the biggest categories, then "More categories" with the full list (38 do not fit on one line).
+const BAR_SIZE = 6
+
+function CategoryBar({ categories, active, hours }) {
+  const [open, setOpen] = useState(false)
+  const box = useRef(null)
+  const shown = categories.slice(0, BAR_SIZE)
+  const activeInMore = active && !shown.some((c) => c.slug === active)
+
+  useEffect(() => {
+    if (!open) return undefined
+    const onClick = (e) => !box.current?.contains(e.target) && setOpen(false)
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('mousedown', onClick)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-brand-teal font-semibold text-white' : 'border-transparent text-white/75 hover:text-white'}`
+
+  return (
+    <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-indigo md:block">
+      <div className="mx-auto flex max-w-7xl items-center px-4 text-sm sm:px-6 lg:px-8">
+        <div className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto">
+          {[{ slug: '', name: 'All products' }, ...shown].map(({ slug, name }, index) => (
+            // Tablets show the first four; the rest are in "More categories".
+            <Link key={slug || 'all'} to={slug ? `/?cat=${slug}` : '/'} aria-current={active === slug ? 'page' : undefined} className={`${tab(active === slug)} ${index > 4 ? 'hidden lg:block' : ''}`}>
+              {name}
+            </Link>
+          ))}
+        </div>
+        {categories.length > BAR_SIZE && (
+          <div ref={box} className="relative shrink-0">
+            <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className={`flex items-center gap-1.5 ${tab(activeInMore)}`}>
+              <LayoutGrid size={15} aria-hidden="true" />
+              {activeInMore ? categories.find((c) => c.slug === active)?.name : 'More categories'}
+              <ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
+            </button>
+            {open && (
+              <div className="absolute right-0 z-50 mt-px w-[min(40rem,calc(100vw-2rem))] rounded-b-md border border-gray-200 bg-white p-3 text-gray-800 shadow-xl">
+                <ul className="grid max-h-[65vh] grid-cols-2 gap-x-4 overflow-y-auto lg:grid-cols-3">
+                  {categories.map(({ slug, name, products }) => (
+                    <li key={slug}>
+                      <Link
+                        to={`/?cat=${slug}`}
+                        onClick={() => setOpen(false)}
+                        className={`flex items-center justify-between gap-2 rounded-sm px-2 py-1.5 ${active === slug ? 'bg-brand-indigo font-semibold text-white' : 'hover:bg-gray-100'}`}
+                      >
+                        <span className="truncate">{name}</span>
+                        <span className={`font-mono text-xs ${active === slug ? 'text-brand-teal' : 'text-gray-400'}`}>{products.length}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+        {hours[0] && <span className="ml-auto hidden shrink-0 pl-4 font-mono text-[11px] text-white/50 lg:block">{hours[0].days}: {hours[0].time}</span>}
+      </div>
+    </nav>
+  )
+}
+
 export default function Header() {
   const { contact, hours, whatsappUrl } = useSiteSettings()
   const { count, open: openCart } = useCart()
@@ -172,23 +239,7 @@ export default function Header() {
         <SearchBox />
       </div>
 
-      {categories.length > 0 && (
-        <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-indigo md:block">
-          <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 text-sm sm:px-6 lg:px-8">
-            {[{ slug: '', name: 'All products' }, ...categories].map(({ slug, name }) => (
-              <Link
-                key={slug || 'all'}
-                to={slug ? `/?cat=${slug}` : '/'}
-                aria-current={activeCategory === slug ? 'page' : undefined}
-                className={`shrink-0 border-b-2 px-3 py-2.5 transition-colors ${activeCategory === slug ? 'border-brand-teal font-semibold text-white' : 'border-transparent text-white/75 hover:text-white'}`}
-              >
-                {name}
-              </Link>
-            ))}
-            {hours[0] && <span className="ml-auto hidden shrink-0 pl-4 font-mono text-[11px] text-white/50 lg:block">{hours[0].days}: {hours[0].time}</span>}
-          </div>
-        </nav>
-      )}
+      {categories.length > 0 && <CategoryBar categories={categories} active={activeCategory} hours={hours} />}
       <div className="brand-line" aria-hidden="true" />
     </header>
   )
