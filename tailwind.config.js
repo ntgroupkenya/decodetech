@@ -9,8 +9,8 @@ export default {
       colors: {
         brand: {
           charcoal: '#383938',
-          primary: '#2445db',
-          'primary-dark': '#1d39b4',
+          primary: '#1dc9b8',
+          'primary-dark': '#0e8378',
           indigo: '#2445db',
           teal: '#1dc9b8',
           grey: '#bfc0c3',

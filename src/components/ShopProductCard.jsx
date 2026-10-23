@@ -14,7 +14,7 @@ import { productPhotos } from '../productPhotos'
 export default function ShopProductCard({ product, offers, view = 'grid', badge, onOrder, onQuote, onOpen }) {
   const isList = view === 'list'
   const { images, placeholder } = productPhotos(product)
-  const name = <Link to={productPath(product)} className="hover:text-brand-primary hover:underline">{product.name}</Link>
+  const name = <Link to={productPath(product)} className="hover:text-brand-primary-dark hover:underline">{product.name}</Link>
 
   const actions = (
     <div className={isList ? 'flex w-full flex-col gap-1.5 sm:w-48 sm:shrink-0' : 'mt-auto flex flex-col gap-1.5 pt-3'}>
@@ -31,7 +31,7 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
         </button>
       </div>
       {onQuote && (
-        <button type="button" onClick={() => onQuote(product)} className="text-left text-xs font-medium text-brand-primary hover:text-brand-charcoal hover:underline sm:text-center">
+        <button type="button" onClick={() => onQuote(product)} className="text-left text-xs font-medium text-brand-primary-dark hover:text-brand-charcoal hover:underline sm:text-center">
           Get a quote
         </button>
       )}
@@ -48,7 +48,7 @@ export default function ShopProductCard({ product, offers, view = 'grid', badge,
 
   const meta = (
     <div className="flex flex-wrap items-center gap-2">
-      {product.brand && <span className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-primary">{product.brand}</span>}
+      {product.brand && <span className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-primary-dark">{product.brand}</span>}
       <ConditionTag condition={product.condition} />
     </div>
   )

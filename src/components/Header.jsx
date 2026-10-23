@@ -140,10 +140,10 @@ function CategoryBar({ categories, active, hours }) {
     }
   }, [open])
 
-  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-brand-teal font-semibold text-white' : 'border-transparent text-white/80 hover:text-white'}`
+  const tab = (isActive) => `shrink-0 border-b-2 px-3 py-2.5 transition-colors ${isActive ? 'border-brand-ink font-semibold text-brand-ink' : 'border-transparent text-brand-ink/75 hover:text-brand-ink'}`
 
   return (
-    <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-primary md:block">
+    <nav aria-label="Shop categories" className="hidden border-t border-white/10 bg-brand-primary text-brand-ink md:block">
       <div className="mx-auto flex max-w-7xl items-center px-4 text-sm sm:px-6 lg:px-8">
         <div className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto">
           {[{ slug: '', name: 'All products' }, ...shown].map(({ slug, name }, index) => (
@@ -168,22 +168,22 @@ function CategoryBar({ categories, active, hours }) {
                       <Link
                         to={`/?cat=${slug}`}
                         onClick={() => setOpen(false)}
-                        className={`flex items-center justify-between gap-2 rounded-sm px-2 py-1.5 ${active === slug ? 'bg-brand-primary font-semibold text-white' : 'hover:bg-gray-100'}`}
+                        className={`flex items-center justify-between gap-2 rounded-sm px-2 py-1.5 ${active === slug ? 'bg-brand-primary font-semibold text-brand-ink' : 'hover:bg-gray-100'}`}
                       >
                         <span className="truncate">{name}</span>
-                        <span className={`font-mono text-xs ${active === slug ? 'text-brand-teal' : 'text-gray-400'}`}>{products.length}</span>
+                        <span className={`font-mono text-xs ${active === slug ? 'text-brand-ink/70' : 'text-gray-400'}`}>{products.length}</span>
                       </Link>
                     </li>
                   ))}
                 </ul>
-                <Link to="/categories" onClick={() => setOpen(false)} className="mt-2 block border-t border-gray-100 px-2 pt-2.5 text-sm font-semibold text-brand-primary hover:underline">
+                <Link to="/categories" onClick={() => setOpen(false)} className="mt-2 block border-t border-gray-100 px-2 pt-2.5 text-sm font-semibold text-brand-primary-dark hover:underline">
                   See all categories with pictures →
                 </Link>
               </div>
             )}
           </div>
         )}
-        {hours[0] && <span className="ml-auto hidden shrink-0 pl-4 font-mono text-[11px] text-white/50 lg:block">{hours[0].days}: {hours[0].time}</span>}
+        {hours[0] && <span className="ml-auto hidden shrink-0 pl-4 font-mono text-[11px] text-brand-ink/60 lg:block">{hours[0].days}: {hours[0].time}</span>}
       </div>
     </nav>
   )

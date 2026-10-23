@@ -52,7 +52,7 @@ export default function BrandStrip({ products, active, onPick }) {
       <div className="flex items-center justify-between gap-4">
         <p className="code-label">shop by brand</p>
         {hiddenCount > 0 && (
-          <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="hidden text-xs font-semibold text-brand-primary hover:underline lg:block">
+          <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="hidden text-xs font-semibold text-brand-primary-dark hover:underline lg:block">
             {expanded ? 'Fewer brands' : `All brands (+${hiddenCount})`}
           </button>
         )}

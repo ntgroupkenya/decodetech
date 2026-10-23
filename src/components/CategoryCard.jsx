@@ -36,7 +36,7 @@ export default function CategoryCard({ slug, name, count, index = 0, className =
           <h3 className="truncate text-base font-bold leading-tight sm:text-lg">{name}</h3>
           <p className="font-mono text-xs text-white/75">{count} product{count === 1 ? '' : 's'}</p>
         </div>
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-brand-ink transition-transform group-hover:translate-x-0.5" aria-hidden="true">
           <ArrowRight size={16} />
         </span>
       </div>

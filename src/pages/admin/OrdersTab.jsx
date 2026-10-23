@@ -98,7 +98,7 @@ function OrderCard({ order, onSaved, onError }) {
               setForm({ ...form, status: s.value })
               save({ status: s.value })
             }}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50 ${form.status === s.value ? 'border-brand-primary bg-brand-primary text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
+            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50 ${form.status === s.value ? 'border-brand-primary bg-brand-primary text-brand-ink' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
           >
             {s.label}
           </button>

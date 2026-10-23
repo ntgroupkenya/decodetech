@@ -54,7 +54,7 @@ export default function WhatsAppWidget() {
                   rel="noopener noreferrer"
                   className="flex w-full items-center gap-3 rounded-md border border-slate-200 p-3 text-left text-sm text-brand-charcoal transition-colors hover:border-brand-teal hover:bg-brand-teal/5"
                 >
-                  <Icon size={18} className="shrink-0 text-brand-primary" aria-hidden="true" />
+                  <Icon size={18} className="shrink-0 text-brand-primary-dark" aria-hidden="true" />
                   {label}
                 </a>
               ))}
