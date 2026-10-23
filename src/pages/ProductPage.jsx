@@ -97,7 +97,7 @@ export default function ProductPage() {
     )
   }
 
-  const { images, sample } = productPhotos(product)
+  const { images, placeholderBrand } = productPhotos(product)
   const hasBrand = product.brand && product.brand.toLowerCase() !== 'generic'
   const categoryHref = product.category ? `/?cat=${categorySlug(product.category)}` : null
   const onOpen = (item) => trackProductClick({ productId: item.id, label: item.name })
@@ -141,7 +141,7 @@ export default function ProductPage() {
               </ul>
             )}
             <div className="min-w-0 flex-1 overflow-hidden rounded-md">
-              <ProductImage key={images[activeImage] || 'none'} src={images[activeImage]} sample={sample} alt={product.name} onOpen={() => onOpen(product)} />
+              <ProductImage key={images[activeImage] || 'none'} src={images[activeImage]} placeholderBrand={placeholderBrand} alt={product.name} onOpen={() => onOpen(product)} />
             </div>
           </div>
 

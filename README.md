@@ -28,7 +28,7 @@ Built with React, Vite, Tailwind CSS and React Router, plus a small PHP + MySQL 
 Still to provide:
 
 - `public/social-meta.jpg`: 1200×630 image shown when the site is shared (referenced from `index.html`).
-- Laptop photos: a laptop with no photo of its own shows its brand's photo with a "Sample image" tag (HP, Lenovo, Dell, Apple, ASUS, Microsoft and Toshiba, from `public/placeholders/`; the list is in `src/productPhotos.js`). Other brands show "No photo yet". Search engines and link previews only get real photos.
+- Laptops without a photo show a drawn laptop with the brand name on the lid, in the logo colours (`src/components/LaptopPlaceholder.jsx`), for every brand. A photo uploaded in the admin replaces it. Search engines and link previews only get real photos.
 - Products and their photos: add them in the admin, or import a spreadsheet (`docs/decode-products.csv` is an example).
 - Contact details, opening hours, announcement bar and social links: Admin → Settings.
 - Chat-widget questions: `TOPICS` in `src/components/WhatsAppWidget.jsx`.

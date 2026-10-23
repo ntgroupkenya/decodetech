@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { ImageOff, X, ZoomIn } from 'lucide-react'
 import { assetUrl } from '../api'
+import LaptopPlaceholder from './LaptopPlaceholder'
 
 // A product photo on a light panel (shown whole, not cropped); clicking it opens a larger view.
-// `sample` marks a brand photo standing in for a product without its own (see productPhotos.js).
-export default function ProductImage({ src: rawSrc, alt, className = '', onOpen, sample = false }) {
+// `placeholderBrand` draws a laptop with that brand name when there is no photo (see productPhotos.js).
+export default function ProductImage({ src: rawSrc, alt, className = '', onOpen, placeholderBrand = null }) {
   const src = assetUrl(rawSrc)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -16,6 +17,14 @@ export default function ProductImage({ src: rawSrc, alt, className = '', onOpen,
     window.addEventListener('keydown', closeOnEscape)
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [isOpen])
+
+  if (!src && placeholderBrand) {
+    return (
+      <div className={`aspect-square w-full bg-slate-50 ${className}`}>
+        <LaptopPlaceholder brand={placeholderBrand} className="h-full w-full" />
+      </div>
+    )
+  }
 
   if (!src) {
     return (
@@ -37,17 +46,7 @@ export default function ProductImage({ src: rawSrc, alt, className = '', onOpen,
         aria-label={`View larger image: ${alt}`}
         className={`group relative block aspect-square w-full overflow-hidden bg-slate-50 ${className}`}
       >
-        <img
-          src={src}
-          alt={sample ? `Sample image: ${alt}` : alt}
-          loading="lazy"
-          className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${sample ? 'object-cover' : 'object-contain p-3 mix-blend-multiply'}`}
-        />
-        {sample && (
-          <span className="pointer-events-none absolute right-2 top-2 rounded-sm bg-white/90 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-charcoal shadow-sm">
-            Sample image
-          </span>
-        )}
+        <img src={src} alt={alt} loading="lazy" className="h-full w-full object-contain p-3 mix-blend-multiply transition-transform duration-300 group-hover:scale-105" />
         <span className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-md bg-white/90 text-brand-charcoal opacity-0 shadow ring-1 ring-black/5 transition group-hover:opacity-100 group-focus-visible:opacity-100">
           <ZoomIn size={16} aria-hidden="true" />
         </span>
