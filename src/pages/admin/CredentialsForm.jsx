@@ -38,7 +38,7 @@ export default function CredentialsForm({ forced = false }) {
   }
 
   return (
-    <form onSubmit={submit} className="w-full max-w-md space-y-4 rounded-2xl bg-white p-8 shadow-lg">
+    <form onSubmit={submit} className="w-full max-w-md space-y-4 rounded-md bg-white p-8 shadow-lg">
       <div>
         <h2 className="text-xl font-bold text-brand-charcoal">{forced ? 'Set your admin username and password' : 'Admin username and password'}</h2>
         {forced && (

@@ -414,7 +414,7 @@ try {
         respond(['post' => post_out($row)]);
     }
 
-    // Sitemap built live from the database: the public pages plus one entry per active product.
+    // Sitemap built live from the database: the Shop plus one entry per active product.
     if (($parts === ['sitemap'] || $parts === ['sitemap.xml']) && $method === 'GET') {
         $base = rtrim((string)$config['site_url'], '/');
         $esc = fn(string $v) => htmlspecialchars($v, ENT_XML1 | ENT_QUOTES, 'UTF-8');
@@ -429,20 +429,8 @@ try {
 <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">
 ";
         $today = date('Y-m-d');
-        foreach ([['/', 'weekly', '1.0'], ['/products', 'weekly', '0.9'], ['/brands', 'monthly', '0.7'], ['/about', 'monthly', '0.6'], ['/how-to-order', 'monthly', '0.6'], ['/news', 'weekly', '0.6'], ['/contact', 'monthly', '0.8']] as [$p, $f, $pr]) $xml .= $entry($p, $today, $f, $pr);
-        foreach (db()->query("SELECT id, title, updated_at FROM posts WHERE published=1 AND published_at <= NOW() ORDER BY published_at DESC")->fetchAll() as $post) {
-            $xml .= $entry('/news/' . (int)$post['id'] . '/' . slugify($post['title']), $post['updated_at'], 'monthly', '0.6');
-        }
-        // One page per category (same slug rule as the product pages).
-        $cats = [];
-        foreach (db()->query("SELECT category, MAX(updated_at) AS updated FROM products WHERE active=1 AND category<>'' GROUP BY category")->fetchAll() as $c) {
-            $slug = slugify($c['category']);
-            if ($slug === '') continue;
-            if (!isset($cats[$slug]) || $c['updated'] > $cats[$slug]) $cats[$slug] = $c['updated'];
-        }
-        ksort($cats);
-        foreach ($cats as $slug => $updated) $xml .= $entry('/category/' . $slug, $updated, 'weekly', '0.8');
-        foreach (db()->query("SELECT id, name, updated_at FROM products WHERE active=1 ORDER BY name")->fetchAll() as $p) {
+        $xml .= $entry('/', $today, 'daily', '1.0');
+        foreach (db()->query("SELECT id, name, updated_at FROM products WHERE active=1 AND in_shop=1 ORDER BY name")->fetchAll() as $p) {
             $xml .= $entry('/product/' . rawurlencode($p['id']) . '/' . slugify($p['name']), $p['updated_at'], 'weekly', '0.8');
         }
         $xml .= "</urlset>

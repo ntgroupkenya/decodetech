@@ -22,20 +22,20 @@ export default function WhatsAppWidget() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-brand-charcoal py-3 pl-4 pr-5 font-semibold text-white shadow-lg ring-4 ring-brand-yellow/30 transition-colors hover:bg-brand-blue"
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-md bg-green-600 py-3 pl-3.5 pr-4 font-semibold text-white shadow-lg ring-1 ring-black/10 transition-colors hover:bg-green-700"
         aria-label={isOpen ? 'Close chat options' : 'Chat with us on WhatsApp'}
         aria-expanded={isOpen}
       >
         {isOpen ? <X size={20} aria-hidden="true" /> : <MessageCircle size={20} aria-hidden="true" />}
-        <span className="hidden sm:inline">{isOpen ? 'Close' : 'Chat with us'}</span>
+        <span className="hidden sm:inline">{isOpen ? 'Close' : 'Need help?'}</span>
       </button>
 
       {/* Chat popup */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200">
-          <div className="bg-gradient-to-br from-brand-charcoal to-brand-blue p-5 text-white">
+        <div className="fixed bottom-20 right-5 z-50 w-80 max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-slate-200">
+          <div className="grid-backdrop p-5 text-white">
             <div className="flex items-center gap-3">
-              <img src="/favicon-48.png" alt="" width="40" height="40" className="h-10 w-10 rounded-full bg-white p-1" />
+              <img src="/favicon-48.png" alt="" width="40" height="40" className="h-10 w-10 rounded-md bg-white p-1" />
               <div>
                 <h3 className="font-semibold">DECODE Tech Support</h3>
                 <p className="text-xs text-blue-100">Usually replies within minutes</p>
@@ -52,9 +52,9 @@ export default function WhatsAppWidget() {
                   href={whatsappMessageUrl(message)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center gap-3 rounded-xl border border-slate-200 p-3 text-left text-sm text-brand-charcoal transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+                  className="flex w-full items-center gap-3 rounded-md border border-slate-200 p-3 text-left text-sm text-brand-charcoal transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
                 >
-                  <Icon size={18} className="shrink-0 text-brand-ember" aria-hidden="true" />
+                  <Icon size={18} className="shrink-0 text-brand-blue" aria-hidden="true" />
                   {label}
                 </a>
               ))}
@@ -66,7 +66,7 @@ export default function WhatsAppWidget() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full rounded-full bg-green-600 py-3 text-center font-semibold text-white transition-colors hover:bg-green-700"
+              className="block w-full rounded-md bg-green-600 py-3 text-center font-semibold text-white transition-colors hover:bg-green-700"
             >
               Start a WhatsApp chat
             </a>

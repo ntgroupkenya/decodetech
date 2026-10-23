@@ -15,8 +15,14 @@ export default {
           blue: '#5060a8',
           charcoal: '#2a336e',
           black: '#181e45',
-        }
-      }
+        },
+        surface: '#f3f4f8',
+      },
+      fontFamily: {
+        heading: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+      },
     },
   },
   plugins: [],

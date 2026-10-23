@@ -43,7 +43,7 @@ export default function ImportPanel({ currentProducts, onDone }) {
   }
 
   return (
-    <section className="space-y-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+    <section className="space-y-3 rounded-md border border-gray-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-semibold text-brand-charcoal">Import products from a spreadsheet</h2>
@@ -56,7 +56,7 @@ export default function ImportPanel({ currentProducts, onDone }) {
         </button>
       </div>
 
-      <input ref={inputRef} type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={choose} className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-lg file:border-0 file:bg-brand-yellow file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-charcoal hover:file:bg-brand-orange" />
+      <input ref={inputRef} type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={choose} className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-md file:border-0 file:bg-brand-yellow file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-charcoal hover:file:bg-brand-orange" />
 
       {error && <Notice>{error}</Notice>}
 
@@ -66,7 +66,7 @@ export default function ImportPanel({ currentProducts, onDone }) {
             <FileSpreadsheet size={16} /> {parsed.fileName}: {parsed.rows.length} rows ready to import
           </p>
           {parsed.ignoredColumns.length > 0 && <Notice tone="info">Ignored columns: {parsed.ignoredColumns.join(', ')}</Notice>}
-          <div className="max-h-64 overflow-auto rounded-lg border border-gray-200">
+          <div className="max-h-64 overflow-auto rounded-md border border-gray-200">
             <table className="w-full text-left text-xs">
               <thead className="sticky top-0 bg-gray-50 text-gray-500">
                 <tr><th className="px-3 py-2">#</th><th className="px-3 py-2">Name</th><th className="px-3 py-2">Brand</th><th className="px-3 py-2">Category</th><th className="px-3 py-2">Price</th><th className="px-3 py-2">ID</th></tr>

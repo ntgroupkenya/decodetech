@@ -41,7 +41,7 @@ function OfferForm({ offer, onClose, onSaved }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4" role="dialog" aria-modal="true" aria-label={isNew ? 'New offer' : 'Edit offer'}>
-      <form onSubmit={submit} className="my-8 w-full max-w-xl rounded-2xl bg-white shadow-2xl">
+      <form onSubmit={submit} className="my-8 w-full max-w-xl rounded-md bg-white shadow-2xl">
         <div className="border-b border-gray-200 px-6 py-4"><h2 className="text-lg font-bold text-brand-charcoal">{isNew ? 'New offer' : 'Edit offer'}</h2></div>
         <div className="grid gap-4 px-6 py-5 sm:grid-cols-2">
           {error && <div className="sm:col-span-2"><Notice>{error}</Notice></div>}
@@ -143,7 +143,7 @@ export default function OffersTab() {
           const meta = TYPES.find((t) => t.value === o.type)
           const Icon = meta.icon
           return (
-            <li key={o.id} className={`rounded-xl border bg-white p-5 shadow-sm ${o.active ? 'border-gray-200' : 'border-gray-200 opacity-60'}`}>
+            <li key={o.id} className={`rounded-md border bg-white p-5 shadow-sm ${o.active ? 'border-gray-200' : 'border-gray-200 opacity-60'}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
                   <Icon size={20} className="mt-0.5 text-brand-charcoal" aria-hidden="true" />

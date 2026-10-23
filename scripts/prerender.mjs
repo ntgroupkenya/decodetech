@@ -1,4 +1,4 @@
-// Build step: turns each public page, plus one page per category and per product, into real HTML so search engines
+// Build step: turns the Shop page and one page per product into real HTML so search engines
 // (and link previews) see the content, title, description and canonical link without running JavaScript.
 // It also writes sitemap.xml from the same product list.
 //
@@ -11,10 +11,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { PAGE_META, SITE_URL, canonicalUrl, postMeta, productMeta } from '../src/pageMeta.js'
-import { postPath, productPath } from '../src/productSlug.js'
+import { PAGE_META, SITE_URL, canonicalUrl, productMeta } from '../src/pageMeta.js'
+import { productPath } from '../src/productSlug.js'
 import { DEFAULT_SETTINGS, digitsOnly } from '../src/siteDefaults.js'
-import { categoryMeta, categoryPath, groupCategories } from '../src/categories.js'
 import bundledProducts from '../src/data/newProducts.js'
 
 const arg = (name, fallback) => {
@@ -40,7 +39,7 @@ async function loadProducts() {
   }
 }
 
-// The owner-edited website details and published news posts, from the same API (defaults if it is unreachable).
+// The owner-edited website details, from the same API (defaults if it is unreachable).
 async function loadFromApi(path, pick, fallback) {
   try {
     const res = await fetch(`${apiBase}/api${path}`, { signal: AbortSignal.timeout(5000) })
@@ -52,8 +51,7 @@ async function loadFromApi(path, pick, fallback) {
   }
 }
 const settings = await loadFromApi('/settings', (d) => (d && d.contact ? d : null), DEFAULT_SETTINGS)
-const posts = await loadFromApi('/posts', (d) => (Array.isArray(d.posts) ? d.posts : null), [])
-const site = { settings, posts }
+const site = { settings }
 
 const { render } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
 const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8')
@@ -67,7 +65,7 @@ fs.writeFileSync(path.join(distDir, 'app-shell.html'), template)
 
 // The catalogue travels with every page so the browser's first render matches the pre-rendered HTML.
 const safeJson = (value) => JSON.stringify(value).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')
-const productsScript = `<script>window.__PRODUCTS__=${safeJson(products)};window.__SETTINGS__=${safeJson(settings)};window.__POSTS__=${safeJson(posts)}</script>`
+const productsScript = `<script>window.__PRODUCTS__=${safeJson(products)};window.__SETTINGS__=${safeJson(settings)}</script>`
 
 // The business's structured data lives in index.html with the default WhatsApp (sales) and office numbers, email
 // and social profiles; keep it in step with what the owner has set in Admin → Settings.
@@ -138,50 +136,16 @@ for (const product of products) {
   productCount++
 }
 
-// ---- one page per news post ----
-const postEntries = []
-for (const post of posts) {
-  const route = postPath(post)
-  const image = post.image && post.image.startsWith('/') ? `${SITE_URL}${post.image}` : undefined
-  write(route, buildPage(route, postMeta(post), image))
-  postEntries.push({ route, updatedAt: post.updatedAt })
-}
-
-// ---- one page per category ----
-let categoryCount = 0
-const categoryEntries = []
-for (const group of groupCategories(products)) {
-  const route = categoryPath(group.name)
-  write(route, buildPage(route, categoryMeta(group)))
-  const newest = group.products.map((p) => p.updatedAt).filter(Boolean).sort().pop()
-  categoryEntries.push({ route, updatedAt: newest })
-  categoryCount++
-}
-
 // ---- sitemap.xml (same rules as GET /api/sitemap in server/api.php) ----
 const today = new Date().toISOString().slice(0, 10)
 const urlEntry = (route, lastmod, changefreq, priority) =>
   `  <url>\n    <loc>${escapeHtml(canonicalUrl(route))}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`
-// The Shop is on its own address (shop subdomain), so it has its own sitemap below.
-const sitePages = [['/', 'weekly', '1.0'], ['/products', 'weekly', '0.9'], ['/brands', 'monthly', '0.7'], ['/about', 'monthly', '0.6'], ['/how-to-order', 'monthly', '0.6'], ['/news', 'weekly', '0.6'], ['/contact', 'monthly', '0.8']]
 const sitemap =
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  sitePages.map(([route, freq, prio]) => urlEntry(route, today, freq, prio)).join('') +
-  categoryEntries.map(({ route, updatedAt }) => urlEntry(route, updatedAt ? String(updatedAt).slice(0, 10) : today, 'weekly', '0.8')).join('') +
+  urlEntry('/', today, 'daily', '1.0') +
   productEntries.map(({ route, updatedAt }) => urlEntry(route, updatedAt ? String(updatedAt).slice(0, 10) : today, 'weekly', '0.8')).join('') +
-  postEntries.map(({ route, updatedAt }) => urlEntry(route, updatedAt ? String(updatedAt).slice(0, 10) : today, 'monthly', '0.6')).join('') +
   `</urlset>\n`
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemap)
 
-// sitemap-shop.xml: served on the shop subdomain, where a sitemap may only list that host's own addresses.
-const shopSitemap =
-  `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-` +
-  urlEntry('/shop', today, 'daily', '1.0') +
-  `</urlset>
-`
-fs.writeFileSync(path.join(distDir, 'sitemap-shop.xml'), shopSitemap)
-
-console.log(`Pre-rendered ${pageCount} pages, ${categoryCount} category pages, ${productCount} product pages and ${postEntries.length} news posts (products from the ${source}).`)
-console.log(`Wrote sitemap.xml with ${pageCount - 1 + categoryCount + productCount + postEntries.length} URLs and sitemap-shop.xml with the shop address.`)
+console.log(`Pre-rendered ${pageCount} page${pageCount === 1 ? '' : 's'} and ${productCount} product pages (products from the ${source}).`)
+console.log(`Wrote sitemap.xml with ${1 + productCount} URLs.`)

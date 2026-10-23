@@ -7,8 +7,8 @@ $defaults = [
     'allowed_origins' => ['http://localhost:5173', 'http://127.0.0.1:5173'],
     // Public address of the website, used for links in the sitemap.
     'site_url' => 'https://www.example.com',
-    // Share the login between the main site and the shop subdomain, e.g. '.example.com'.
-    // Leave empty for a single address (local development).
+    // Only needed if the login must be shared with other subdomains, e.g. '.example.com'.
+    // The site runs on one address, so leave it empty.
     'cookie_domain' => '',
     'max_upload_bytes' => 5 * 1024 * 1024,
 ];

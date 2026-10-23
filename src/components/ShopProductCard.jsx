@@ -1,80 +1,87 @@
+import { Link } from 'react-router-dom'
 import { MessageCircle } from 'lucide-react'
 import ProductImage from './ProductImage'
 import AddToCartButton from './AddToCartButton'
-import SiteLink from './SiteLink'
 import PriceLine from './PriceLine'
 import FreeGiftBadge from './FreeGiftBadge'
 import ConditionTag from './ConditionTag'
 import HotFeature from './HotFeature'
 import { productPath } from '../productSlug'
 
-// One product in the Shop, as a grid tile or a list row.
-export default function ShopProductCard({ product, offers, view, onOrder, onQuote, onOpen }) {
+// One product in the Shop, as a grid tile or a list row. `badge` ({ label, className }) marks highlight lists.
+// "Add to cart" fills the bottom; the green button orders this one product on WhatsApp; "Get a quote" asks for pricing.
+export default function ShopProductCard({ product, offers, view = 'grid', badge, onOrder, onQuote, onOpen }) {
   const isList = view === 'list'
+  const name = <Link to={productPath(product)} className="hover:text-brand-blue hover:underline">{product.name}</Link>
 
-  // Grid cards shrink the label on narrow cards (many per row) so it stays on one line.
-  const size = isList ? 'px-2 py-2 text-sm' : 'px-1 py-2 text-xs @[13rem]:px-2 @[13rem]:text-sm'
-  const buttons = (
-    <div className={isList ? 'grid grid-cols-2 gap-2 sm:w-44 sm:shrink-0' : 'mt-auto grid grid-cols-2 gap-2 pt-2'}>
-      <button
-        onClick={() => onOrder(product)}
-        className={`flex w-full items-center justify-center gap-1.5 rounded-lg bg-green-600 font-semibold text-white transition-colors hover:bg-green-700 ${size}`}
-      >
-        <MessageCircle size={14} className="shrink-0" />
-        <span>Order</span>
-      </button>
-      <button
-        onClick={() => onQuote(product)}
-        className={`w-full rounded-lg bg-brand-yellow font-semibold text-brand-charcoal transition-colors hover:bg-brand-orange ${size}`}
-      >
-        Get Quote
-      </button>
+  const actions = (
+    <div className={isList ? 'flex w-full flex-col gap-1.5 sm:w-48 sm:shrink-0' : 'mt-auto flex flex-col gap-1.5 pt-3'}>
+      <div className="flex gap-1.5">
+        <AddToCartButton product={product} />
+        <button
+          type="button"
+          onClick={() => onOrder(product)}
+          aria-label={`Order ${product.name} on WhatsApp`}
+          title="Order on WhatsApp"
+          className="flex h-9 w-10 shrink-0 items-center justify-center rounded-md bg-green-600 text-white transition-colors hover:bg-green-700"
+        >
+          <MessageCircle size={18} aria-hidden="true" />
+        </button>
+      </div>
+      {onQuote && (
+        <button type="button" onClick={() => onQuote(product)} className="text-left text-xs font-medium text-brand-blue hover:text-brand-charcoal hover:underline sm:text-center">
+          Get a quote
+        </button>
+      )}
+    </div>
+  )
+
+  const photo = (
+    <div className="relative">
+      <ProductImage src={product.image} alt={product.name} onOpen={() => onOpen(product)} />
+      {badge && <span className={`pointer-events-none absolute left-0 top-2 rounded-r-sm px-2 py-0.5 font-mono text-[11px] font-bold uppercase ${badge.className}`}>{badge.label}</span>}
+      <FreeGiftBadge gift={product.freeGift} />
+    </div>
+  )
+
+  const meta = (
+    <div className="flex flex-wrap items-center gap-2">
+      {product.brand && <span className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-blue">{product.brand}</span>}
+      <ConditionTag condition={product.condition} />
     </div>
   )
 
   if (isList) {
     return (
-      <div className="flex overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all hover:border-brand-yellow hover:shadow-xl">
-        <div className="relative w-28 shrink-0 sm:w-48">
-          <ProductImage src={product.image} alt={product.name} onOpen={() => onOpen(product)} />
-          <AddToCartButton product={product} />
-          <FreeGiftBadge gift={product.freeGift} />
-        </div>
-        <div className="flex min-w-0 flex-1 flex-col gap-3 p-4 sm:flex-row sm:items-center sm:gap-6 sm:p-5">
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold uppercase text-gray-500">{product.brand}</span>
-              <ConditionTag condition={product.condition} />
-            </div>
-            <h3 className="mb-1 line-clamp-2 text-base font-semibold text-brand-charcoal sm:text-lg"><SiteLink to={productPath(product)} className="hover:underline">{product.name}</SiteLink></h3>
-            <HotFeature feature={product.hotFeature} className="mb-1" />
-            <p className="mb-2 line-clamp-1 text-sm text-gray-600 sm:line-clamp-2">{product.specs}</p>
-            <PriceLine product={product} offers={offers} />
+      <article className="flex overflow-hidden rounded-md border border-gray-200 bg-white transition-colors hover:border-brand-yellow">
+        <div className="w-28 shrink-0 border-r border-gray-100 sm:w-44">{photo}</div>
+        <div className="flex min-w-0 flex-1 flex-col gap-3 p-3 sm:flex-row sm:items-center sm:gap-6 sm:p-4">
+          <div className="min-w-0 flex-1 space-y-1">
+            {meta}
+            <h3 className="line-clamp-2 text-base font-semibold text-brand-charcoal">{name}</h3>
+            <HotFeature feature={product.hotFeature} />
+            <p className="line-clamp-1 text-sm text-gray-600 sm:line-clamp-2">{product.specs}</p>
           </div>
-          {buttons}
+          <div className="flex flex-col gap-2 sm:w-48 sm:shrink-0">
+            <PriceLine product={product} offers={offers} />
+            {actions}
+          </div>
         </div>
-      </div>
+      </article>
     )
   }
 
   return (
-    <div className="@container flex flex-col overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all hover:border-brand-yellow hover:shadow-xl">
-      <div className="relative">
-        <ProductImage src={product.image} alt={product.name} onOpen={() => onOpen(product)} />
-        <AddToCartButton product={product} />
-        <FreeGiftBadge gift={product.freeGift} />
+    <article className="flex h-full flex-col overflow-hidden rounded-md border border-gray-200 bg-white transition-colors hover:border-brand-yellow">
+      <div className="border-b border-gray-100">{photo}</div>
+      <div className="flex flex-1 flex-col gap-1.5 p-3">
+        {meta}
+        <h3 className="line-clamp-2 min-h-[2.5rem] text-[15px] font-semibold leading-snug text-brand-charcoal">{name}</h3>
+        <HotFeature feature={product.hotFeature} />
+        {product.specs && <p className="line-clamp-1 text-xs text-gray-500">{product.specs}</p>}
+        <div className="pt-1"><PriceLine product={product} offers={offers} /></div>
+        {actions}
       </div>
-      <div className="flex flex-1 flex-col p-4 @[17rem]:p-5">
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold uppercase text-gray-500">{product.brand}</span>
-          <ConditionTag condition={product.condition} />
-        </div>
-        <h3 className="mb-2 line-clamp-2 text-lg font-semibold text-brand-charcoal"><SiteLink to={productPath(product)} className="hover:underline">{product.name}</SiteLink></h3>
-        <HotFeature feature={product.hotFeature} className="mb-2" />
-        <p className="mb-3 line-clamp-1 text-sm text-gray-600">{product.specs}</p>
-        <PriceLine product={product} offers={offers} />
-        {buttons}
-      </div>
-    </div>
+    </article>
   )
 }

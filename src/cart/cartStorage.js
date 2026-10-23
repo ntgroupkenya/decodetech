@@ -1,8 +1,4 @@
-import { ROOT_DOMAIN, hostKind } from '../siteHosts'
-
-// The cart is kept in a cookie rather than localStorage because the shop lives on its own subdomain:
-// localStorage is separate for every address, while a cookie set for ".example.com" is shared,
-// so something added on a product page is still in the cart in the Shop. Only ids and quantities are stored.
+// The cart is kept in a small cookie (ids and quantities only), so it survives closing the browser for 30 days.
 const COOKIE = 'decode_cart'
 const MAX_LINES = 12
 const MAX_QTY = 999
@@ -48,10 +44,9 @@ export function readCart() {
 
 export function writeCart(items) {
   try {
-    const shared = hostKind(window.location.pathname) !== null ? `; domain=.${ROOT_DOMAIN}` : ''
     const secure = window.location.protocol === 'https:' ? '; secure' : ''
     const expires = items.length ? `max-age=${60 * 60 * 24 * 30}` : 'max-age=0'
-    document.cookie = `${COOKIE}=${encodeURIComponent(encodeCart(items))}; path=/; ${expires}; samesite=lax${shared}${secure}`
+    document.cookie = `${COOKIE}=${encodeURIComponent(encodeCart(items))}; path=/; ${expires}; samesite=lax${secure}`
   } catch {
     // cookies blocked: the cart still works for this visit
   }

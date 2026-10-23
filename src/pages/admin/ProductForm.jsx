@@ -66,10 +66,10 @@ export default function ProductForm({ product, categories, onClose, onSaved }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4" role="dialog" aria-modal="true" aria-label={isNew ? 'Add product' : 'Edit product'}>
-      <form onSubmit={submit} className="my-8 w-full max-w-2xl rounded-2xl bg-white shadow-2xl">
+      <form onSubmit={submit} className="my-8 w-full max-w-2xl rounded-md bg-white shadow-2xl">
         <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
           <h2 className="text-lg font-bold text-brand-charcoal">{isNew ? 'Add product' : 'Edit product'}</h2>
-          <button type="button" onClick={onClose} aria-label="Close" className="rounded-full p-2 text-gray-500 hover:bg-gray-100"><X size={18} /></button>
+          <button type="button" onClick={onClose} aria-label="Close" className="rounded-md p-2 text-gray-500 hover:bg-gray-100"><X size={18} /></button>
         </div>
 
         <div className="grid gap-4 px-6 py-5 sm:grid-cols-2">
@@ -108,10 +108,10 @@ export default function ProductForm({ product, categories, onClose, onSaved }) {
           <div className="sm:col-span-2">
             <Field label="Image" hint="Upload a JPG/PNG/WebP (max 5 MB) or paste a path such as /products/prod-10001.jpg.">
               <div className="flex items-start gap-3">
-                {form.image ? <img src={assetUrl(form.image)} alt="" className="h-20 w-20 rounded-lg border border-gray-200 object-cover" /> : <div className="h-20 w-20 rounded-lg bg-gray-100" />}
+                {form.image ? <img src={assetUrl(form.image)} alt="" className="h-20 w-20 rounded-md border border-gray-200 object-cover" /> : <div className="h-20 w-20 rounded-md bg-gray-100" />}
                 <div className="flex-1 space-y-2">
                   <input className={inputClass} value={form.image} onChange={set('image')} placeholder="/products/hp-pavilion-15.jpg" />
-                  <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={upload} disabled={uploading} className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-lg file:border-0 file:bg-gray-100 file:px-3 file:py-2 file:text-sm file:font-medium hover:file:bg-gray-200" />
+                  <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={upload} disabled={uploading} className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-md file:border-0 file:bg-gray-100 file:px-3 file:py-2 file:text-sm file:font-medium hover:file:bg-gray-200" />
                   {uploading && <p className="text-xs text-gray-500">Uploading…</p>}
                 </div>
               </div>

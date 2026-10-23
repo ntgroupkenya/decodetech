@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { BadgePercent, Check, MessageCircle, Minus, Plus, ShoppingCart, Ticket, Trash2, Truck, X } from 'lucide-react'
 import { api, assetUrl, recordOrder, trackWhatsApp } from '../api'
 import { whatsappMessageUrl } from '../contact'
@@ -9,7 +10,6 @@ import { buildCartMessage, cartTotals, makeCartRef, priceLine } from '../cart/ca
 import { offerApplies, offerLabel } from '../offerMath'
 import useOffers from '../useOffers'
 import useProducts from '../useProducts'
-import SiteLink from './SiteLink'
 
 const kes = (n) => `KES ${Number(n).toLocaleString('en-KE')}`
 
@@ -102,7 +102,7 @@ export default function CartDrawer() {
   return (
     <>
       {notice && (
-        <div role="status" className="fixed bottom-24 left-1/2 z-[90] flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 items-center gap-3 rounded-xl bg-brand-black px-4 py-3 text-sm text-white shadow-2xl">
+        <div role="status" className="fixed bottom-24 left-1/2 z-[90] flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 items-center gap-3 rounded-md bg-brand-black px-4 py-3 text-sm text-white shadow-2xl ring-1 ring-brand-yellow/40">
           <Check size={18} className="shrink-0 text-brand-yellow" aria-hidden="true" />
           <span className="min-w-0 flex-1 truncate">{notice.full ? notice.text : `${notice.text}: ${notice.name}`}</span>
           <button type="button" onClick={open} className="shrink-0 font-semibold text-brand-yellow hover:underline">View cart</button>
@@ -111,11 +111,11 @@ export default function CartDrawer() {
 
       {isOpen && (
         <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Your cart">
-          <div className="absolute inset-0 bg-black/60" onClick={close} />
+          <div className="absolute inset-0 bg-brand-black/60" onClick={close} />
           <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
-              <h2 className="flex items-center gap-2 text-lg font-bold text-brand-charcoal"><ShoppingCart size={20} aria-hidden="true" /> Your cart <span className="text-sm font-normal text-gray-500">({count} item{count === 1 ? '' : 's'})</span></h2>
-              <button type="button" onClick={close} aria-label="Close cart" className="rounded-full p-2 text-gray-500 hover:bg-gray-100"><X size={18} /></button>
+            <div className="flex items-center justify-between bg-brand-black px-5 py-4 text-white">
+              <h2 className="flex items-center gap-2 text-lg font-bold"><ShoppingCart size={20} aria-hidden="true" /> Your cart <span className="font-mono text-sm font-normal text-brand-yellow">({count} item{count === 1 ? '' : 's'})</span></h2>
+              <button type="button" onClick={close} aria-label="Close cart" className="rounded-md p-2 text-white/70 hover:bg-white/10 hover:text-white"><X size={18} /></button>
             </div>
 
             {items.length === 0 ? (
@@ -123,7 +123,7 @@ export default function CartDrawer() {
                 <ShoppingCart size={40} className="text-gray-300" aria-hidden="true" />
                 <p className="mt-3 font-semibold text-brand-charcoal">Your cart is empty</p>
                 <p className="mt-1 text-sm text-gray-600">Add several products, then send them to us in one WhatsApp order.</p>
-                <SiteLink to="/shop" onClick={close} className="mt-5 rounded-full bg-brand-yellow px-5 py-2 font-bold text-brand-charcoal hover:bg-brand-orange">Browse the shop</SiteLink>
+                <Link to="/" onClick={close} className="mt-5 rounded-md bg-brand-charcoal px-5 py-2.5 font-semibold text-white hover:bg-brand-black">Browse the shop</Link>
               </div>
             ) : (
               <>
@@ -132,20 +132,20 @@ export default function CartDrawer() {
                     {resolved.map(({ item, product, pending }) => (
                       <li key={item.id} className="flex gap-3 py-3">
                         {product ? (
-                          <img src={assetUrl(product.image)} alt="" className="h-16 w-16 shrink-0 rounded-lg border border-gray-200 object-cover" />
+                          <img src={assetUrl(product.image)} alt="" className="h-16 w-16 shrink-0 rounded-md border border-gray-200 bg-slate-50 object-contain p-1" />
                         ) : (
-                          <div className="h-16 w-16 shrink-0 rounded-lg bg-gray-100" />
+                          <div className="h-16 w-16 shrink-0 rounded-md bg-gray-100" />
                         )}
                         <div className="min-w-0 flex-1">
                           {product ? (
-                            <SiteLink to={productPath(product)} onClick={close} className="line-clamp-2 text-sm font-semibold text-brand-charcoal hover:underline">{product.name}</SiteLink>
+                            <Link to={productPath(product)} onClick={close} className="line-clamp-2 text-sm font-semibold text-brand-charcoal hover:underline">{product.name}</Link>
                           ) : (
                             <p className="text-sm font-semibold text-gray-500">{pending ? 'Loading…' : 'No longer available'}</p>
                           )}
                           {product && (() => {
                             const line = lines.find((l) => l.product.id === product.id)
                             return (
-                              <p className="mt-0.5 text-xs text-gray-600">
+                              <p className="mt-0.5 font-mono text-xs text-gray-600">
                                 {line.unit == null ? 'Price on WhatsApp' : (
                                   <>
                                     {line.unit < line.listed && <span className="mr-1 text-gray-400 line-through">{kes(line.listed)}</span>}
@@ -156,7 +156,7 @@ export default function CartDrawer() {
                             )
                           })()}
                           <div className="mt-2 flex items-center gap-2">
-                            <div className="inline-flex items-center rounded-lg border border-gray-300">
+                            <div className="inline-flex items-center rounded-md border border-gray-300">
                               <button type="button" onClick={() => setQty(item.id, item.qty - 1)} disabled={item.qty <= 1} aria-label="Decrease quantity" className="p-1.5 hover:bg-gray-100 disabled:opacity-30"><Minus size={14} /></button>
                               <input
                                 type="number"
@@ -176,7 +176,7 @@ export default function CartDrawer() {
                     ))}
                   </ul>
 
-                  {unavailable.length > 0 && <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">Some items are no longer available. Remove them to continue.</p>}
+                  {unavailable.length > 0 && <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-900">Some items are no longer available. Remove them to continue.</p>}
 
                   <label className="block text-sm font-medium text-gray-700">
                     Delivery address <span className="font-normal text-gray-500">(optional)</span>
@@ -186,16 +186,16 @@ export default function CartDrawer() {
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       placeholder="Area, street or building. Leave blank to confirm on WhatsApp."
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
+                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
                     />
                   </label>
 
                   {!user && (
-                    <div className="rounded-xl border border-brand-yellow bg-yellow-50 p-4 text-sm">
+                    <div className="rounded-md border border-brand-yellow/50 bg-brand-yellow/10 p-4 text-sm">
                       <p className="font-semibold text-brand-charcoal">Members get discounts, coupons and delivery offers</p>
                       <div className="mt-3 flex flex-wrap gap-2">
-                        <SiteLink to="/signup" state={{ from: '/shop' }} onClick={close} className="rounded-full bg-brand-yellow px-4 py-2 font-bold text-brand-charcoal hover:bg-brand-orange">Create account</SiteLink>
-                        <SiteLink to="/login" state={{ from: '/shop' }} onClick={close} className="rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium hover:bg-gray-100">Log in</SiteLink>
+                        <Link to="/signup" state={{ from: '/' }} onClick={close} className="rounded-md bg-brand-charcoal px-4 py-2 font-semibold text-white hover:bg-brand-black">Create account</Link>
+                        <Link to="/login" state={{ from: '/' }} onClick={close} className="rounded-md border border-gray-300 bg-white px-4 py-2 font-medium hover:bg-gray-100">Log in</Link>
                       </div>
                     </div>
                   )}
@@ -203,14 +203,14 @@ export default function CartDrawer() {
                   {user && (
                     <div className="space-y-4 text-sm">
                       {lines.some((l) => l.offer?.type === 'discount') && (
-                        <p className="flex items-start gap-2 rounded-lg bg-green-50 p-3 text-green-900"><BadgePercent size={16} className="mt-0.5 shrink-0" aria-hidden="true" /> Member discounts are applied to the items they cover.</p>
+                        <p className="flex items-start gap-2 rounded-md bg-green-50 p-3 text-green-900"><BadgePercent size={16} className="mt-0.5 shrink-0" aria-hidden="true" /> Member discounts are applied to the items they cover.</p>
                       )}
                       {coupons.length > 0 && (
                         <fieldset>
                           <legend className="mb-2 flex items-center gap-2 font-semibold text-brand-charcoal"><Ticket size={16} aria-hidden="true" /> Coupon <span className="font-normal text-gray-500">(the better price wins per item)</span></legend>
                           <div className="flex flex-wrap gap-2">
                             {coupons.map((o) => (
-                              <button key={o.id} type="button" aria-pressed={couponId === o.id} onClick={() => setCouponId(couponId === o.id ? null : o.id)} className={`rounded-lg border px-3 py-1.5 text-left ${couponId === o.id ? 'border-brand-charcoal bg-brand-charcoal text-white' : 'border-gray-300 hover:border-brand-yellow'}`}>
+                              <button key={o.id} type="button" aria-pressed={couponId === o.id} onClick={() => setCouponId(couponId === o.id ? null : o.id)} className={`rounded-md border px-3 py-1.5 text-left ${couponId === o.id ? 'border-brand-charcoal bg-brand-charcoal text-white' : 'border-gray-300 hover:border-brand-yellow'}`}>
                                 <span className="font-mono text-xs">{o.code}</span> <span className="block">{o.title}{offerLabel(o) && !o.title.toLowerCase().includes(offerLabel(o).toLowerCase()) ? ` (${offerLabel(o)})` : ''}</span>
                               </button>
                             ))}
@@ -218,8 +218,8 @@ export default function CartDrawer() {
                         </fieldset>
                       )}
                       <div className="flex gap-2">
-                        <input value={code} onChange={(e) => setCode(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), applyCode())} placeholder="Have a coupon code?" aria-label="Coupon code" className="min-w-0 flex-1 rounded-lg border border-gray-300 px-3 py-2 uppercase placeholder:normal-case focus:border-transparent focus:ring-2 focus:ring-brand-yellow" />
-                        <button type="button" onClick={applyCode} className="rounded-lg border border-gray-300 px-4 py-2 font-medium hover:bg-gray-100">Apply</button>
+                        <input value={code} onChange={(e) => setCode(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), applyCode())} placeholder="Have a coupon code?" aria-label="Coupon code" className="min-w-0 flex-1 rounded-md border border-gray-300 px-3 py-2 uppercase placeholder:normal-case focus:border-transparent focus:ring-2 focus:ring-brand-yellow" />
+                        <button type="button" onClick={applyCode} className="rounded-md border border-gray-300 px-4 py-2 font-medium hover:bg-gray-100">Apply</button>
                       </div>
                       {codeMessage.text && <p role="status" className={`text-xs ${codeMessage.ok ? 'text-green-700' : 'text-red-700'}`}>{codeMessage.text}</p>}
                       {deliveryOffers.length > 0 && (
@@ -227,12 +227,12 @@ export default function CartDrawer() {
                           <legend className="mb-2 flex items-center gap-2 font-semibold text-brand-charcoal"><Truck size={16} aria-hidden="true" /> Delivery offer</legend>
                           <div className="space-y-2">
                             {deliveryOffers.map((o) => (
-                              <label key={o.id} className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-200 p-3 hover:border-brand-yellow">
+                              <label key={o.id} className="flex cursor-pointer items-start gap-3 rounded-md border border-gray-200 p-3 hover:border-brand-yellow">
                                 <input type="radio" name="cart-delivery" className="mt-0.5 accent-[#2a336e]" checked={deliveryId === o.id} onChange={() => setDeliveryId(o.id)} />
                                 <span><span className="font-medium">{o.title}</span>{o.description && <span className="block text-gray-600">{o.description}</span>}</span>
                               </label>
                             ))}
-                            <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 p-3 hover:border-brand-yellow">
+                            <label className="flex cursor-pointer items-center gap-3 rounded-md border border-gray-200 p-3 hover:border-brand-yellow">
                               <input type="radio" name="cart-delivery" className="accent-[#2a336e]" checked={deliveryId === null} onChange={() => setDeliveryId(null)} /> No delivery offer
                             </label>
                           </div>
@@ -246,13 +246,13 @@ export default function CartDrawer() {
                   {pricedCount > 0 && (
                     <p className="mb-3 flex items-baseline justify-between text-sm">
                       <span className="text-gray-600">Estimated total{unpricedCount > 0 ? ` (+ ${unpricedCount} priced on WhatsApp)` : ''}</span>
-                      <span className="text-lg font-bold text-brand-charcoal">{kes(total)}</span>
+                      <span className="font-mono text-lg font-bold text-brand-charcoal">{kes(total)}</span>
                     </p>
                   )}
-                  <button type="button" onClick={send} disabled={lines.length === 0 || unavailable.length > 0} className="flex w-full items-center justify-center gap-2 rounded-full bg-green-600 px-5 py-3 font-semibold text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50">
+                  <button type="button" onClick={send} disabled={lines.length === 0 || unavailable.length > 0} className="flex w-full items-center justify-center gap-2 rounded-md bg-green-600 px-5 py-3 font-semibold text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50">
                     <MessageCircle size={18} /> Send order on WhatsApp
                   </button>
-                  <p className="mt-2 text-center text-xs text-gray-500">Prices and availability are confirmed with you on WhatsApp. <SiteLink to="/how-to-order" onClick={close} className="underline hover:text-brand-charcoal">How ordering works</SiteLink></p>
+                  <p className="mt-2 text-center text-xs text-gray-500">Prices and availability are confirmed with you on WhatsApp.</p>
                 </div>
               </>
             )}

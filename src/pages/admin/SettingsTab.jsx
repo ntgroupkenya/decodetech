@@ -54,7 +54,7 @@ export default function SettingsTab() {
   return (
     <div className="space-y-8">
       <CredentialsForm />
-      <form onSubmit={submit} className="max-w-4xl space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+      <form onSubmit={submit} className="max-w-4xl space-y-6 rounded-md border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
         <div>
           <h2 className="text-xl font-bold text-brand-charcoal">Website details</h2>
           <p className="mt-1 text-sm text-gray-600">These details appear across the public website and in customer contact links.</p>

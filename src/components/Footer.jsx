@@ -1,104 +1,66 @@
-import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import { telHref, useSiteSettings } from '../siteSettings'
 import SocialIcon from './SocialIcon'
-import SiteLink from './SiteLink'
-import { TAGLINE } from '../siteDefaults'
+import { SITE_NAME, TAGLINE } from '../siteDefaults'
 
 const CURRENT_YEAR = new Date().getFullYear()
 
 export default function Footer() {
   const { contact, hours, social } = useSiteSettings()
+  const phones = [contact.officePhone, contact.mobilePhone].filter(Boolean)
   return (
-    <footer className="site-footer text-brand-charcoal">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <img
-              src="/logo.png"
-              alt="DECODE IT Solutions"
-              className="h-14 w-56 object-contain object-left mb-4"
-            />
-            <p className="text-brand-ember text-sm italic mb-4">
-              {TAGLINE}
-            </p>
-          </div>
-
-          <div>
-            <h4 className="footer-heading text-lg font-semibold mb-4 text-brand-charcoal">Explore</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              {[
-                ['/', 'Home'],
-                ['/shop', 'Shop Online'],
-                ['/products', 'Catalogue'],
-                ['/brands', 'Partners'],
-                ['/about', 'About Us'],
-                ['/news', 'Insights'],
-                ['/contact', 'Contact'],
-              ].map(([to, label]) => (
-                <li key={to}><SiteLink to={to} className="hover:text-brand-ember transition-colors">{label}</SiteLink></li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="footer-heading text-lg font-semibold mb-4 text-brand-charcoal">Get in touch</h4>
-            <ul className="space-y-3 text-sm text-gray-600">
-              {contact.address && (
-                <li className="flex items-start space-x-2">
-                  <MapPin size={18} className="text-brand-ember/80 mt-1 flex-shrink-0" />
-                  <span className="whitespace-pre-line">{contact.address}</span>
-                </li>
-              )}
-              {[contact.mobilePhone, contact.officePhone].filter(Boolean).map((phone) => (
-                <li key={phone} className="flex items-center space-x-2">
-                  <Phone size={18} className="text-brand-ember/80 flex-shrink-0" />
-                  <a href={telHref(phone)} className="hover:text-brand-ember transition-colors">{phone}</a>
-                </li>
-              ))}
-              {[contact.email, contact.email2].filter(Boolean).map((email) => (
-                <li key={email} className="flex items-center space-x-2">
-                  <Mail size={18} className="text-brand-ember/80 flex-shrink-0" />
-                  <a href={`mailto:${email}`} className="break-all hover:text-brand-ember transition-colors">{email}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="footer-heading text-lg font-semibold mb-4 text-brand-charcoal">Opening Hours</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              {hours.map(({ days, time }) => (
-                <li key={days} className="flex items-center space-x-2">
-                  <Clock size={18} className="text-brand-ember/80 flex-shrink-0" />
-                  <div>
-                    <p>{days}</p>
-                    <p className="font-medium text-brand-charcoal">{time}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <footer className="bg-brand-black text-sm text-white/70">
+      <div className="brand-line" aria-hidden="true" />
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-[auto_1fr_auto] md:items-start md:gap-10 lg:px-8">
+        <div>
+          <img src="/logo-white.png" alt={SITE_NAME} className="h-10 w-40 object-contain object-left" />
+          <p className="mt-2 font-mono text-xs text-brand-yellow">{'</>'} {TAGLINE}</p>
         </div>
 
-        <div className="border-t border-brand-charcoal/10 mt-8 pt-8 flex flex-col items-center gap-4 text-sm text-gray-600 sm:flex-row sm:justify-between sm:pr-20">
-          <p className="text-center sm:text-left">&copy; {CURRENT_YEAR} DECODE IT Solutions. All rights reserved.</p>
-          <ul className="flex items-center gap-2" aria-label="Social media">
-            {social.filter(({ url }) => url).map(({ id, label, url }, index) => (
-              <li key={`${id}-${index}`}>
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`DECODE IT Solutions on ${label}`}
-                  title={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-charcoal/5 text-brand-charcoal ring-1 ring-brand-charcoal/10 transition-colors hover:bg-brand-yellow hover:text-brand-charcoal"
-                >
-                  <SocialIcon name={id} size={15} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="grid gap-2 sm:grid-cols-2 sm:gap-x-8">
+          {contact.address && (
+            <li className="flex items-start gap-2">
+              <MapPin size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" />
+              <span className="whitespace-pre-line">{contact.address}</span>
+            </li>
+          )}
+          <li className="flex items-start gap-2">
+            <Clock size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" />
+            <span>{hours.map(({ days, time }) => <span key={days} className="block">{days}: <span className="text-white">{time}</span></span>)}</span>
+          </li>
+          {phones.map((phone) => (
+            <li key={phone} className="flex items-center gap-2">
+              <Phone size={16} className="shrink-0 text-brand-yellow" aria-hidden="true" />
+              <a href={telHref(phone)} className="font-mono hover:text-white">{phone}</a>
+            </li>
+          ))}
+          {[contact.email, contact.email2].filter(Boolean).map((email) => (
+            <li key={email} className="flex items-center gap-2">
+              <Mail size={16} className="shrink-0 text-brand-yellow" aria-hidden="true" />
+              <a href={`mailto:${email}`} className="break-all hover:text-white">{email}</a>
+            </li>
+          ))}
+        </ul>
+
+        <ul className="flex items-center gap-2" aria-label="Social media">
+          {social.filter(({ url }) => url).map(({ id, label, url }, index) => (
+            <li key={`${id}-${index}`}>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${SITE_NAME} on ${label}`}
+                title={label}
+                className="flex h-9 w-9 items-center justify-center rounded-md bg-white/5 text-white ring-1 ring-white/10 transition-colors hover:bg-brand-yellow hover:text-brand-black"
+              >
+                <SocialIcon name={id} size={16} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="border-t border-white/10">
+        <p className="mx-auto max-w-7xl px-4 py-4 text-xs text-white/50 sm:px-6 sm:pr-24 lg:px-8">&copy; {CURRENT_YEAR} {SITE_NAME}. Prices and availability are confirmed on WhatsApp before you pay.</p>
       </div>
     </footer>
   )

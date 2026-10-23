@@ -1,7 +1,7 @@
-# DECODE IT Solutions: .htaccess for the MAIN site folder (www)
-#   {{MAIN_HOST}}   Home, About, Brands, Products, Contact, product and category pages, news
-#   It also holds the PHP API (/api), the database settings and uploaded images (/uploads),
-#   which the shop ({{SHOP_HOST}}) and admin ({{ADMIN_HOST}}) addresses use.
+# DECODE IT Solutions: .htaccess for the site folder ({{SITE_HOST}})
+#   /               the Shop            /product/...   product pages
+#   /login /signup  customer accounts   /admin         the admin (strict security headers below)
+#   /api            the PHP API         /uploads       product photos added in the admin
 
 Options -Indexes
 DirectorySlash Off
@@ -15,25 +15,27 @@ RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# 2. {{ROOT_DOMAIN}} (without www) -> {{MAIN_HOST}}
+# 2. {{ROOT_DOMAIN}} (without www) -> {{SITE_HOST}}
 RewriteCond %{HTTP_HOST} ^{{ROOT_DOMAIN_RX}}(:[0-9]+)?$ [NC]
-RewriteRule ^ https://{{MAIN_HOST}}%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://{{SITE_HOST}}%{REQUEST_URI} [L,R=301]
 
 # 3. The API and uploaded images (only image files are ever served from uploads/)
 RewriteRule ^api(/.*)?$ api.php [L,QSA]
 RewriteRule ^uploads/.+\.(jpe?g|png|webp|gif)$ - [NC,L]
 RewriteRule ^uploads/ - [F]
 
-# 4. The Shop and the admin have their own addresses
-RewriteRule ^shop(/.*)?$ https://{{SHOP_HOST}}/ [L,R=301]
-RewriteRule ^admin(/.*)?$ https://{{ADMIN_HOST}}/admin$1 [L,R=302]
+# 4. The admin always gets the empty app shell (it is never pre-rendered)
+RewriteRule ^admin(/.*)?$ app-shell.html [END]
 
-# 5. Pre-rendered pages: /about -> about/index.html (no trailing slash)
+# 5. Old addresses of the previous site go to the Shop
+RewriteRule ^(shop|products|brands|about|contact|how-to-order|news|category)(/.*)?$ / [L,R=301]
+
+# 6. Pre-rendered pages: /product/x/y -> product/x/y/index.html (no trailing slash)
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteCond %{REQUEST_FILENAME}/index.html -f
 RewriteRule ^(.*?)/?$ $1/index.html [L]
 
-# 6. Anything else that is not a real file (login, sign-up, a product added after the last build)
+# 7. Anything else that is not a real file (login, sign-up, a product added after the last build)
 #    gets the empty app shell, and the site shows the right page from the address
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ app-shell.html [L]
@@ -60,6 +62,16 @@ RewriteRule ^ app-shell.html [L]
   Header always unset X-Powered-By
   <If "%{REQUEST_URI} =~ m#^/assets/#">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  # The admin: no tracking scripts, so only this site's own code may run there (an injected script is blocked),
+  # it may not be framed, and search engines are told to stay out.
+  # THE_REQUEST is the browser's own request line, so this still matches after /admin is rewritten to app-shell.html.
+  <If "%{THE_REQUEST} =~ m#^[A-Z]+ /admin(/|\?| |$)#">
+    Header always set Referrer-Policy "same-origin"
+    Header always set X-Frame-Options "DENY"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set X-Robots-Tag "noindex, nofollow"
   </If>
 </IfModule>
 

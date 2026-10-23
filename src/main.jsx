@@ -5,7 +5,6 @@ import './index.css'
 import App from './App.jsx'
 import AuthProvider from './auth/AuthProvider.jsx'
 import CartProvider from './cart/CartProvider.jsx'
-import { logicalPath } from './siteHosts'
 
 const app = (
   <StrictMode>
@@ -20,11 +19,11 @@ const app = (
 )
 
 const root = document.getElementById('root')
-// On the shop address "/" is the Shop page, which was pre-rendered as "/shop".
-const route = logicalPath(window.location.pathname.replace(/\/+$/, '') || '/')
+const route = window.location.pathname.replace(/\/+$/, '') || '/'
 // Pages built by `npm run build` arrive pre-rendered: attach to that HTML instead of redrawing it.
-// If the HTML was rendered for a different route (e.g. a fallback page), start clean.
-if (root.dataset.route === route) {
+// If the HTML was rendered for a different route (e.g. a fallback page), or the address carries Shop filters
+// (?q=, ?cat=...) that the pre-rendered page does not show, start clean.
+if (root.dataset.route === route && !window.location.search) {
   hydrateRoot(root, app)
 } else {
   root.innerHTML = ''

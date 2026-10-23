@@ -1,12 +1,9 @@
-import { apiOrigin, logicalPath } from './siteHosts'
-
-// Base URL of the PHP API. Empty = same origin (Vite proxies /api in dev); the shop and admin addresses use the www site.
+// Base URL of the PHP API. Empty = same origin (Vite proxies /api in dev, and the web host serves it next to the site).
 const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 
-export const apiUrl = (path) => `${API_BASE || apiOrigin()}${path}`
+export const apiUrl = (path) => `${API_BASE}${path}`
 
-// Uploaded images come back as /uploads/... and live on the API server
-// (the shop and admin addresses redirect /uploads/ to the www site, so the same path works everywhere).
+// Uploaded images come back as /uploads/... and live next to the API.
 export function assetUrl(src) {
   if (!src) return src
   return src.startsWith('/uploads/') ? `${API_BASE}${src}` : src
@@ -55,18 +52,14 @@ function post(path, body) {
 }
 
 export function trackWhatsApp({ label = '', productId = '', message = '' } = {}) {
-  post('/track', { type: 'whatsapp_click', label, productId, message, page: logicalPath(window.location.pathname) })
+  post('/track', { type: 'whatsapp_click', label, productId, message, page: window.location.pathname })
 }
 
 // A shopper opened a product's photo: counts toward "most clicked".
 export function trackProductClick({ productId, label = '' }) {
-  post('/track', { type: 'product_click', label, productId, page: logicalPath(window.location.pathname) })
+  post('/track', { type: 'product_click', label, productId, page: window.location.pathname })
 }
 
 export function recordOrder({ productId, productName, message, offerIds = [], quantity = 1, deliveryAddress = '', cartRef = '' }) {
   post('/orders', { productId, productName, message, offerIds, quantity, deliveryAddress, cartRef })
-}
-
-export function recordMessage(data) {
-  post('/messages', data)
 }

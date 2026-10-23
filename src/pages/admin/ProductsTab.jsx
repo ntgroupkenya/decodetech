@@ -3,7 +3,6 @@ import { ExternalLink, Pencil, Plus, Search, Trash2, Upload } from 'lucide-react
 import { api, assetUrl } from '../../api'
 import newProducts from '../../data/newProducts'
 import { productPath } from '../../productSlug'
-import { crossHref } from '../../siteHosts'
 import useLoad from './useLoad'
 import ProductForm from './ProductForm'
 import ImportPanel from './ImportPanel'
@@ -97,7 +96,7 @@ export default function ProductsTab() {
       )}
 
       {products.length > 0 && (
-        <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-md border border-gray-200 bg-white shadow-sm">
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
               <tr>
@@ -114,9 +113,9 @@ export default function ProductsTab() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       {p.image ? (
-                        <img src={assetUrl(p.image)} alt="" className="h-12 w-12 rounded-lg border border-gray-200 object-cover" loading="lazy" />
+                        <img src={assetUrl(p.image)} alt="" className="h-12 w-12 rounded-md border border-gray-200 object-cover" loading="lazy" />
                       ) : (
-                        <div className="h-12 w-12 rounded-lg bg-gray-100" />
+                        <div className="h-12 w-12 rounded-md bg-gray-100" />
                       )}
                       <div>
                         <p className="font-semibold text-brand-charcoal">{p.name}</p>
@@ -137,7 +136,7 @@ export default function ProductsTab() {
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
                       {p.active && (
-                        <a href={crossHref(productPath(p))} target="_blank" rel="noopener noreferrer" className={btnGhost} aria-label={`View page for ${p.name}`}>
+                        <a href={productPath(p)} target="_blank" rel="noopener noreferrer" className={btnGhost} aria-label={`View page for ${p.name}`}>
                           <ExternalLink size={14} /> View
                         </a>
                       )}

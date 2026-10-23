@@ -9,7 +9,7 @@ export default function ConditionTag({ condition }) {
   if (!condition) return null
   const key = Object.keys(TONES).find((k) => condition.toLowerCase().includes(k))
   return (
-    <span className={`whitespace-nowrap rounded px-1.5 py-0.5 text-[0.7rem] font-semibold normal-case tracking-normal ${TONES[key] || 'bg-gray-100 text-gray-700'}`}>
+    <span className={`whitespace-nowrap rounded-sm px-1.5 py-0.5 text-[0.68rem] font-semibold normal-case tracking-normal ${TONES[key] || 'bg-gray-100 text-gray-700'}`}>
       {condition}
     </span>
   )

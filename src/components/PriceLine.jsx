@@ -1,32 +1,49 @@
 import { bestPriceOffer, offerLabel } from '../offerMath'
 
-export default function PriceLine({ product, offers }) {
+const kes = (n) => `KES ${Number(n).toLocaleString()}`
+
+// The price block on cards and product pages. `size="lg"` is the product page's larger version.
+export default function PriceLine({ product, offers, size = 'md' }) {
   // Automatic member discounts are previewed on the card; coupons and delivery deals are chosen at checkout.
   const deal = bestPriceOffer(offers.filter(o => o.type === 'discount'), product)
   const listed = product.price ? Number(product.price) : null
   const was = listed && Number(product.oldPrice) > listed ? Number(product.oldPrice) : null
+  const big = size === 'lg' ? 'text-3xl' : 'text-lg'
 
-  let content = 'Price and availability on request'
   if (listed && deal?.price != null && deal.price < listed) {
-    content = (
-      <>
-        <span className="text-gray-400 line-through mr-2">KES {listed.toLocaleString()}</span>
-        <span className="font-bold text-brand-charcoal">KES {Number(deal.price).toLocaleString()}</span>
-        <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-xs font-semibold text-green-800">Member price</span>
-      </>
+    return (
+      <div className="font-mono">
+        <p className={`${big} font-bold leading-tight text-brand-charcoal`}>{kes(deal.price)}</p>
+        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs">
+          <span className="text-gray-400 line-through">{kes(listed)}</span>
+          <span className="rounded-sm bg-brand-yellow/20 px-1.5 py-0.5 font-semibold text-teal-800">Member price</span>
+        </p>
+      </div>
     )
-  } else if (listed && was) {
-    content = (
-      <span className="flex flex-wrap items-center gap-x-2 gap-y-1 whitespace-nowrap">
-        <span className="text-gray-400 line-through">KES {was.toLocaleString()}</span>
-        <span className="font-bold text-brand-charcoal">KES {listed.toLocaleString()}</span>
-        <span className="rounded bg-red-100 px-1.5 py-0.5 text-xs font-semibold text-red-700">Save KES {(was - listed).toLocaleString()}</span>
-      </span>
-    )
-  } else if (listed) {
-    content = `KES ${listed.toLocaleString()} · confirm availability`
-  } else if (deal) {
-    content = `Member discount: ${offerLabel(deal.offer)} (price on request)`
   }
-  return <p className="text-sm font-medium text-gray-600 mb-4">{content}</p>
+  if (listed && was) {
+    return (
+      <div className="font-mono">
+        <p className={`${big} font-bold leading-tight text-brand-charcoal`}>{kes(listed)}</p>
+        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs">
+          <span className="text-gray-400 line-through">{kes(was)}</span>
+          <span className="rounded-sm bg-brand-ember/10 px-1.5 py-0.5 font-semibold text-brand-ember">-{kes(was - listed)}</span>
+        </p>
+      </div>
+    )
+  }
+  if (listed) {
+    return (
+      <div className="font-mono">
+        <p className={`${big} font-bold leading-tight text-brand-charcoal`}>{kes(listed)}</p>
+        <p className="mt-0.5 font-sans text-xs text-gray-500">Confirm stock on WhatsApp</p>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <p className={`font-mono ${size === 'lg' ? 'text-xl' : 'text-base'} font-bold text-brand-charcoal`}>Price on request</p>
+      <p className="mt-0.5 text-xs text-gray-500">{deal ? `Member discount: ${offerLabel(deal.offer)}` : 'Ask us on WhatsApp'}</p>
+    </div>
+  )
 }

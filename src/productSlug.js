@@ -13,9 +13,3 @@ export function productPath(product) {
   const slug = slugify(product.name)
   return `/product/${encodeURIComponent(product.id)}${slug ? `/${slug}` : ''}`
 }
-
-// Address of a news post, e.g. /news/3/new-stock-arrived
-export function postPath(post) {
-  const slug = slugify(post.title)
-  return `/news/${post.id}${slug ? `/${slug}` : ''}`
-}

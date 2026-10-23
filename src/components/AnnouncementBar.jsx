@@ -9,7 +9,7 @@ export default function AnnouncementBar() {
     ? <a href={announcement.link} className="underline underline-offset-2 hover:no-underline">{announcement.text}</a>
     : announcement.text
   return (
-    <div role="region" aria-label="Announcement" className="bg-brand-yellow px-4 py-2 text-center text-sm font-semibold text-brand-charcoal">
+    <div role="region" aria-label="Announcement" className="bg-brand-yellow px-4 py-1.5 text-center text-sm font-semibold text-brand-black">
       {content}
     </div>
   )

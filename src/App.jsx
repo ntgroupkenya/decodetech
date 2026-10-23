@@ -1,46 +1,39 @@
-import { Routes, Route } from 'react-router-dom'
-import Navigation from './components/Navigation'
+import { Routes, Route, Link } from 'react-router-dom'
+import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppWidget from './components/WhatsAppWidget'
 import WhatsAppClickTracker from './components/WhatsAppClickTracker'
 import CartDrawer from './components/CartDrawer'
 import PageMeta from './components/PageMeta'
-import Home from './pages/Home'
-import About from './pages/About'
-import Brands from './pages/Brands'
-import Products from './pages/Products'
-import Contact from './pages/Contact'
+import AnnouncementBar from './components/AnnouncementBar'
 import Shop from './pages/Shop'
 import ProductPage from './pages/ProductPage'
-import HowToOrder from './pages/HowToOrder'
-import News from './pages/News'
-import NewsPost from './pages/NewsPost'
-import AnnouncementBar from './components/AnnouncementBar'
-import { hostKind } from './siteHosts'
-import CategoryPage from './pages/CategoryPage'
 import Account from './pages/Account'
 import Admin from './pages/admin/Admin'
 
-function PublicSite() {
+function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="mx-auto max-w-xl px-4 py-24 text-center">
+      <p className="font-mono text-sm text-brand-blue">404</p>
+      <h1 className="mt-2 text-3xl font-bold text-brand-charcoal">This page is not in the shop</h1>
+      <p className="mt-3 text-gray-600">It may have moved. Everything we sell is on the shop page.</p>
+      <Link to="/" className="mt-6 inline-block rounded-md bg-brand-charcoal px-5 py-3 font-semibold text-white hover:bg-brand-black">Go to the shop</Link>
+    </div>
+  )
+}
+
+function Storefront() {
+  return (
+    <div className="flex min-h-screen flex-col">
       <AnnouncementBar />
-      <Navigation />
+      <Header />
       <main className="flex-grow">
         <Routes>
-          <Route path="/" element={hostKind('/') === 'shop' ? <Shop /> : <Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/brands" element={<Brands />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/how-to-order" element={<HowToOrder />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/news/:id/:slug?" element={<NewsPost />} />
+          <Route path="/" element={<Shop />} />
           <Route path="/product/:id/:slug?" element={<ProductPage />} />
-          <Route path="/category/:slug" element={<CategoryPage />} />
           <Route path="/login" element={<Account mode="login" />} />
           <Route path="/signup" element={<Account mode="signup" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
@@ -56,7 +49,7 @@ function App() {
   return (
     <Routes>
       <Route path="/admin/*" element={<Admin />} />
-      <Route path="*" element={<PublicSite />} />
+      <Route path="*" element={<Storefront />} />
     </Routes>
   )
 }

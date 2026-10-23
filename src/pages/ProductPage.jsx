@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import SiteLink from '../components/SiteLink'
+import { Link, useParams } from 'react-router-dom'
 import { ChevronRight, MapPin, MessageCircle, Wallet } from 'lucide-react'
 import { api, assetUrl, trackProductClick } from '../api'
 import { SITE_URL, applyPageMeta, canonicalUrl, productMeta } from '../pageMeta'
 import { productPath } from '../productSlug'
-import { categoryPath } from '../categories'
+import { categorySlug } from '../categories'
 import useProducts from '../useProducts'
 import useOffers from '../useOffers'
 import useOrdering from '../useOrdering'
@@ -16,6 +15,7 @@ import ConditionTag from '../components/ConditionTag'
 import HotFeature from '../components/HotFeature'
 import AddToCartButton from '../components/AddToCartButton'
 import ProductImage from '../components/ProductImage'
+import ShopProductCard from '../components/ShopProductCard'
 
 const absolute = (url) => (/^https?:\/\//.test(url) ? url : `${SITE_URL}${url}`)
 
@@ -77,17 +77,17 @@ export default function ProductPage() {
 
   const related = useMemo(() => {
     if (!product) return []
-    return products.filter((p) => p.id !== product.id && p.active !== false && p.category === product.category).slice(0, 4)
+    return products.filter((p) => p.id !== product.id && p.active !== false && p.inShop !== false && p.category === product.category).slice(0, 5)
   }, [products, product])
 
   if (!product) {
     return (
-      <div className="min-h-[60vh] bg-gray-50 px-4 py-20 text-center">
+      <div className="min-h-[60vh] px-4 py-20 text-center">
         {lookupDone ? (
           <>
             <h1 className="text-3xl font-bold text-brand-charcoal">Product not found</h1>
             <p className="mt-3 text-gray-600">This product may have been removed or renamed.</p>
-            <SiteLink to="/shop" className="mt-6 inline-block rounded-full bg-brand-yellow px-6 py-3 font-bold text-brand-charcoal hover:bg-brand-orange">Browse the shop</SiteLink>
+            <Link to="/" className="mt-6 inline-block rounded-md bg-brand-charcoal px-6 py-3 font-semibold text-white hover:bg-brand-black">Browse the shop</Link>
           </>
         ) : (
           <p className="text-gray-500">Loading product…</p>
@@ -98,123 +98,113 @@ export default function ProductPage() {
 
   const images = [product.image, ...(product.alternateImages || [])].filter(Boolean)
   const hasBrand = product.brand && product.brand.toLowerCase() !== 'generic'
+  const categoryHref = product.category ? `/?cat=${categorySlug(product.category)}` : null
+  const onOpen = (item) => trackProductClick({ productId: item.id, label: item.name })
 
   return (
-    <div className="bg-gray-50 pb-16">
+    <div className="pb-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: productJsonLd(product) }} />
 
-      <nav aria-label="Breadcrumb" className="mx-auto max-w-7xl px-4 py-4 text-sm text-gray-600 sm:px-6 lg:px-8">
-        <ol className="flex flex-wrap items-center gap-1">
-          <li><SiteLink to="/" className="hover:underline">Home</SiteLink></li>
-          <li aria-hidden="true"><ChevronRight size={14} /></li>
-          <li><SiteLink to="/shop" className="hover:underline">Shop</SiteLink></li>
-          <li aria-hidden="true"><ChevronRight size={14} /></li>
+      <nav aria-label="Breadcrumb" className="border-b border-gray-200 bg-white">
+        <ol className="mx-auto flex max-w-7xl flex-wrap items-center gap-1 px-4 py-3 text-sm text-gray-500 sm:px-6 lg:px-8">
+          <li><Link to="/" className="hover:text-brand-charcoal hover:underline">Shop</Link></li>
           {product.category && (
             <>
-              <li><SiteLink to={categoryPath(product.category)} className="hover:underline">{product.category}</SiteLink></li>
               <li aria-hidden="true"><ChevronRight size={14} /></li>
+              <li><Link to={categoryHref} className="hover:text-brand-charcoal hover:underline">{product.categoryName || product.category}</Link></li>
             </>
           )}
-          <li aria-current="page" className="font-medium text-brand-charcoal">{product.name}</li>
+          <li aria-hidden="true"><ChevronRight size={14} /></li>
+          <li aria-current="page" className="truncate font-medium text-brand-charcoal">{product.name}</li>
         </ol>
       </nav>
 
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8">
-        <div>
-          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-            {images.length > 0 ? (
-              <ProductImage
-                key={images[activeImage]}
-                src={images[activeImage]}
-                alt={product.name}
-                onOpen={() => trackProductClick({ productId: product.id, label: product.name })}
-              />
-            ) : (
-              <div className="flex aspect-square items-center justify-center text-gray-400">No photo yet</div>
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 pt-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-8">
+        <div className="space-y-6">
+          <div className="flex flex-col-reverse gap-3 rounded-md border border-gray-200 bg-white p-3 sm:flex-row">
+            {images.length > 1 && (
+              <ul className="no-scrollbar flex gap-2 overflow-x-auto sm:w-20 sm:flex-col" aria-label="Product photos">
+                {images.map((src, index) => (
+                  <li key={src} className="shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setActiveImage(index)}
+                      aria-label={`Show photo ${index + 1}`}
+                      aria-current={index === activeImage ? 'true' : undefined}
+                      className={`h-16 w-16 overflow-hidden rounded-md border-2 bg-slate-50 sm:h-20 sm:w-20 ${index === activeImage ? 'border-brand-yellow' : 'border-gray-200 hover:border-gray-300'}`}
+                    >
+                      <img src={assetUrl(src)} alt="" loading="lazy" className="h-full w-full object-contain p-1 mix-blend-multiply" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
-          </div>
-          {images.length > 1 && (
-            <ul className="mt-3 flex gap-2 overflow-x-auto" aria-label="Product photos">
-              {images.map((src, index) => (
-                <li key={src}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveImage(index)}
-                    aria-label={`Show photo ${index + 1}`}
-                    aria-current={index === activeImage ? 'true' : undefined}
-                    className={`h-20 w-20 overflow-hidden rounded-lg border-2 bg-white ${index === activeImage ? 'border-brand-yellow' : 'border-gray-200'}`}
-                  >
-                    <img src={assetUrl(src)} alt="" loading="lazy" className="h-full w-full object-cover" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <div>
-          {(hasBrand || product.condition) && (
-            <div className="flex flex-wrap items-center gap-2">
-              {hasBrand && <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">{product.brand}</p>}
-              <ConditionTag condition={product.condition} />
+            <div className="min-w-0 flex-1 overflow-hidden rounded-md">
+              <ProductImage key={images[activeImage] || 'none'} src={images[activeImage]} alt={product.name} onOpen={() => onOpen(product)} />
             </div>
-          )}
-          <h1 className="mt-1 text-3xl font-bold text-brand-charcoal md:text-4xl">{product.name}</h1>
-          <HotFeature feature={product.hotFeature} className="mt-2" />
-          {product.category && (
-            <p className="mt-2 text-sm text-gray-600">
-              <SiteLink to={categoryPath(product.category)} className="hover:underline">{product.categoryName || product.category}</SiteLink>
-            </p>
-          )}
-
-          <div className="mt-6 text-lg">
-            <PriceLine product={product} offers={offers} />
-            {product.freeGift && <div className="-mt-2 mb-4"><FreeGiftBadge gift={product.freeGift} inline /></div>}
           </div>
 
           {product.specs && (
-            <section className="mt-2">
-              <h2 className="text-lg font-semibold text-brand-charcoal">Specifications</h2>
-              <p className="mt-2 whitespace-pre-line text-gray-700">{product.specs}</p>
+            <section className="rounded-md border border-gray-200 bg-white">
+              <h2 className="border-b border-gray-200 px-5 py-3 text-lg font-bold text-brand-charcoal">Specifications</h2>
+              <p className="whitespace-pre-line px-5 py-4 text-gray-700">{product.specs}</p>
             </section>
           )}
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => startOrder(product)}
-              className="flex min-w-[13rem] flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-green-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-700"
-            >
-              <MessageCircle size={20} /> Order via WhatsApp
-            </button>
-            <AddToCartButton product={product} variant="full" />
-            <button
-              type="button"
-              onClick={() => requestQuote(product)}
-              className="min-w-[13rem] flex-1 whitespace-nowrap rounded-full bg-brand-yellow px-6 py-3 font-semibold text-brand-charcoal transition-colors hover:bg-brand-orange"
-            >
-              Get Expert Quote
-            </button>
-          </div>
-
-          <ul className="mt-8 space-y-3 rounded-xl border border-gray-200 bg-white p-5 text-sm text-gray-700">
-            <li className="flex items-start gap-3"><MessageCircle size={18} className="mt-0.5 shrink-0 text-brand-charcoal" aria-hidden="true" /> Price and availability are confirmed with you on WhatsApp.</li>
-            <li className="flex items-start gap-3"><Wallet size={18} className="mt-0.5 shrink-0 text-brand-charcoal" aria-hidden="true" /> Pay by M-Pesa or bank transfer.</li>
-            <li className="flex items-start gap-3"><MapPin size={18} className="mt-0.5 shrink-0 text-brand-charcoal" aria-hidden="true" /> Delivery, or pick up from our shop.</li>
-          </ul>
         </div>
+
+        <aside className="lg:sticky lg:top-40 lg:self-start">
+          <div className="rounded-md border border-gray-200 bg-white p-5">
+            {(hasBrand || product.condition) && (
+              <div className="flex flex-wrap items-center gap-2">
+                {hasBrand && <p className="font-mono text-xs font-bold uppercase tracking-wide text-brand-blue">{product.brand}</p>}
+                <ConditionTag condition={product.condition} />
+              </div>
+            )}
+            <h1 className="mt-1 text-2xl font-bold leading-tight text-brand-charcoal md:text-3xl">{product.name}</h1>
+            <HotFeature feature={product.hotFeature} className="mt-2" />
+
+            <div className="mt-5 border-t border-gray-100 pt-4">
+              <PriceLine product={product} offers={offers} size="lg" />
+              {product.freeGift && <div className="mt-3"><FreeGiftBadge gift={product.freeGift} inline /></div>}
+            </div>
+
+            <div className="mt-5 space-y-2">
+              <AddToCartButton product={product} variant="full" />
+              <button
+                type="button"
+                onClick={() => startOrder(product)}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-green-600 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-green-700"
+              >
+                <MessageCircle size={20} /> Order via WhatsApp
+              </button>
+              <button
+                type="button"
+                onClick={() => requestQuote(product)}
+                className="w-full rounded-md border border-gray-300 px-6 py-3 font-semibold text-brand-charcoal transition-colors hover:border-brand-charcoal"
+              >
+                Get an expert quote
+              </button>
+            </div>
+
+            <ul className="mt-5 space-y-2.5 border-t border-gray-100 pt-4 text-sm text-gray-600">
+              <li className="flex items-start gap-3"><MessageCircle size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" /> Price and availability are confirmed with you on WhatsApp.</li>
+              <li className="flex items-start gap-3"><Wallet size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" /> Pay by M-Pesa or bank transfer.</li>
+              <li className="flex items-start gap-3"><MapPin size={16} className="mt-0.5 shrink-0 text-brand-yellow" aria-hidden="true" /> Delivery, or pick up from our shop.</li>
+            </ul>
+          </div>
+        </aside>
       </div>
 
       {related.length > 0 && (
-        <section className="mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Related products">
-          <h2 className="text-2xl font-bold text-brand-charcoal">More in {product.categoryName || product.category}</h2>
-          <ul className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <section className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Related products">
+          <div className="mb-3 flex items-end justify-between gap-4">
+            <h2 className="text-xl font-bold text-brand-charcoal">More in {product.categoryName || product.category}</h2>
+            <Link to={categoryHref} className="text-sm font-medium text-brand-blue hover:underline">See all</Link>
+          </div>
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {related.map((item) => (
-              <li key={item.id} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-                <SiteLink to={productPath(item)} className="block">
-                  <img src={assetUrl(item.image)} alt={item.name} loading="lazy" className="aspect-square w-full object-cover" />
-                  <span className="block p-3 text-sm font-semibold text-brand-charcoal">{item.name}</span>
-                </SiteLink>
+              <li key={item.id}>
+                <ShopProductCard product={item} offers={offers} onOrder={startOrder} onOpen={onOpen} />
               </li>
             ))}
           </ul>

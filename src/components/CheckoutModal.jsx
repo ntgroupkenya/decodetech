@@ -71,18 +71,18 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
   const radio = 'mt-0.5 shrink-0 accent-[#2a336e]'
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4" role="dialog" aria-modal="true" aria-label="Before you order">
-      <div className="my-8 w-full max-w-lg rounded-2xl bg-white shadow-2xl">
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
-          <h2 className="text-lg font-bold text-brand-charcoal">Before you order</h2>
-          <button type="button" onClick={onClose} aria-label="Close" className="rounded-full p-2 text-gray-500 hover:bg-gray-100"><X size={18} /></button>
+    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-brand-black/60 p-4" role="dialog" aria-modal="true" aria-label="Before you order">
+      <div className="my-8 w-full max-w-lg overflow-hidden rounded-md bg-white shadow-2xl">
+        <div className="flex items-center justify-between bg-brand-black px-6 py-4 text-white">
+          <h2 className="text-lg font-bold">Before you order</h2>
+          <button type="button" onClick={onClose} aria-label="Close" className="rounded-md p-2 text-white/70 hover:bg-white/10 hover:text-white"><X size={18} /></button>
         </div>
 
         <div className="space-y-5 px-6 py-5">
           <div>
             <p className="font-semibold text-brand-charcoal">{product.name}</p>
-            <p className="text-sm text-gray-600">{product.brand}</p>
-            <p className="mt-1 text-sm">
+            <p className="font-mono text-xs font-bold uppercase text-brand-blue">{product.brand}</p>
+            <p className="mt-1 font-mono text-sm">
               {product.price != null ? (
                 <>
                   {finalPrice != null && finalPrice !== product.price && <span className="mr-2 text-gray-400 line-through">{kes(product.price)}</span>}
@@ -107,7 +107,7 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
                 value={quantityText}
                 onChange={(e) => setQuantityText(e.target.value)}
                 onBlur={() => setQuantityText(String(quantity))}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
+                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
               />
             </label>
             <label className="text-sm font-medium text-gray-700 sm:col-span-2">
@@ -118,18 +118,18 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Area, street or building. Leave blank to confirm on WhatsApp."
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
+                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
               />
             </label>
           </div>
 
           {!user && (
-            <div className="rounded-xl border border-brand-yellow bg-yellow-50 p-4">
+            <div className="rounded-md border border-brand-yellow/50 bg-brand-yellow/10 p-4">
               <p className="font-semibold text-brand-charcoal">Members get discounts, coupons and delivery offers</p>
               <p className="mt-1 text-sm text-gray-700">Create a free account or sign in to unlock them before you send your order.</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                <Link to="/signup" state={{ from: '/shop' }} className="rounded-full bg-brand-yellow px-4 py-2 text-sm font-bold text-brand-charcoal hover:bg-brand-orange">Create account</Link>
-                <Link to="/login" state={{ from: '/shop' }} className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">Log in</Link>
+                <Link to="/signup" state={{ from: window.location.pathname }} className="rounded-md bg-brand-charcoal px-4 py-2 text-sm font-semibold text-white hover:bg-brand-black">Create account</Link>
+                <Link to="/login" state={{ from: window.location.pathname }} className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">Log in</Link>
               </div>
             </div>
           )}
@@ -139,7 +139,7 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
               <legend className="mb-2 flex items-center gap-2 text-sm font-semibold text-brand-charcoal"><BadgePercent size={16} /> Discount or coupon <span className="font-normal text-gray-500">(best one applies; they don’t stack)</span></legend>
               <div className="space-y-2">
                 {priceOffers.map((o) => (
-                  <label key={o.id} className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-200 p-3 text-sm hover:border-brand-yellow">
+                  <label key={o.id} className="flex cursor-pointer items-start gap-3 rounded-md border border-gray-200 p-3 text-sm hover:border-brand-yellow">
                     <input type="radio" name="price-offer" className={radio} checked={priceOfferId === o.id} onChange={() => setPriceOfferId(o.id)} />
                     <span>
                       <span className="font-medium">{o.title}</span>
@@ -148,7 +148,7 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
                     </span>
                   </label>
                 ))}
-                <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 p-3 text-sm hover:border-brand-yellow">
+                <label className="flex cursor-pointer items-center gap-3 rounded-md border border-gray-200 p-3 text-sm hover:border-brand-yellow">
                   <input type="radio" name="price-offer" className={radio} checked={priceOfferId === null} onChange={() => setPriceOfferId(null)} />
                   No discount
                 </label>
@@ -162,10 +162,10 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
                     onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), applyCode())}
                     placeholder="Have a coupon code?"
                     aria-label="Coupon code"
-                    className="w-full rounded-lg border border-gray-300 py-2 pl-9 pr-3 text-sm uppercase placeholder:normal-case focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full rounded-md border border-gray-300 py-2 pl-9 pr-3 text-sm uppercase placeholder:normal-case focus:border-transparent focus:ring-2 focus:ring-brand-yellow"
                   />
                 </div>
-                <button type="button" onClick={applyCode} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100">Apply</button>
+                <button type="button" onClick={applyCode} className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100">Apply</button>
               </div>
               {codeMessage.text && <p role="status" className={`mt-1 text-xs ${codeMessage.ok ? 'text-green-700' : 'text-red-700'}`}>{codeMessage.text}</p>}
             </fieldset>
@@ -176,12 +176,12 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
               <legend className="mb-2 flex items-center gap-2 text-sm font-semibold text-brand-charcoal"><Truck size={16} /> Delivery offer</legend>
               <div className="space-y-2">
                 {deliveryOffers.map((o) => (
-                  <label key={o.id} className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-200 p-3 text-sm hover:border-brand-yellow">
+                  <label key={o.id} className="flex cursor-pointer items-start gap-3 rounded-md border border-gray-200 p-3 text-sm hover:border-brand-yellow">
                     <input type="radio" name="delivery-offer" className={radio} checked={deliveryId === o.id} onChange={() => setDeliveryId(o.id)} />
                     <span><span className="font-medium">{o.title}</span>{o.description && <span className="block text-gray-600">{o.description}</span>}</span>
                   </label>
                 ))}
-                <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 p-3 text-sm hover:border-brand-yellow">
+                <label className="flex cursor-pointer items-center gap-3 rounded-md border border-gray-200 p-3 text-sm hover:border-brand-yellow">
                   <input type="radio" name="delivery-offer" className={radio} checked={deliveryId === null} onChange={() => setDeliveryId(null)} />
                   No delivery offer
                 </label>
@@ -190,13 +190,13 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
           )}
 
           {user && priceOffers.length === 0 && deliveryOffers.length === 0 && (
-            <p className="rounded-lg bg-gray-50 p-3 text-sm text-gray-600">No member offers apply to this product right now.</p>
+            <p className="rounded-md bg-gray-50 p-3 text-sm text-gray-600">No member offers apply to this product right now.</p>
           )}
         </div>
 
         <div className="flex flex-col-reverse gap-2 border-t border-gray-200 px-6 py-4 sm:flex-row sm:justify-end">
-          <button type="button" onClick={onClose} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100">Cancel</button>
-          <button type="button" onClick={send} className="inline-flex items-center justify-center gap-2 rounded-full bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700">
+          <button type="button" onClick={onClose} className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100">Cancel</button>
+          <button type="button" onClick={send} className="inline-flex items-center justify-center gap-2 rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700">
             <MessageCircle size={18} /> {user ? 'Send order on WhatsApp' : 'Continue without offers'}
           </button>
         </div>

@@ -12,7 +12,7 @@ export default function CustomersTab() {
       {error && <Notice>{error}</Notice>}
       {!loading && customers.length === 0 && !error && <Empty>No customer accounts yet.</Empty>}
       {customers.length > 0 && (
-        <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-md border border-gray-200 bg-white shadow-sm">
           <table className="w-full min-w-[560px] text-left text-sm">
             <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
               <tr><th className="px-4 py-3">Name</th><th className="px-4 py-3">Username</th><th className="px-4 py-3">Phone</th><th className="px-4 py-3">Orders</th><th className="px-4 py-3">Joined</th></tr>

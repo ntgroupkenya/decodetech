@@ -10,7 +10,6 @@ export default function Dashboard({ goTo }) {
   const cards = [
     { label: 'Products', value: data.products, tab: 'products' },
     { label: 'Customer accounts', value: data.customers, tab: 'customers' },
-    { label: 'Unhandled messages', value: data.unreadMessages, tab: 'messages' },
     { label: 'WhatsApp clicks (7 days)', value: data.clicks7, tab: 'clicks' },
     { label: 'Orders awaiting a decision', value: data.pendingOrders, tab: 'orders' },
     { label: 'Orders dispatched', value: data.dispatchedOrders, tab: 'orders' },
@@ -18,15 +17,15 @@ export default function Dashboard({ goTo }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
         {cards.map((card) => (
           <button
             key={card.label}
             type="button"
             onClick={() => goTo(card.tab)}
-            className="rounded-xl border border-gray-200 bg-white p-5 text-left shadow-sm transition hover:border-brand-yellow hover:shadow-md"
+            className="rounded-md border border-gray-200 bg-white p-5 text-left transition hover:border-brand-yellow"
           >
-            <p className="text-3xl font-bold text-brand-charcoal">{card.value}</p>
+            <p className="font-mono text-3xl font-bold text-brand-charcoal">{card.value}</p>
             <p className="mt-1 text-sm text-gray-600">{card.label}</p>
           </button>
         ))}

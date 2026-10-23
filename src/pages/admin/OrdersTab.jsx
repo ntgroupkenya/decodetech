@@ -41,7 +41,7 @@ function OrderCard({ order, onSaved, onError }) {
   }
 
   return (
-    <li className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+    <li className="rounded-md border border-gray-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="font-semibold text-brand-charcoal">{order.product_name}</p>
@@ -58,7 +58,7 @@ function OrderCard({ order, onSaved, onError }) {
       </dl>
 
       {order.offers_applied && (
-        <div className="mt-3 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-900">
+        <div className="mt-3 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-900">
           <p className="font-semibold">Member offers applied{order.final_price != null ? `: KES ${Number(order.final_price).toLocaleString()} each${(order.quantity ?? 1) > 1 ? `, KES ${(Number(order.final_price) * order.quantity).toLocaleString()} for ${order.quantity}` : ''}` : ''}</p>
           <p className="whitespace-pre-wrap">{order.offers_applied}</p>
         </div>
@@ -98,7 +98,7 @@ function OrderCard({ order, onSaved, onError }) {
               setForm({ ...form, status: s.value })
               save({ status: s.value })
             }}
-            className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50 ${form.status === s.value ? 'border-brand-charcoal bg-brand-charcoal text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
+            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50 ${form.status === s.value ? 'border-brand-charcoal bg-brand-charcoal text-white' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
           >
             {s.label}
           </button>
@@ -157,7 +157,7 @@ export default function OrdersTab() {
             type="button"
             aria-pressed={filter === s.value}
             onClick={() => setFilter(s.value)}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium ${filter === s.value ? 'bg-brand-yellow text-brand-charcoal' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            className={`rounded-md px-3 py-1.5 text-sm font-medium ${filter === s.value ? 'bg-brand-yellow text-brand-charcoal' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
           >
             {s.label} ({counts[s.value] ?? 0})
           </button>

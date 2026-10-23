@@ -21,7 +21,7 @@ export default function ClicksTab() {
         {top.length === 0 ? (
           <Empty>No product clicks yet.</Empty>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="overflow-x-auto rounded-md border border-gray-200 bg-white shadow-sm">
             <table className="w-full text-left text-sm">
               <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
                 <tr><th className="px-4 py-3">Product</th><th className="px-4 py-3">Clicks</th><th className="px-4 py-3">Last click</th></tr>
@@ -45,7 +45,7 @@ export default function ClicksTab() {
         {recent.length === 0 ? (
           <Empty>No clicks recorded yet.</Empty>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="overflow-x-auto rounded-md border border-gray-200 bg-white shadow-sm">
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
                 <tr><th className="px-4 py-3">When</th><th className="px-4 py-3">Button</th><th className="px-4 py-3">Product</th><th className="px-4 py-3">Page</th></tr>
