@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 // "Shop by brand": the brands' own logos in their own colours (public/brands/*.svg), busiest brands first.
-// Most come from Simple Icons and the SVG Logos collection (both free to use; the trademarks stay with their owners); the PNGs
-// (UGREEN, Grandstream, NEC, APC, Crucial, Tripp Lite, Kingston) are from Brands of the World. Vention, Dahua and Netac are
-// redrawn in their logo colours.
+// Sources: Simple Icons and SVG Logos (free collections), Wikimedia Commons (Dahua), Worldvectorlogo (WD, MSI, TP-Link,
+// Crucial, Kingston, Logitech, Dell, Infinix, XPrinter, Harman Kardon), SeekLogo (Tecno, itel, AFOX) and Brands of the World
+// (UGREEN, Grandstream, NEC, APC, Tripp Lite). The trademarks stay with their owners. Vention and Netac are redrawn.
 // `filter` is the shop filter a click sets: a brand from the stock list, or a search for makers that only appear in names.
 // A logo hides itself while no product in the shop matches it. Large screens show one row (ROW logos) until "All brands" is
 // pressed; phones scroll the whole row sideways.
@@ -15,6 +15,9 @@ const BRANDS = [
   { file: 'logitech.svg', label: 'Logitech', filter: ['brand', 'Logitech'] },
   { file: 'xiaomi.svg', label: 'Xiaomi', filter: ['brand', 'Xiaomi'] },
   { file: 'lenovo.svg', label: 'Lenovo', filter: ['brand', 'Lenovo'] },
+  { file: 'tecno.png', label: 'Tecno', filter: ['brand', 'Tecno'] },
+  { file: 'infinix.svg', label: 'Infinix', filter: ['brand', 'Infinix'] },
+  { file: 'itel.png', label: 'itel', filter: ['brand', 'itel'] },
   { file: 'panasonic.svg', label: 'Panasonic', filter: ['brand', 'Panasonic'] },
   { file: 'dell.svg', label: 'Dell', filter: ['brand', 'Dell'] },
   { file: 'asus.svg', label: 'ASUS', filter: ['brand', 'ASUS'] },
@@ -36,9 +39,12 @@ const BRANDS = [
   { file: 'acer.svg', label: 'Acer', filter: ['brand', 'Acer'] },
   { file: 'nec.png', label: 'NEC', filter: ['brand', 'NEC'] },
   { file: 'apc.png', label: 'APC', filter: ['brand', 'APC'] },
-  { file: 'crucial.png', label: 'Crucial', filter: ['brand', 'Crucial'] },
+  { file: 'crucial.svg', label: 'Crucial', filter: ['brand', 'Crucial'] },
   { file: 'tripp-lite.png', label: 'Tripp Lite', filter: ['brand', 'Tripp Lite'] },
-  { file: 'kingston.png', label: 'Kingston', filter: ['brand', 'Kingston'] },
+  { file: 'xprinter.svg', label: 'XPrinter', filter: ['brand', 'XPrinter'] },
+  { file: 'afox.png', label: 'AFOX', filter: ['brand', 'AFOX'] },
+  { file: 'harman-kardon.svg', label: 'Harman Kardon', filter: ['brand', 'Harman Kardon'] },
+  { file: 'kingston.svg', label: 'Kingston', filter: ['brand', 'Kingston'] },
 ]
 
 const ROW = 10
