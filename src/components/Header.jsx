@@ -131,7 +131,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-brand-charcoal text-white shadow-lg">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:gap-6 lg:px-8">
         <Link to="/" className="shrink-0" aria-label="DECODE IT Solutions shop home">
-          <img src="/logo-white.png" alt="DECODE IT Solutions" className="h-10 w-36 object-contain object-left sm:h-11 sm:w-44" />
+          <img src={`${import.meta.env.BASE_URL}logo-white.png`} alt="DECODE IT Solutions" className="h-10 w-36 object-contain object-left sm:h-11 sm:w-44" />
         </Link>
 
         <SearchBox className="hidden flex-1 md:flex" />

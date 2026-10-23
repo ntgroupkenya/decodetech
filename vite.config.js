@@ -7,6 +7,8 @@ export default defineConfig(({ mode }) => {
   // PHP API: `npm run api` (XAMPP's PHP + MySQL). Override with VITE_DEV_API_TARGET if using Apache.
   const target = env.VITE_DEV_API_TARGET || 'http://localhost:8080'
   return {
+    // GitHub Pages serves the site from /<repo>/ (set VITE_BASE=/decodetech/); everywhere else it is the root.
+    base: env.VITE_BASE || '/',
     plugins: [react()],
     cacheDir: env.VITE_CACHE_DIR || undefined,
     server: {

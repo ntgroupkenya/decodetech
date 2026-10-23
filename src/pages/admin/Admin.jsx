@@ -28,7 +28,7 @@ const TABS = [
 function Screen({ children }) {
   return (
     <div className="grid-backdrop flex min-h-screen flex-col items-center justify-center gap-6 px-4 py-10">
-      <img src="/logo-white.png" alt="DECODE IT Solutions" className="h-12 w-48 object-contain" />
+      <img src={`${import.meta.env.BASE_URL}logo-white.png`} alt="DECODE IT Solutions" className="h-12 w-48 object-contain" />
       {children}
     </div>
   )
@@ -124,7 +124,7 @@ export default function Admin() {
       <aside className="bg-brand-charcoal text-white lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-60 lg:flex-col">
         <div className="flex items-center justify-between gap-3 px-4 py-3 lg:block lg:px-5 lg:py-6">
           <div>
-            <img src="/logo-white.png" alt="DECODE IT Solutions" className="h-9 w-36 object-contain object-left" />
+            <img src={`${import.meta.env.BASE_URL}logo-white.png`} alt="DECODE IT Solutions" className="h-9 w-36 object-contain object-left" />
             <p className="mt-1 font-mono text-[11px] font-bold uppercase tracking-wider text-white/80"><CodeMark /> admin</p>
           </div>
           <button type="button" onClick={logout} className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm text-white/80 hover:bg-white/10 lg:hidden">

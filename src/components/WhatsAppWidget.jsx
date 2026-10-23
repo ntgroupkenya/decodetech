@@ -35,7 +35,7 @@ export default function WhatsAppWidget() {
         <div className="fixed bottom-20 right-5 z-50 w-80 max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-slate-200">
           <div className="grid-backdrop p-5 text-white">
             <div className="flex items-center gap-3">
-              <img src="/favicon-48.png" alt="" width="40" height="40" className="h-10 w-10 rounded-md bg-white p-1" />
+              <img src={`${import.meta.env.BASE_URL}favicon-48.png`} alt="" width="40" height="40" className="h-10 w-10 rounded-md bg-white p-1" />
               <div>
                 <h3 className="font-semibold">DECODE Tech Support</h3>
                 <p className="text-xs text-blue-100">Usually replies within minutes</p>

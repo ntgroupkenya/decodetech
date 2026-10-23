@@ -92,8 +92,13 @@ If the API is unreachable the public site falls back to the products bundled in 
 - `npm run dev` dev server (proxies `/api` and `/uploads` to the PHP API)
 - `npm run api` PHP API (XAMPP)
 - `npm run build` production build to `dist/`, including pre-rendering
+- `npm run build:pages` the GitHub Pages preview (set `VITE_BASE=/decodetech/`)
 - `npm run package` builds, pre-renders and assembles the web-host upload (see Deployment)
 - `npm run lint` oxlint
+
+## GitHub Pages preview
+
+A preview of the shop is published at **https://ntgroupkenya.github.io/decodetech/** on every push to `main` (`.github/workflows/pages.yml`, which runs `npm run build:pages`). GitHub Pages has no PHP or database, so the preview shows the sample products from `docs/decode-products.csv` with the photos in `docs/sample-products/` (`scripts/pages-demo.mjs`); logins, the cart's member offers and the admin need the real API and do not work there. To switch it on once: repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 ## Deployment
 

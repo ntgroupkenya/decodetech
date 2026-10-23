@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { BadgePercent, MessageCircle, Ticket, Truck, X } from 'lucide-react'
 import useAuth from '../auth/useAuth'
 import { bestPriceOffer, offerApplies, offerLabel, priceAfter } from '../offerMath'
@@ -8,6 +8,7 @@ const kes = (n) => `KES ${Number(n).toLocaleString()}`
 
 export default function CheckoutModal({ product, offers, onClose, onSend }) {
   const { user } = useAuth()
+  const { pathname } = useLocation()
 
   const priceOffers = useMemo(() => offers.filter((o) => o.type !== 'delivery' && offerApplies(o, product)), [offers, product])
   const deliveryOffers = useMemo(() => offers.filter((o) => o.type === 'delivery' && offerApplies(o, product)), [offers, product])
@@ -128,8 +129,8 @@ export default function CheckoutModal({ product, offers, onClose, onSend }) {
               <p className="font-semibold text-brand-charcoal">Members get discounts, coupons and delivery offers</p>
               <p className="mt-1 text-sm text-gray-700">Create a free account or sign in to unlock them before you send your order.</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                <Link to="/signup" state={{ from: window.location.pathname }} className="rounded-md bg-brand-indigo px-4 py-2 text-sm font-semibold text-white hover:bg-brand-indigo-dark">Create account</Link>
-                <Link to="/login" state={{ from: window.location.pathname }} className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">Log in</Link>
+                <Link to="/signup" state={{ from: pathname }} className="rounded-md bg-brand-indigo px-4 py-2 text-sm font-semibold text-white hover:bg-brand-indigo-dark">Create account</Link>
+                <Link to="/login" state={{ from: pathname }} className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-100">Log in</Link>
               </div>
             </div>
           )}

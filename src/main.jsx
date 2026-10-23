@@ -8,7 +8,7 @@ import CartProvider from './cart/CartProvider.jsx'
 
 const app = (
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
       <AuthProvider>
         <CartProvider>
           <App />

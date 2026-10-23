@@ -136,7 +136,7 @@ export default function ProductsTab() {
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
                       {p.active && (
-                        <a href={productPath(p)} target="_blank" rel="noopener noreferrer" className={btnGhost} aria-label={`View page for ${p.name}`}>
+                        <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${productPath(p)}`} target="_blank" rel="noopener noreferrer" className={btnGhost} aria-label={`View page for ${p.name}`}>
                           <ExternalLink size={14} /> View
                         </a>
                       )}

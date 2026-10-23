@@ -7,6 +7,7 @@
     "dev": "vite",
     "api": "C:\\xampp\\php\\php.exe -S localhost:8080 -t server server/router.php",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr --emptyOutDir && node scripts/prerender.mjs",
+    "build:pages": "vite build && node scripts/pages-demo.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "package": "vite build --outDir dist-build --emptyOutDir && vite build --ssr src/entry-server.jsx --outDir dist-ssr --emptyOutDir && node scripts/prerender.mjs --dist dist-build && node scripts/assemble-deploy.mjs"

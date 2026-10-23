@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="brand-line" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-[auto_1fr_auto] md:items-start md:gap-10 lg:px-8">
         <div>
-          <img src="/logo-white.png" alt={SITE_NAME} className="h-10 w-40 object-contain object-left" />
+          <img src={`${import.meta.env.BASE_URL}logo-white.png`} alt={SITE_NAME} className="h-10 w-40 object-contain object-left" />
           <p className="mt-2 font-mono text-xs text-white/80"><CodeMark /> {TAGLINE}</p>
         </div>
 
